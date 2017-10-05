@@ -1,0 +1,116 @@
+ *******************************************************************************
+ ** ANALYST DRIVE Matrix Estimation Software, Part of CUBE 6.  CITILABS 2015  **
+ *******************************************************************************
+   
+ Version 1.5.14, Build Date 9/23/2016                            
+   
+   
+ *******************************************************************************
+   
+ CTL File = 
+ Static ME                       
+ &FILES                          
+ IMAT='M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\B
+ ase\EC2019\Output\DemandAndConf_B19.MAT',
+ IDAT1='M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\
+ Base\EC2019\Output\Screenline_B19.DAT',
+ IICP1='M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\
+ Base\EC2019\output\ICP_B19.ICP',
+ ITEF1='M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\
+ Base\EC2019\Output\CarsTripEnds_B19.DAT',
+ OPRN='M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\A
+ pp\02EST00A.PRN',
+ OMAT='M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\B
+ ase\EC2019\Output\EstimatedSta_B19.MAT',
+ OREP='M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\B
+ ase\EC2019\Output\REPORT_B19.DAT',
+  &END                           
+  &PARAM                         
+ NCORES=8,
+ ODTYPE=0,
+ NCLASSES=1,
+ WORKDIR='M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODM
+ E\Base\EC2019',
+  &END                           
+  &OPTION                        
+ CONFMAT=T,
+ USECONF=T,
+ TRIPENDS=F,
+ AUTOTE=F,
+ FILETE=T,
+ USESCALE=F,
+ STATS=T,
+ DYNCONF=F,
+ CNTCONF=T,
+ GENERAL=F,
+ WARMUP=F,
+ WARMAT=F,
+ WARMCNT=F,
+ KEEPFILES=F,
+ MEMOPT=F,
+ MPILOCAL=F,
+  &END                           
+   
+ *******************************************************************************
+   
+ maximum zones =       32000
+ CheckoutLicense=           0
+   
+ Begin Static Estimation...
+  
+ Class           1 Initial Cost =   4.6917213E+11 RMSE =   4.214824    
+      Initial TRIPENDI cost =  0.0000000E+00
+      Initial TRIPENDJ cost =  2.9904128E+09
+ Class            1 entering main loop... 
+           1 Iteration=           1 cost =   3.4093423E+10 RMSE =   1.103034    
+           1 Iteration=           2 cost =   2.1284530E+10 RMSE =  0.8554935    
+           1 Iteration=           3 cost =   1.5735726E+10 RMSE =  0.7224165    
+           1 Iteration=           4 cost =   1.2552337E+10 RMSE =  0.6336975    
+           1 Iteration=           5 cost =   1.0767536E+10 RMSE =  0.5782636    
+           1 Iteration=           6 cost =   9.5563336E+09 RMSE =  0.5374884    
+           1 Iteration=           7 cost =   8.7415194E+09 RMSE =  0.5083004    
+           1 Iteration=           8 cost =   8.0944701E+09 RMSE =  0.4838819    
+           1 Iteration=           9 cost =   7.5617833E+09 RMSE =  0.4628536    
+           1 Iteration=          10 cost =   7.1134141E+09 RMSE =  0.4444232    
+           1 Iteration=          11 cost =   6.7407299E+09 RMSE =  0.4285247    
+           1 Iteration=          12 cost =   6.4393876E+09 RMSE =  0.4152528    
+           1 Iteration=          13 cost =   6.1683169E+09 RMSE =  0.4029497    
+           1 Iteration=          14 cost =   5.9228744E+09 RMSE =  0.3914832    
+           1 Iteration=          15 cost =   5.6983803E+09 RMSE =  0.3806981    
+           1 Iteration=          16 cost =   5.4972416E+09 RMSE =  0.3707812    
+           1 Iteration=          17 cost =   5.3320991E+09 RMSE =  0.3624663    
+           1 Iteration=          18 cost =   5.1760891E+09 RMSE =  0.3544319    
+           1 Iteration=          19 cost =   5.0257070E+09 RMSE =  0.3465025    
+           1 Iteration=          20 cost =   4.8829855E+09 RMSE =  0.3388042    
+           1 Iteration=          21 cost =   4.7457111E+09 RMSE =  0.3312241    
+           1 Iteration=          22 cost =   4.6187940E+09 RMSE =  0.3240411    
+           1 Iteration=          23 cost =   4.4939658E+09 RMSE =  0.3167912    
+           1 Iteration=          24 cost =   4.3658793E+09 RMSE =  0.3091458    
+           1 Iteration=          25 cost =   4.2332321E+09 RMSE =  0.3009913    
+           1 Iteration=          26 cost =   4.1056230E+09 RMSE =  0.2929131    
+           1 Iteration=          27 cost =   3.9902874E+09 RMSE =  0.2854055    
+           1 Iteration=          28 cost =   3.8933082E+09 RMSE =  0.2789381    
+           1 Iteration=          29 cost =   3.8143931E+09 RMSE =  0.2735833    
+           1 Iteration=          30 cost =   3.7560274E+09 RMSE =  0.2695912    
+           1 Iteration=          31 cost =   3.7065820E+09 RMSE =  0.2662331    
+           1 Iteration=          32 cost =   3.6768328E+09 RMSE =  0.2642362    
+           1 Iteration=          33 cost =   3.6361009E+09 RMSE =  0.2614836    
+           1 Iteration=          34 cost =   3.6138737E+09 RMSE =  0.2600105    
+           1 Iteration=          35 cost =   3.5655839E+09 RMSE =  0.2566321    
+           1 Iteration=          36 cost =   3.5276155E+09 RMSE =  0.2539927    
+ #####           1 last iteration cost =   3.6987919E+09 RMSE =  0.2654966    
+ #####           1 FINAL ESTIMATION COST =   4.5098455E+09 RMSE =  0.3172670    
+      Final Background cost =  2.6414735E+09
+      Final TRIPENDI cost =  0.0000000E+00
+      Final TRIPENDJ cost =  1.8683720E+09
+ Class           1 ESTIMATION COMPLETE
+ Class           1 INITIAL COST =  4.6917213E+11
+ Class           1 INITIAL Absolute RMSE =   4.214824    
+ Class           1 FINAL COST=  4.5098455E+09
+ Class           1 FINAL Absolute RMSE =  0.2654966    
+ Class           1 Largest OD value=   5313.140    
+ Class           1 Average solution deviation=   7.351473    
+   *** Reduction in cost function value =   99.03876     %  ***
+   *** Reduction in Absolute RMSE value =   93.70088     %  ***
+   
+ Static Estimation Complete...

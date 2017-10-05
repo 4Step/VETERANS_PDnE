@@ -1,0 +1,801 @@
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  1
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000         14357.131%       45 - 55%          616,982         4,466          138.2             46
+   ALL          1-500,000         14357.131%       32 - 39%          616,982         4,466          138.2             46
+
+       Sum of positive differences =   612,515 ; Sum of negative differences =         0 ; Total difference =   612,515
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  2
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8559.735%       45 - 55%          344,023         4,466          77.03             46
+   ALL          1-500,000          8559.735%       32 - 39%          344,023         4,466          77.03             46
+
+       Sum of positive differences =   339,556 ; Sum of negative differences =         0 ; Total difference =   339,556
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  3
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8571.749%       45 - 55%          346,040         4,466          77.48             46
+   ALL          1-500,000          8571.749%       32 - 39%          346,040         4,466          77.48             46
+
+       Sum of positive differences =   341,573 ; Sum of negative differences =         0 ; Total difference =   341,573
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  4
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8562.284%       45 - 55%          346,043         4,466          77.48             46
+   ALL          1-500,000          8562.284%       32 - 39%          346,043         4,466          77.48             46
+
+       Sum of positive differences =   341,576 ; Sum of negative differences =         0 ; Total difference =   341,576
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  5
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8538.375%       45 - 55%          344,978         4,466          77.25             46
+   ALL          1-500,000          8538.375%       32 - 39%          344,978         4,466          77.25             46
+
+       Sum of positive differences =   340,514 ; Sum of negative differences =         0 ; Total difference =   340,514
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  6
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8547.368%       45 - 55%          345,019         4,466          77.25             46
+   ALL          1-500,000          8547.368%       32 - 39%          345,019         4,466          77.25             46
+
+       Sum of positive differences =   340,555 ; Sum of negative differences =         0 ; Total difference =   340,555
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  7
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8513.940%       45 - 55%          343,597         4,466          76.94             46
+   ALL          1-500,000          8513.940%       32 - 39%          343,597         4,466          76.94             46
+
+       Sum of positive differences =   339,129 ; Sum of negative differences =         0 ; Total difference =   339,129
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  8
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8506.872%       45 - 55%          343,119         4,466          76.83             46
+   ALL          1-500,000          8506.872%       32 - 39%          343,119         4,466          76.83             46
+
+       Sum of positive differences =   338,653 ; Sum of negative differences =         0 ; Total difference =   338,653
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  9
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8507.923%       45 - 55%          343,190         4,466          76.85             46
+   ALL          1-500,000          8507.923%       32 - 39%          343,190         4,466          76.85             46
+
+       Sum of positive differences =   338,726 ; Sum of negative differences =         0 ; Total difference =   338,726
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  10
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8506.121%       45 - 55%          343,080         4,466          76.82             46
+   ALL          1-500,000          8506.121%       32 - 39%          343,080         4,466          76.82             46
+
+       Sum of positive differences =   338,617 ; Sum of negative differences =         0 ; Total difference =   338,617
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  11
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.358%       45 - 55%          343,038         4,466          76.81             46
+   ALL          1-500,000          8505.358%       32 - 39%          343,038         4,466          76.81             46
+
+       Sum of positive differences =   338,576 ; Sum of negative differences =         0 ; Total difference =   338,576
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  12
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  13
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  14
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  15
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  16
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  17
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  18
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  19
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  20
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  21
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  22
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  23
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  24
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  25
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  26
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  27
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  28
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  29
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  30
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  31
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  32
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  33
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  34
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  35
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  36
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  37
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  38
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  39
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  40
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  41
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  42
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  43
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  44
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  45
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  46
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  47
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  48
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  49
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  50
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     50 ; Conf_A =      50
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          8505.320%       45 - 55%          343,035         4,466          76.81             46
+   ALL          1-500,000          8505.320%       32 - 39%          343,035         4,466          76.81             46
+
+       Sum of positive differences =   338,570 ; Sum of negative differences =         0 ; Total difference =   338,570
+
+

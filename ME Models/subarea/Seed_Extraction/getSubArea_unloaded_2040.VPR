@@ -1,0 +1,849 @@
+[TPPLUS]
+PROJECT=NETWORK
+
+[HWYLAYER]
+FileName=C:\projects\Veterans_ExpressWay\subarea\VetSubArea_July_2017\UNLOADED_PK_40B.NET
+Visible=1
+FileName2=
+DistScale=0.0189401472407046
+DistScaleOption=3
+SearchLimit=5
+TransitWidth=2
+TransitGap=3
+TransitMaxDraw=10
+PathTraceWidth=5
+PromptUnDo=0
+ClearLinkText=0
+ClearNodeText=0
+LeftHandDrive=0
+NoVprWarning=0
+AnimationStart=1
+AnimationStop=5
+AnimationSpeed=10
+AnimationIncr=1
+AnimationDay=-1
+AnimationRepeat=0
+AnimationDisplayTime=0
+AnimationStartTime=12/30/1899 8:00:00 AM
+AniSelectAnd=1
+AniColorAnd=1
+AniSelOrigins=
+AniSelDest=
+AniSelNodes=
+AniSelLinks=
+AniSelStarts=
+AniSelEnds=
+AniColorOrigins=
+AniColorDest=
+AniColorNodes=
+AniColorLinks=
+AniColorStarts=
+AniColorEnds=
+AniSelectedColor=255
+AniOtherColor=16711680
+DefaultCentroidColor=8421504,0,0
+DefaultNodeColor=255,0,0
+DefaultCentroidLinkColor=12632256,2,1
+DefaultLinkColor=16711680,0,1
+BaseX=0
+BaseY=0
+ScaleX=1
+ScaleY=1
+LayerMinScale=0
+LayerMaxScale=0
+LinkPostMinScale=0
+LinkPostMaxScale=0
+NodePostMinScale=0
+NodePostMaxScale=0
+BoundingBox=381416.213265441,1167083.97516996,651566.910663206,1715866.97801807
+ExternalDBF=
+ExternalLinkage=
+ActiveNodeColorGroup=1
+NodeColorGroup1=Num of Penalties
+NodeColorPaletteIndex1=0
+ActiveLinkColorGroup=2
+LinkColorGroup1=Area Type
+LinkColorPaletteIndex1=0
+LinkDrawOffset1=0
+LinkColor1_1=255,0,2,AREA_TYPE=10-19
+LinkColor1_2=32768,0,2,AREA_TYPE=20-29
+LinkColor1_3=16711680,0,2,AREA_TYPE=30-39
+LinkColor1_4=4227327,0,2,AREA_TYPE=40-49
+LinkColorGroup2=Facility Type
+LinkColorPaletteIndex2=0
+LinkDrawOffset2=0
+LinkColor2_1=255,0,4,FACL_TYPE=10-19 ; Limited Access
+LinkColor2_2=16711680,0,3,FACL_TYPE=20-29 ; Divided Arterial
+LinkColor2_3=16776960,0,2,FACL_TYPE=30-39 ; Undivided Arterial
+LinkColor2_4=0,0,1,FACL_TYPE=40-49 ; Collectors
+LinkColor2_5=65280,0,2,FACL_TYPE=60-69 ; Oneway
+LinkColor2_6=8421504,0,1,FACL_TYPE=70-79 ; Ramps
+LinkColor2_7=8421631,0,3,FACL_TYPE=80-89 ; HOV
+LinkColor2_8=4227072,0,3,FACL_TYPE=90-99 ; Toll
+LinkColor2_9=16711935,0,6,FACL_TYPE=99 ; Toll Booth
+LinkColor2_10=12632256,2,1,FACL_TYPE=50-59 ; Centroids
+LinkColorGroup3=Number of Lanes
+LinkColorPaletteIndex3=0
+LinkDrawOffset3=0
+LinkColor3_1=16711680,0,2,NUM_LANES=1; One (1) Lane oneway
+LinkColor3_2=255,0,2,NUM_LANES=2; Two (2) Lanes oneway
+LinkColor3_3=32768,0,2,NUM_LANES=3; Three (3) Lanes oneway
+LinkColor3_4=16711935,0,3,NUM_LANES=4; Four (4) lanes oneway
+LinkColor3_5=128,0,3,NUM_LANES=5; Four (5) lanes oneway
+LinkColor3_6=33023,0,3,NUM_LANES>5; More than Five (5) lanes oneway
+LinkColor3_7=12632256,2,1,FACL_TYPE=50-59; Centroids
+LinkColorGroup4=Corridors
+LinkColorPaletteIndex4=0
+LinkDrawOffset4=0
+LinkColor4_1=255,0,3,CORRIDOR>0
+LinkColorGroup5=Dir Code
+LinkColorPaletteIndex5=0
+LinkDrawOffset5=0
+LinkColor5_1=255,0,3,DIRCODE=2
+LinkColorGroup6=Counts and Tolls
+LinkColorPaletteIndex6=0
+LinkDrawOffset6=0
+LinkColor6_1=8421504,0,1,
+LinkColorGroup7=Transit Highway
+LinkColorPaletteIndex7=0
+LinkDrawOffset7=0
+LinkColor7_1=8421504,0,1,
+ActiveSelectGroup=0
+SelectGroup1=REL
+Select1=CORRIDOR=88,89,127 && FACL_TYPE=96,97,99
+ActiveNodePostGroup=2
+NodePostGroup1=Centroids
+NodePost1_1=N,-1,0
+NodePostSelectStr1=_CENTROID=1
+ActiveLinkPostGroup=7
+LinkPostGroup1=Lanes
+LinkPost1_1=NUM_LANES,-1,0
+LinkPostSelectStr1=_CENTROID<>1
+NodeColor1_1=255,0,5,_NUMPENALTY>0
+ActiveLinkBandGroup=1
+ActiveLinkCalcGroup=0
+LinkCalcGroup1=SPEED
+LinkCalc1_1=SPEED=(DISTANCE / 100) / (TIME / 100 / 60)
+LinkCalcApply1=1
+LinkCalcCondition1=
+LinkBandGroup1=SPEED
+LinkBand1_1=SPEED,-2,30,SPEED,16711680,10,13959210,20,11141205,30,8323200,40,5570730,50,2818260,60,255,70
+LinkBand1Key1=1,1
+LinkBand1Key2=1,1
+LinkBand1Key3=1,1
+LinkBand1Key4=1,1
+LinkBandSelectStr1=_CENTROID<>1
+LinkChartSizeStr1=
+LinkChartType1=0
+LinkBandMinScale1=0
+LinkBandMaxScale1=0
+LinkBandCenterColor1=8421504
+LinkBandQueueBarWidth1=-2
+NodePostGroup2=All Nodes
+NodePost2_1=N,-1,0
+NodePostSelectStr2=
+AniDotSize=3
+AniDotStyle=0
+AniDotSizeStyle=0
+AniDotLength=12
+AniDotWidth=5
+AniDotSpacing=16
+NodeColorGroup2=
+NodeColorPaletteIndex2=0
+LinkColor7_2=255,0,0,_CENTROID=1
+LinkPostGroup2=Matches
+LinkPost2_1=AREA_TYPE,255,0
+LinkPostSelectStr2=
+LinkPostGroup3=Screenlines
+LinkPost3_1=SCREENLINE,-1,0
+LinkPostSelectStr3=SCREENLINE<99
+AniVSetFromColor=255
+AniVSetToColor=16711680
+AniColorByVolSet=0
+AniVSetColor1=-1
+AniVSetColor2=-1
+AniVSetColor3=-1
+AniVSetColor4=-1
+AniVSetColor5=-1
+AniVSetColor6=-1
+AniVSetColor7=-1
+AniVSetColor8=-1
+AniVSetColor9=-1
+AniVSetColor10=-1
+AniVSetColor11=-1
+AniVSetColor12=-1
+AniVSetColor13=-1
+AniVSetColor14=-1
+AniVSetColor15=-1
+AniVSetColor16=-1
+AniVSetColor17=-1
+AniVSetColor18=-1
+AniVSetColor19=-1
+AniVSetColor20=-1
+LinkColorGroup8=Screenline Links
+LinkColorPaletteIndex8=0
+LinkDrawOffset8=0
+LinkPost2_2=FACL_TYPE,32768,0
+LinkPost2_3=NUM_LANES,16711680,0
+LinkPost2_4=LOCATION,0,0
+LinkColor1_5=65280,0,2,AREA_TYPE=50-59
+LinkPostGroup4=
+LinkPost4_1=NUM_LANES,-1,0
+LinkPostSelectStr4=DIR_COUNT>0
+LinkColorGroup9=Location
+LinkColorPaletteIndex9=0
+LinkDrawOffset9=0
+LinkColorGroup10=
+LinkColorPaletteIndex10=0
+LinkDrawOffset10=0
+LinkCalcGroup2=Area Type
+LinkCalc2_1=AREA_TYPE=33
+LinkCalcApply2=5
+LinkCalcCondition2=FACL_TYPE=70-79,99
+LinkColorGroup11=
+LinkColorPaletteIndex11=0
+LinkDrawOffset11=0
+LinkCalcGroup3=Facility Type
+LinkCalc3_1=FACL_TYPE=23
+LinkCalcApply3=5
+LinkCalcCondition3=FACL_TYPE=24
+LinkColorGroup12=
+LinkColorPaletteIndex12=0
+LinkDrawOffset12=0
+LinkColor1_6=255,1,1,AREA_TYPE=10-19 && FACL_TYPE=50-59
+LinkColor1_7=32768,1,1,AREA_TYPE=20-29 && FACL_TYPE=50-59
+LinkColor1_8=16711680,1,1,AREA_TYPE=30-39 && FACL_TYPE=50-59
+LinkColor1_9=4227327,1,1,AREA_TYPE=40-49 && FACL_TYPE=50-59
+LinkColor1_10=65280,1,1,AREA_TYPE=50-59 && FACL_TYPE=50-59
+LinkColor6_2=255,0,4,COSITE<>'0' && COSITE <>'x'
+LinkColor6_3=8388736,0,8,FACL_TYPE=99
+LinkColor6_4=12632256,2,1,FACL_TYPE=50-59
+LinkColor8_1=8388736,0,3,DIR_COUNT>0
+LinkColor8_2=255,0,3,SCREENLINE=1-98
+LinkColor9_1=8388863,0,8,LOCATION=0 || LOCATION > 6; Error
+LinkColor9_2=65280,0,1,LOCATION=6; Manatee County
+LinkColor9_3=255,0,1,LOCATION=5; Citrus County
+LinkColor9_4=65535,0,1,LOCATION=4; Hernando County
+LinkColor9_5=65280,0,1,LOCATION=3; Pasco County
+LinkColor9_6=16711680,0,1,LOCATION=2; Pinellas County
+LinkColor9_7=255,0,1,LOCATION=1; Hillsborough County
+LinkColor9_8=12632256,1,1,FACL_TYPE=50-59
+LinkPost4_2=DIR_COUNT,-1,0
+LinkCalcGroup4=
+LinkCalc4_1=CORRIDOR=127
+LinkCalc4_2=C_SEGMENT=1127010
+LinkCalcApply4=1
+LinkCalcCondition4=C_SEGMENT=1089010
+LinkPostGroup5=
+LinkPost5_1=CORRIDOR,-1,0
+LinkPost5_2=C_SEGMENT,-1,0
+LinkPostSelectStr5=
+AniVSetNumColor=0
+LinkPostGroup6=
+LinkPost6_1=COSITE,-1,0
+LinkPostSelectStr6=COSITE<>'0' && COSITE<>'x'
+LinkPostGroup7=
+LinkPost7_1=NUM_LANES,-1,0
+LinkPostSelectStr7=_CENTROID=0
+LinkColor10_1=255,0,3,ZONE_>0
+LinkColor11_1=255,0,4,FACL_TYPE=60-69 && NUM_LANES>3
+LinkColor11_2=32768,0,3,FACL_TYPE=60-69 && NUM_LANES=3
+LinkColor12_1=255,0,3,PSWADT>0 && FACL_TYPE=70-79
+NodeColor1_2=16711680,0,6,_NUMPROH>0
+NodeColorGroup16=Nodes 30000 n Greater
+NodeColorPaletteIndex16=0
+NodeColor16_1=255,0,9,N>24999
+LinkColorGroup16=
+LinkColorPaletteIndex16=0
+LinkDrawOffset16=0
+LinkColorGroup13=
+LinkColorPaletteIndex13=0
+LinkDrawOffset13=0
+LinkColor13_1=255,0,2,AREA_TYPE < 30 && (COSITE <> 'x' && COSITE <> '0') && TWOWAY = 0
+LinkColor13_2=33023,0,2,AREA_TYPE < 30 && (COSITE <> 'x' && COSITE <> '0') && TWOWAY = 2
+NodeColor1_3=13806514,0,12,N>=25000
+LinkPost7_2=FACL_TYPE,-1,0
+LinkPost7_3=ZONE_,-1,0
+
+[PLOT]
+ActiveSetUp=2
+Set1=Hillsborough Plots
+Set1ScalePrtLineWidth=1
+Set1DrawAlwaysOnTop=0
+Set1PrintBackColor=0
+Set1FixedScale=7000
+Set1LMargin=0.5
+Set1RMargin=0.5
+Set1TMargin=0.5
+Set1BMargin=0.5
+Set1Header1=Hillsborough County Base Year Number of Lanes
+Set1Footer1=
+Set1Header2=
+Set1Footer2=
+Set1Header3=
+Set1Footer3=
+Set1Header4=
+Set1Footer4=[date]  [time]
+Set1HeaderFont=Arial,0,36
+Set1FooterFont=Arial,0,10
+Set1HeaderAlignment=Center
+Set1FooterAlignment=Right
+Set2=Pinellas Plots
+Set2ScalePrtLineWidth=1
+Set2DrawAlwaysOnTop=0
+Set2PrintBackColor=0
+Set2FixedScale=5500
+Set2LMargin=0.5
+Set2RMargin=0.5
+Set2TMargin=0.5
+Set2BMargin=0.5
+Set2Header1=Pinellas County 2006 Base Year Number of Lanes
+Set2Footer1=
+Set2Header2=
+Set2Footer2=
+Set2Header3=
+Set2Footer3=
+Set2Header4=
+Set2Footer4=[date]  [time]
+Set2HeaderFont=Arial,0,36
+Set2FooterFont=Arial,0,10
+Set2HeaderAlignment=Center
+Set2FooterAlignment=Right
+Set3=Pasco Plots
+Set3ScalePrtLineWidth=1
+Set3DrawAlwaysOnTop=0
+Set3PrintBackColor=0
+Set3FixedScale=6250
+Set3LMargin=0.5
+Set3RMargin=0.5
+Set3TMargin=0.5
+Set3BMargin=0.5
+Set3Header1=Pasco County Base Year Number of Lanes
+Set3Footer1=
+Set3Header2=
+Set3Footer2=
+Set3Header3=
+Set3Footer3=
+Set3Header4=
+Set3Footer4=[date]  [time]
+Set3HeaderFont=Arial,0,36
+Set3FooterFont=Arial,0,10
+Set3HeaderAlignment=Center
+Set3FooterAlignment=Right
+Set4=Hernando Plots
+Set4ScalePrtLineWidth=1
+Set4DrawAlwaysOnTop=0
+Set4PrintBackColor=0
+Set4FixedScale=5500
+Set4LMargin=0.5
+Set4RMargin=0.5
+Set4TMargin=0.5
+Set4BMargin=0.5
+Set4Header1=Hernando County 2006 Base Year Plan Number of Lanes
+Set4Footer1=
+Set4Header2=
+Set4Footer2=
+Set4Header3=
+Set4Footer3=
+Set4Header4=
+Set4Footer4=[date]  [time]
+Set4HeaderFont=Arial,0,36
+Set4FooterFont=Arial,0,10
+Set4HeaderAlignment=Center
+Set4FooterAlignment=Right
+Set5=Citrus Plots
+Set5ScalePrtLineWidth=1
+Set5DrawAlwaysOnTop=0
+Set5PrintBackColor=0
+Set5FixedScale=5500
+Set5LMargin=0.5
+Set5RMargin=0.5
+Set5TMargin=0.5
+Set5BMargin=0.5
+Set5Header1=Citrus County 2006 Base Year Number of Lanes
+Set5Footer1=
+Set5Header2=
+Set5Footer2=
+Set5Header3=
+Set5Footer3=
+Set5Header4=
+Set5Footer4=[date]  [time]
+Set5HeaderFont=Arial,0,36
+Set5FooterFont=Arial,0,10
+Set5HeaderAlignment=Center
+Set5FooterAlignment=Right
+
+[LEGEND]
+LegendDisplay=0
+Set1Legend1UnitType=0
+Set1Legend1Anchor=0,0
+Set1Legend1Loc=0,0
+Set1Legend1Size=0,0
+Set1Legend1FullHeight=0
+Set1Legend1NumItems=0
+Set1Legend2UnitType=0
+Set1Legend2Anchor=2,0
+Set1Legend2Loc=0,0
+Set1Legend2Size=0,0
+Set1Legend2FullHeight=0
+Set1Legend2NumItems=1
+Set1Legend3UnitType=0
+Set1Legend3Anchor=0,2
+Set1Legend3Loc=0,0
+Set1Legend3Size=0,0
+Set1Legend3FullHeight=0
+Set1Legend3NumItems=1
+Set1Legend4UnitType=0
+Set1Legend4Anchor=2,2
+Set1Legend4Loc=0,0
+Set1Legend4Size=0,0
+Set1Legend4FullHeight=0
+Set1Legend4NumItems=1
+Set1Legend1Item1AutoComment=0
+Set1Legend2Item1AutoComment=0
+Set2Legend1UnitType=0
+Set2Legend1Anchor=0,0
+Set2Legend1Loc=0,0
+Set2Legend1Size=0,0
+Set2Legend1FullHeight=0
+Set2Legend1NumItems=0
+Set2Legend1Item1AutoComment=0
+Set2Legend2UnitType=0
+Set2Legend2Anchor=2,0
+Set2Legend2Loc=0,0
+Set2Legend2Size=0,0
+Set2Legend2FullHeight=0
+Set2Legend2NumItems=1
+Set2Legend3UnitType=0
+Set2Legend3Anchor=0,2
+Set2Legend3Loc=0,0
+Set2Legend3Size=0,0
+Set2Legend3FullHeight=0
+Set2Legend3NumItems=1
+Set2Legend4UnitType=0
+Set2Legend4Anchor=2,2
+Set2Legend4Loc=0,0
+Set2Legend4Size=0,0
+Set2Legend4FullHeight=0
+Set2Legend4NumItems=1
+Set3Legend1UnitType=0
+Set3Legend1Anchor=0,0
+Set3Legend1Loc=0,0
+Set3Legend1Size=0,0
+Set3Legend1FullHeight=0
+Set3Legend1NumItems=1
+Set3Legend1Item1AutoComment=0
+Set3Legend2UnitType=0
+Set3Legend2Anchor=2,0
+Set3Legend2Loc=0,0
+Set3Legend2Size=0,0
+Set3Legend2FullHeight=0
+Set3Legend2NumItems=1
+Set3Legend3UnitType=0
+Set3Legend3Anchor=0,2
+Set3Legend3Loc=0,0
+Set3Legend3Size=0,0
+Set3Legend3FullHeight=0
+Set3Legend3NumItems=1
+Set3Legend4UnitType=0
+Set3Legend4Anchor=2,2
+Set3Legend4Loc=0,0
+Set3Legend4Size=0,0
+Set3Legend4FullHeight=0
+Set3Legend4NumItems=1
+Set4Legend1UnitType=0
+Set4Legend1Anchor=0,0
+Set4Legend1Loc=0,0
+Set4Legend1Size=0,0
+Set4Legend1FullHeight=0
+Set4Legend1NumItems=1
+Set4Legend1Item1AutoComment=0
+Set4Legend2UnitType=0
+Set4Legend2Anchor=2,0
+Set4Legend2Loc=0,0
+Set4Legend2Size=0,0
+Set4Legend2FullHeight=0
+Set4Legend2NumItems=1
+Set4Legend3UnitType=0
+Set4Legend3Anchor=0,2
+Set4Legend3Loc=0,0
+Set4Legend3Size=0,0
+Set4Legend3FullHeight=0
+Set4Legend3NumItems=1
+Set4Legend4UnitType=0
+Set4Legend4Anchor=2,2
+Set4Legend4Loc=0,0
+Set4Legend4Size=0,0
+Set4Legend4FullHeight=0
+Set4Legend4NumItems=1
+Set5Legend1UnitType=0
+Set5Legend1Anchor=0,0
+Set5Legend1Loc=0,0
+Set5Legend1Size=0,0
+Set5Legend1FullHeight=0
+Set5Legend1NumItems=0
+Set5Legend1Item1AutoComment=0
+Set5Legend2UnitType=0
+Set5Legend2Anchor=2,0
+Set5Legend2Loc=0,0
+Set5Legend2Size=0,0
+Set5Legend2FullHeight=0
+Set5Legend2NumItems=1
+Set5Legend3UnitType=0
+Set5Legend3Anchor=0,2
+Set5Legend3Loc=0,0
+Set5Legend3Size=0,0
+Set5Legend3FullHeight=0
+Set5Legend3NumItems=1
+Set5Legend4UnitType=0
+Set5Legend4Anchor=2,2
+Set5Legend4Loc=0,0
+Set5Legend4Size=0,0
+Set5Legend4FullHeight=0
+Set5Legend4NumItems=1
+Set2Legend2Item1AutoComment=0
+Set5Legend2Item1AutoComment=0
+Set1Legend2Item1Font=Arial,0,18
+Set1Legend2Item1=1,0,0,0,0,0,
+Set1Legend2Item1Auto=HWYLAYER-Link
+Set1Legend3Item1Font=Arial,0,8
+Set1Legend3Item1=0,0,0,0,0,0,
+Set1Legend4Item1Font=Arial,0,8
+Set1Legend4Item1=0,0,0,0,0,0,
+Set3Legend1Item1Font=Arial,0,18
+Set3Legend1Item1=1,0,0,0,0,0,
+Set3Legend1Item1Auto=HWYLAYER-Link
+Set3Legend2Item1Font=Arial,0,8
+Set3Legend2Item1=0,0,0,0,0,0,
+Set3Legend3Item1Font=Arial,0,8
+Set3Legend3Item1=0,0,0,0,0,0,
+Set3Legend4Item1Font=Arial,0,8
+Set3Legend4Item1=0,0,0,0,0,0,
+Set4Legend1Item1Font=Arial,0,18
+Set4Legend1Item1=1,0,0,0,0,0,
+Set4Legend1Item1Auto=HWYLAYER-Link
+Set4Legend2Item1Font=Arial,0,8
+Set4Legend2Item1=0,0,0,0,0,0,
+Set4Legend3Item1Font=Arial,0,8
+Set4Legend3Item1=0,0,0,0,0,0,
+Set4Legend4Item1Font=Arial,0,8
+Set4Legend4Item1=0,0,0,0,0,0,
+Set5Legend2Item1Font=Arial,0,18
+Set5Legend2Item1=1,0,0,0,0,0,
+Set5Legend2Item1Auto=HWYLAYER-Link
+Set5Legend3Item1Font=Arial,0,8
+Set5Legend3Item1=0,0,0,0,0,0,
+Set5Legend4Item1Font=Arial,0,8
+Set5Legend4Item1=0,0,0,0,0,0,
+Set2Legend2Item1Font=Arial,0,18
+Set2Legend2Item1=1,0,0,0,0,0,
+Set2Legend2Item1Auto=HWYLAYER-Link
+Set2Legend3Item1Font=Arial,0,8
+Set2Legend3Item1=0,0,0,0,0,0,
+Set2Legend4Item1Font=Arial,0,8
+Set2Legend4Item1=0,0,0,0,0,0,
+
+[SAVEVIEWS]
+RestoreLastView=0
+ViewLast=454496.966687229,507421.498345806,1367473.08779014,1387557.63043021
+View0=502790.291262137,515429.781917364,1310971.59576879,1317076.89864018,Downtown Tampa
+View1=465003.307218808,505818.751654887,1312654.76535004,1332370.00996787,TIA / Westshore
+View2=495146.449816311,576777.338688468,1356484.52404587,1395915.01328152,New Tampa
+View3=578217.182529019,646505.57090341,1320967.43233468,1353953.04109038,Plant City
+View4=533459.888081486,588403.755591592,1292764.05129506,1319303.80366521,Brandon
+ViewA=439713.165757298,455547.728284397,1246702.21762321,1254350.84862432,Downtown St Petersburg
+ViewB=416662.169066183,461636.074468593,1276400.36800577,1298124.2903758,Pinellas Park / Gandy Area
+ViewC=385195.553132673,419220.106414542,1294694.77047043,1311129.78423133,Largo Area
+ViewD=395110.892013217,429135.445295086,1311333.52407134,1327768.53783224,Clearwater
+ViewE=399378.044346398,447890.894883167,1334252.62039629,1357685.97335018,Dunedin / Oldsmar
+ViewK=375944.877607965,481553.621468777,1396647.46072968,1447660.06754468,West Pasco
+ViewL=478902.863077461,568670.295359151,1393991.43244097,1437352.14823372,Land O Lakes / I-75
+ViewM=555138.333895285,635238.504238947,1398834.71137599,1437525.81162183,Zephyrhills
+ViewN=559745.969212228,625674.570956627,1449262.27600982,1481108.02775063,Dade City
+ViewO=494292.293384269,566930.788323955,1518290.61761478,1553377.47544992,Brooksville
+ViewP=445286.682027753,517925.17696744,1496107.60419009,1531194.46202522,Springhill
+ViewQ=437022.422124437,509660.917064124,1641529.5810853,1676616.43892044,Crystal River
+ViewR=513285.592460315,585924.087400002,1623261.2170885,1658348.07492364,Inverness
+ViewS=460800.292723456,533438.787663143,1575125.52782706,1610212.3856622,Sugarmill Woods
+View7=423800.331023458,653034.521940717,1201279.65703134,1396432.62827625,Hillsborough
+View8=305693.270301393,545929.040983188,1191454.42561686,1395973.32508934,Pinellas
+ViewJ=408739.457251598,601161.102382105,1562756.43876078,1726569.94157548,Citrus
+ViewI=436361.746715125,638503.660517173,1451890.91730348,1623979.53520882,Hernando
+View9=396851.739988292,638469.846966599,1348131.31349921,1553827.03146654,Pasco
+
+[DYNASIM]
+DynaFieldIsSpeed=1
+DynaUnitInMiles=1
+DynaRTOR=1
+DynaFileName=
+DynaPathFileName=
+DynaLaneFieldName=
+DynaSpeedFieldName=
+DynaOffsetFieldName=
+DynaCenterOffset=1.75
+DynaLaneWidth=0.5
+DynaLaneSpacing=3.5
+DynaMaxSpeed=115
+DynaScale=1
+DynaTripScale=1
+DynaAddRadius=6.25
+DynaLayerNumber=1
+DXFFileName=
+DynaBusModes=1-999
+DynaArtBusModes=
+DynaTramModes=
+DynaTramTRModes=
+DynaHeadwayPeriod=1
+DynaPTStopMin=20
+DynaPTStopMax=30
+DynaPTStopMean=25
+DynaPTStopStdDev=4
+DynaPathSet=0
+DynaVolSet=1,2,0,0,0,0,0,0
+
+[TRNLAYER]
+Visible=0
+FileName=
+FileName2=
+TrnLineColorPalette1=16711680
+TrnLineColorPalette2=43520
+TrnLineColorPalette3=255
+TrnLineColorPalette4=16776960
+TrnLineColorPalette5=65280
+TrnLineColorPalette6=16711935
+TrnLineColorPalette7=16757760
+TrnLineColorPalette8=12648192
+TrnLineColorPalette9=12621567
+TrnLineColorPalette10=8827648
+TrnLineColorPalette11=12582912
+TrnLineColorPalette12=12615680
+TrnLineColorPalette13=11272364
+TrnLineColorPalette14=12632256
+TrnPostStop=0,0,0,12
+TrnPostNonStop=0,49407,0,6
+DefaultCentroidColor=8421504,0,0
+DefaultNodeColor=43520,0,0
+DefaultCentroidLinkColor=8421504,0,1
+DefaultLinkColor=43520,0,1
+BaseX=0
+BaseY=0
+ScaleX=1
+ScaleY=1
+LayerMinScale=0
+LayerMaxScale=0
+LinkPostMinScale=0
+LinkPostMaxScale=0
+NodePostMinScale=0
+NodePostMaxScale=0
+BoundingBox=0,0,0,0
+ExternalDBF=
+ExternalLinkage=
+ActiveNodeColorGroup=0
+NodeColorGroup1=
+NodeColorPaletteIndex1=0
+ActiveLinkColorGroup=0
+LinkColorGroup1=
+LinkColorPaletteIndex1=0
+LinkDrawOffset1=0
+ActiveSelectGroup=0
+SelectGroup1=
+Select1=
+LinkColorGroup2=
+LinkColorPaletteIndex2=0
+LinkDrawOffset2=0
+LinkColor2_1=16744703,0,2,MODE=4,8,11,13; Local Bus
+LinkColor2_2=32768,0,3,MODE=6,9,12,14; Express Bus
+LinkColor2_3=255,0,4,MODE=7,10; Local Rail
+LinkColor2_4=32896,0,6,MODE=5; Street Car
+LinkColor2_5=255,0,6,MODE=15;Project Mode
+ActiveBufferSet=1
+BufferSet1=
+Buffer1_1=50,5,255,16711680
+Buffer1_2=100,5,16711680,32768
+Buffer1_3=150,5,32768,16777215
+BufferMinScale1=0
+BufferMaxScale1=0
+
+[LINLAYER]
+Visible=0
+FileName=C:\FSUTMS\D7\TBRPM_v8.0\Base\Year_2019_EC\Input\Base_19B.shp
+FileName2=
+DefaultCentroidColor=8421504,0,0
+DefaultNodeColor=16776960,0,0
+DefaultCentroidLinkColor=8421504,0,1
+DefaultLinkColor=16776960,0,1
+BaseX=0
+BaseY=0
+ScaleX=1
+ScaleY=1
+LayerMinScale=0
+LayerMaxScale=0
+LinkPostMinScale=0
+LinkPostMaxScale=0
+NodePostMinScale=0
+NodePostMaxScale=0
+BoundingBox=381411.841873165,1167083.97516996,651566.910663206,1715866.97801807
+ExternalDBF=
+ExternalLinkage=
+ActiveNodeColorGroup=0
+NodeColorGroup1=
+NodeColorPaletteIndex1=0
+ActiveLinkColorGroup=0
+LinkColorGroup1=
+LinkColorPaletteIndex1=0
+LinkDrawOffset1=0
+ActiveSelectGroup=0
+SelectGroup1=
+Select1=
+
+[BDYLAYER]
+Visible=0
+FileName=C:\FSUTMS\D7\TBRPM_v8.0\GIS\Boundaries\TBRPM_2010_TAZ.shp
+FileName2=
+DefaultCentroidColor=8421504,0,0
+DefaultNodeColor=65280,0,0
+DefaultCentroidLinkColor=8421504,0,1
+DefaultLinkColor=65280,0,1
+BaseX=0
+BaseY=0
+ScaleX=1
+ScaleY=1
+LayerMinScale=0
+LayerMaxScale=0
+LinkPostMinScale=0
+LinkPostMaxScale=0
+NodePostMinScale=0
+NodePostMaxScale=0
+BoundingBox=381175.454569377,1168998.81180393,638709.684427058,1715320.84629826
+ExternalDBF=
+ExternalLinkage=
+ActiveNodeColorGroup=1
+NodeColorGroup1=
+NodeColorPaletteIndex1=0
+ActiveLinkColorGroup=1
+LinkColorGroup1=
+LinkColorPaletteIndex1=0
+LinkDrawOffset1=0
+ActiveSelectGroup=0
+SelectGroup1=
+Select1=
+LinkColor1_1=12632256,0,1,
+
+[PTSLAYER]
+Visible=0
+FileName=
+FileName2=
+DefaultCentroidColor=8421504,0,0
+DefaultNodeColor=255,0,0
+DefaultCentroidLinkColor=8421504,0,1
+DefaultLinkColor=255,0,1
+BaseX=0
+BaseY=0
+ScaleX=1
+ScaleY=1
+LayerMinScale=0
+LayerMaxScale=0
+LinkPostMinScale=0
+LinkPostMaxScale=0
+NodePostMinScale=0
+NodePostMaxScale=0
+BoundingBox=0,0,0,0
+ExternalDBF=
+ExternalLinkage=
+ActiveNodeColorGroup=0
+NodeColorGroup1=
+NodeColorPaletteIndex1=0
+ActiveLinkColorGroup=0
+LinkColorGroup1=
+LinkColorPaletteIndex1=0
+LinkDrawOffset1=0
+ActiveSelectGroup=0
+SelectGroup1=
+Select1=
+
+[Base_19A.shp]
+Visible=0
+FileName=C:\FSUTMS\D7\TBRPM_v8.0\Base\Year_2018_EC_40A\Input\Base_18A.shp
+FileName2=
+DefaultCentroidColor=8421504,0,0
+DefaultNodeColor=16776960,0,0
+DefaultCentroidLinkColor=8421504,0,1
+DefaultLinkColor=16776960,0,1
+BaseX=0
+BaseY=0
+ScaleX=1
+ScaleY=1
+LayerMinScale=0
+LayerMaxScale=0
+LinkPostMinScale=0
+LinkPostMaxScale=0
+NodePostMinScale=0
+NodePostMaxScale=0
+BoundingBox=381411.841873165,1167083.97516996,651566.910663206,1715866.97801807
+ExternalDBF=
+ExternalLinkage=
+ActiveNodeColorGroup=0
+NodeColorGroup1=
+NodeColorPaletteIndex1=0
+ActiveLinkColorGroup=0
+LinkColorGroup1=
+LinkColorPaletteIndex1=0
+LinkDrawOffset1=0
+ActiveSelectGroup=0
+SelectGroup1=
+Select1=
+TrueShape=1,1,2,-1,1,1
+
+[LINLAYER8]
+Visible=0
+FileName=C:\FSUTMS\D7\TBRPM_v8.0\GIS\Boundaries\County_Boundary.shp
+FileName2=
+DefaultCentroidColor=8421504,0,0
+DefaultNodeColor=16776960,0,0
+DefaultCentroidLinkColor=8421504,0,1
+DefaultLinkColor=16776960,0,1
+BaseX=0
+BaseY=0
+ScaleX=1
+ScaleY=1
+LayerMinScale=0
+LayerMaxScale=0
+LinkPostMinScale=0
+LinkPostMaxScale=0
+NodePostMinScale=0
+NodePostMaxScale=0
+BoundingBox=364741.264722641,1166263.28404049,638707.480585406,1585809.34905528
+ExternalDBF=
+ExternalLinkage=
+ActiveNodeColorGroup=0
+NodeColorGroup1=
+NodeColorPaletteIndex1=0
+ActiveLinkColorGroup=1
+LinkColorGroup1=
+LinkColorPaletteIndex1=0
+LinkDrawOffset1=0
+LinkColor1_1=8421504,7,5,
+ActiveSelectGroup=0
+SelectGroup1=
+Select1=
+
+[POLYGONS]
+Polygon1=2,Veterans Subarea (revised)
+Polygon1Line1=493374.204676309,1382131.12830832,488913.352390115,1382615.16769895,481381.986668574,1378409.40547833,480325.20117364,1379121.58700753,481060.356300551,1382383.8378832,479052.570751018,1383048.31556562,478877.864517534,1378799.9566395,479498.151655865,1376341.7816839,480118.438794197,1372183.5604973,480807.646725676,1370621.35585262,478740.022931239,1366600.97625232,475362.904066992,1364671.19404418,470745.210926082,1352633.02884101,475075.536056836,1346258.13529106,479376.256409243,1344635.22195053,479412.90997317,1338542.42601732,479285.672390822,1337270.05019385,479247.532331738,1328586.74683402,479015.640306434,1322965.00077247,478648.770790436,1318758.23032236
+Polygon1Line2=480260.677358644,1316991.86485943,480992.39321141,1320988.15913223,480923.361789625,1332846.01973669,480874.445854159,1336832.6684772,481167.941466957,1343460.7777329,482341.923918151,1345955.49044169,475941.089838453,1348773.65096888,474237.030830895,1351045.72964563,473042.570697679,1353391.15756564,474627.748940081,1358629.13784488,475661.560837299,1362350.86067487,477545.395850008,1363177.91019264,480554.9371508,1365636.08514825,482209.03618635,1367680.73534497,481657.669841167,1371540.29976126,480945.488311972,1374802.55063692,485103.709498561,1378271.56389204,487079.438902134,1379902.68932987,492753.917537978,1380936.50122709,493374.204676309,1382131.12830832
+Polygon2=3,verterans_revised(2)
+Polygon2Line1=493374.204676309,1382131.12830832,488913.352390115,1382615.16769895,481381.986668574,1378409.40547833,480905.449916429,1378234.49632705,480307.292555704,1377775.48132785,479700.645669611,1377744.26563351,479534.465773498,1377686.10266987,479318.431908552,1377611.32171662,479498.151655865,1376341.7816839,480118.438794197,1372183.5604973,480807.646725676,1370621.35585262,478740.022931239,1366600.97625232,475362.904066992,1364671.19404418,470745.210926082,1352633.02884101,475075.536056836,1346258.13529106,479376.256409243,1344635.22195053,479412.90997317,1338542.42601732,479285.672390822,1337270.05019385,479247.532331738,1328586.74683402,479015.640306434,1322965.00077247
+Polygon2Line2=478648.770790436,1318758.23032236,480260.677358644,1316991.86485943,480992.39321141,1320988.15913223,480923.361789625,1332846.01973669,480874.445854159,1336832.6684772,481167.941466957,1343460.7777329,482341.923918151,1345955.49044169,475941.089838453,1348773.65096888,474237.030830895,1351045.72964563,473042.570697679,1353391.15756564,474627.748940081,1358629.13784488,475661.560837299,1362350.86067487,477545.395850008,1363177.91019264,480554.9371508,1365636.08514825,482209.03618635,1367680.73534497,481657.669841167,1371540.29976126,480945.488311972,1374802.55063692,485103.709498561,1378271.56389204,487079.438902134,1379902.68932987,492753.917537978,1380936.50122709
+Polygon2Line3=493374.204676309,1382131.12830832
+Polygon3=3,veterans revised(3)
+Polygon3Line1=493374.204676309,1382131.12830832,488913.352390115,1382615.16769895,481381.986668574,1378409.40547833,480905.449916429,1378234.49632705,480261.660590276,1378579.45187902,479321.711977798,1378390.27983122,479197.567821433,1378360.72169876,479318.431908552,1377611.32171662,479498.151655865,1376341.7816839,480118.438794197,1372183.5604973,480807.646725676,1370621.35585262,478740.022931239,1366600.97625232,475362.904066992,1364671.19404418,470745.210926082,1352633.02884101,475075.536056836,1346258.13529106,479376.256409243,1344635.22195053,479412.90997317,1338542.42601732,479285.672390822,1337270.05019385,479247.532331738,1328586.74683402,479015.640306434,1322965.00077247
+Polygon3Line2=478648.770790436,1318758.23032236,480260.677358644,1316991.86485943,480992.39321141,1320988.15913223,480923.361789625,1332846.01973669,480874.445854159,1336832.6684772,481167.941466957,1343460.7777329,482341.923918151,1345955.49044169,475941.089838453,1348773.65096888,474237.030830895,1351045.72964563,473042.570697679,1353391.15756564,474627.748940081,1358629.13784488,475661.560837299,1362350.86067487,477545.395850008,1363177.91019264,480554.9371508,1365636.08514825,482209.03618635,1367680.73534497,481657.669841167,1371540.29976126,480945.488311972,1374802.55063692,485103.709498561,1378271.56389204,487079.438902134,1379902.68932987,492753.917537978,1380936.50122709
+Polygon3Line3=493374.204676309,1382131.12830832
+
+[LayerOrder]
+NumRecords=1
+ScreenColor=16777215
+FreewayOutlineColor=5263440
+ScreenFont=Arial,16711680,10,Bold
+Order=HWYLAYER,LINLAYER8,LINLAYER,IMGLAYER,TRNLAYER,PTSLAYER,DRWLAYER,BDYLAYER
+

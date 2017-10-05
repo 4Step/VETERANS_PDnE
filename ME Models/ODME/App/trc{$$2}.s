@@ -1,0 +1,4 @@
+; Program ANALYST_DRIVE
+RUN PGM="ANALYST_DRIVE", CTLFILE="M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\App\02EST00A.CTL"
+ENDRUN
+

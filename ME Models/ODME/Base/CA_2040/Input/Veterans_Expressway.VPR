@@ -1,0 +1,231 @@
+[TPPLUS]
+PROJECT=NETWORK
+
+[HWYLAYER]
+FileName=C:\projects\Veterans_ExpressWay\ODME\Base\CA_2040\Input\User_Defined_SA_B40.NET
+Visible=1
+ActiveNodeColorGroup=1
+NodeColorGroup1=Externals
+NodeColorPaletteIndex1=0
+ActiveNodePostGroup=1
+NodePostGroup1=Externals
+NodePost1_1=N,4227327,0
+NodePostSelectStr1=N < 100
+ActiveLinkColorGroup=2
+LinkColorGroup1=Facility Types
+LinkColorPaletteIndex1=0
+LinkDrawOffset1=0
+FileName2=
+DistScale=0.000194416305543152
+DistScaleOption=3
+SearchLimit=5
+TransitWidth=2
+TransitGap=3
+TransitMaxDraw=10
+PathTraceWidth=5
+PromptUnDo=0
+ClearLinkText=0
+ClearNodeText=0
+LeftHandDrive=0
+NoVprWarning=0
+AnimationStart=1
+AnimationStop=5
+AnimationSpeed=10
+AnimationIncr=1
+AnimationDay=-1
+AnimationRepeat=0
+AnimationDisplayTime=0
+AnimationStartTime=12/30/1899 8:00:00 AM
+AniDotSize=3
+AniDotStyle=0
+AniDotSizeStyle=0
+AniDotLength=12
+AniDotWidth=5
+AniDotSpacing=16
+AniSelectAnd=1
+AniColorAnd=1
+AniSelOrigins=
+AniSelDest=
+AniSelNodes=
+AniSelLinks=
+AniSelStarts=
+AniSelEnds=
+AniColorOrigins=
+AniColorDest=
+AniColorNodes=
+AniColorLinks=
+AniColorStarts=
+AniColorEnds=
+AniSelectedColor=255
+AniOtherColor=16711680
+AniVSetFromColor=255
+AniVSetToColor=16711680
+AniColorByVolSet=0
+AniVSetNumColor=0
+DefaultCentroidColor=8421504,0,0
+DefaultNodeColor=16711680,0,0
+DefaultCentroidLinkColor=8421504,0,1
+DefaultLinkColor=16711680,0,1
+BaseX=0
+BaseY=0
+ScaleX=1
+ScaleY=1
+LayerMinScale=0
+LayerMaxScale=0
+LinkPostMinScale=0
+LinkPostMaxScale=0
+NodePostMinScale=0
+NodePostMaxScale=0
+BoundingBox=472275.010963164,1317638.85793612,494312.867910974,1381751.07249889
+ExternalDBF=
+ExternalLinkage=
+NodeColor1_1=255,2,1,N > 1; endpoints
+LinkColor1_1=255,0,1,FACL_TYPE = 10-19; Limitted Access
+LinkColor1_2=16711680,0,1,FACL_TYPE = 70 - 79; Ramps
+LinkColor1_3=8421504,0,1,FACL_TYPE = 20-69; Urban Roads
+LinkColor1_4=32768,0,1,FACL_TYPE = 90 - 99; Toll links
+ActiveSelectGroup=0
+SelectGroup1=
+Select1=
+LinkColorGroup2=Num Lanes
+LinkColorPaletteIndex2=0
+LinkDrawOffset2=0
+LinkColor2_1=32768,0,1,NUM_LANES = 1 & FACL_TYPE > 89; EL Lanes
+LinkColor2_2=255,0,4,NUM_LANES = 6; Six lanes
+LinkColor2_3=4227327,0,4,NUM_LANES = 5; Five lanes
+LinkColor2_4=16711808,0,3,NUM_LANES = 4; Four lanes
+LinkColor2_5=16711680,0,2,NUM_LANES = 3; Three lanes
+LinkColor2_6=-1,0,1,NUM_LANES = 2; Two lanes
+LinkColor2_7=12632256,0,1,NUM_LANES = 1 & FACL_TYPE < 89 ; One lane ramps
+LinkColorGroup3=FTYPE - Subarea
+LinkColorPaletteIndex3=0
+LinkDrawOffset3=0
+LinkColor3_1=12632256,0,1,FTYPE = 71; GU Ramps
+LinkColor3_2=12632256,0,1,FTYPE = 0; Urban Roads
+LinkColor3_3=8388608,0,1,FTYPE = 91; GU Lanes
+LinkColor3_4=32768,0,1,FTYPE = 96; EL Lanes
+LinkColor3_5=33023,0,2,FTYPE = 97; EL Ingress
+LinkColor3_6=16711935,0,2,FTYPE = 98; EL Egress
+LinkColorGroup4=Counts
+LinkColorPaletteIndex4=0
+LinkDrawOffset4=0
+ActiveLinkPostGroup=1
+LinkPostGroup1=Roadway Names
+LinkPost1_1=ROAD_NAME,0,0
+LinkPostSelectStr1=
+NodeColor1_2=255,0,6,N < 100; Externals
+LinkColor4_1=255,0,1,DIR_COUNT > 0
+LinkColor4_2=255,0,1,PSWADT > 0
+LinkColor4_3=255,0,1,AADT > 0
+LinkPostGroup2=Counts
+LinkPost2_1=LOC,0,0
+LinkPost2_2=CNT_2040,33023,0
+LinkPost2_3=CNT_2020,32768,0
+LinkPostSelectStr2=LOC > 0
+LinkPostGroup3=Assign Parameters
+LinkPost3_1=CAPACITY,32768,0
+LinkPost3_2=NUM_LANES,0,0
+LinkPostSelectStr3=FTYPE > 70
+LinkPost3_3=UROADFACTOR,8388736,-3
+LinkPost3_4=CONFACAMP,16711680,-3
+
+[PLOT]
+ActiveSetUp=1
+Set1=Set1
+Set1ScalePrtLineWidth=0
+Set1DrawAlwaysOnTop=0
+Set1PrintBackColor=0
+Set1FixedScale=0
+Set1LMargin=0
+Set1RMargin=0
+Set1TMargin=0
+Set1BMargin=0
+Set1Header1=
+Set1Footer1=
+Set1Header2=
+Set1Footer2=
+Set1Header3=
+Set1Footer3=
+Set1Header4=
+Set1Footer4=
+Set1HeaderFont=Tahoma,0,8
+Set1FooterFont=Tahoma,0,8
+Set1HeaderAlignment=Left
+Set1FooterAlignment=Left
+
+[LEGEND]
+LegendDisplay=0
+Set1Legend1UnitType=0
+Set1Legend1Anchor=0,0
+Set1Legend1Loc=0,0
+Set1Legend1Size=0,0
+Set1Legend1FullHeight=0
+Set1Legend1NumItems=1
+Set1Legend2UnitType=0
+Set1Legend2Anchor=2,0
+Set1Legend2Loc=0,0
+Set1Legend2Size=0,0
+Set1Legend2FullHeight=0
+Set1Legend2NumItems=1
+Set1Legend3UnitType=0
+Set1Legend3Anchor=0,2
+Set1Legend3Loc=0,0
+Set1Legend3Size=0,0
+Set1Legend3FullHeight=0
+Set1Legend3NumItems=1
+Set1Legend4UnitType=0
+Set1Legend4Anchor=2,2
+Set1Legend4Loc=0,0
+Set1Legend4Size=0,0
+Set1Legend4FullHeight=0
+Set1Legend4NumItems=1
+Set1Legend1Item1Font=Tahoma,0,8
+Set1Legend1Item1=0,0,0,0,0,0,
+Set1Legend2Item1Font=Tahoma,0,8
+Set1Legend2Item1=0,0,0,0,0,0,
+Set1Legend3Item1Font=Tahoma,0,8
+Set1Legend3Item1=0,0,0,0,0,0,
+Set1Legend4Item1Font=Tahoma,0,8
+Set1Legend4Item1=0,0,0,0,0,0,
+
+[SAVEVIEWS]
+RestoreLastView=0
+ViewLast=407286.307815806,565717.287894668,1313349.09049513,1385478.21081857
+
+[DYNASIM]
+DynaFieldIsSpeed=1
+DynaUnitInMiles=1
+DynaRTOR=1
+DynaFileName=
+DynaPathFileName=
+DynaLaneFieldName=
+DynaSpeedFieldName=
+DynaOffsetFieldName=
+DynaCenterOffset=1.75
+DynaLaneWidth=0.5
+DynaLaneSpacing=3.5
+DynaMaxSpeed=115
+DynaScale=1
+DynaTripScale=1
+DynaAddRadius=6.25
+DynaLayerNumber=1
+DXFFileName=
+DynaBusModes=1-999
+DynaArtBusModes=
+DynaTramModes=
+DynaTramTRModes=
+DynaHeadwayPeriod=1
+DynaPTStopMin=20
+DynaPTStopMax=30
+DynaPTStopMean=25
+DynaPTStopStdDev=4
+DynaPathSet=0
+DynaVolSet=1,2,0,0,0,0,0,0
+
+[LayerOrder]
+NumRecords=1
+ScreenColor=16777215
+FreewayOutlineColor=5263440
+ScreenFont=Tahoma,4227327,8
+Order=HWYLAYER,TRNLAYER,PTSLAYER,LINLAYER,BDYLAYER,IMGLAYER,DRWLAYER
+

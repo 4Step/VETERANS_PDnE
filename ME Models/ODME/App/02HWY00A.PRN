@@ -1,0 +1,1227 @@
+ 
+HIGHWAY (v.09/23/2016 [6.4.2 x64])  Thu Sep 21 09:55:14 2017
+
+FILEI LOOKUPI[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\Hourly_Distribution_7_Anderson.csv"
+FILEI TURNPENI = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\subarea_turn_penalty.PEN"
+FILEI MATI[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Seed_ODFlows_B19.MAT"
+FILEI NETI = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Subarea_B19_17.net"
+FILEO ESTMICPO[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\output\ICP_B19.ICP",
+         FORMAT=1, ;format for Analyst Drive (1)
+         COUNTVAR=lw.AADT, confvar=lw.conf, SCREENLINE=lw.screen
+         ;COUNTVAR=lw.count_am, DEFAULTCONF=10000 , SCREENLINE=lw.screen
+FILEO ESTMDATO[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Screenline_B19.DAT"
+FILEO NETO = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Network_B19_17.NET"
+
+
+
+; Lookup Hourly distribtution
+LOOKUP LOOKUPI=1, NAME=GETHRFACTOR, LOOKUP[1]=1, RESULT=2,
+                                    LOOKUP[2]=1, RESULT=3,
+                                    INTERPOLATE=F
+
+; Look up deceleration rate based on approach speed
+LOOKUP,
+ INTERPOLATE=Y, LIST=Y, NAME=DECEL,
+        LOOKUP[1]=1,RESULT=2,
+R = '30 4',
+    '70 6.2'
+
+PAR  MAXITERS=30, relativegap=0, GAP=0.00005, AAD=0, RAAD=0, RMSE=0, ZONEMSG=100
+
+TURNS N=1-99999
+
+ARRAY TOLLVOL=30, TOLLREVENUE=30, TOLLVMT=30
+
+PROCESS PHASE=LINKREAD
+; Get count locations
+
+IF (LI.CNT_17 >0 & LI.LOC < 40)
+
+     ; lw.AADT = li.CNT_2020
+     lw.AADT = li.CNT_17
+
+     ; lw.AADT = li.CNT_PER_17
+
+     ; lw.AADT = max(li.CNT_PER_17, 4000) ; set a minimum of 4000 (not sure why PM, period 2, fails if there are AADT less than 4K - something to do with seed but in what way?)
+
+
+
+    lw.screen = li.LOC
+
+    IF (li.FTYPE = 91)
+       lw.conf=10000
+    ELSEPage 13  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+      ; lw.conf=1000
+      lw.conf=10000
+    ENDIF
+ENDIF
+
+FUNCTION  TC[1] = T0 * (1 + (1 * LI.BPRCOEFFICIENT * (MIN(V/C,4.00) ^ LI.BPREXPONENT)))   ;(MINS) congested time for non-toll links
+FUNCTION  TC[2] = (LW.CTOLL * LI.CARTOLL * 60); + LI.SVCMINUTES + (LI.SVCSECONDS / 60)             ;(MINS) time for toll links
+FUNCTION  TC[3] = T0 * (1 + (1 * LI.BPRCOEFFICIENT * (MIN(V/C,4.00) ^ LI.BPREXPONENT)))   ;(MINS) congested time toll acceleration links
+FUNCTION  TC[4] = T0 * (1 + (1 * LI.BPRCOEFFICIENT * (MIN(V/C,4.00) ^ LI.BPREXPONENT)))   ;(MINS) congested time toll deceleration links
+FUNCTION  TC[5] = T0 * (1 + (1 * LI.BPRCOEFFICIENT * (MIN(V/C,4.00) ^ LI.BPREXPONENT)))   ;(MINS) congested time for non-toll TRUCK ONLY links
+;FUNCTION  TC[6] = T0 * (1 + ({DAMPING} * LI.BPRCOEFFICIENT * ((1 + (VOL[1] / MAX(V,1)))^LI.BPREXPONENT) * (MIN(V/C,4.00)^LI.BPRGAMMA)))   ;(MINS) congested time for non-toll FREEWAY LINKS
+;FUNCTION  TC[7] = T0 * (1 + ({DAMPING} * LI.BPRCOEFFICIENT * ((1 + (VOL[1] / MAX(V,1)))^LI.BPREXPONENT) * (LI.BPRGAMMA^MIN(V/C,4.00))))   ;(MINS) congested time for non-toll CLASS I - IV ARTERIALS links
+FUNCTION TC[6] = T0 * (1 + (1 * LI.BPRCOEFFICIENT * (MIN(V/C,4.00) ^ LI.BPREXPONENT)))  ; (MINS) congested time for express links
+
+FUNCTION  COST[1] = TIME                                                                          ;(MINS) congested COST for non-toll links
+FUNCTION  COST[2] = TIME + ROUND((1 / (LW.SERVR - LW.ARRIVR)) * 60 * 1000) / 1000                 ;(MINS) congested COST for toll links
+FUNCTION  COST[3] = TIME + ROUND(((LW.CGSTSPEED / 2.5) / 60) / 2 * 1000) / 1000           ;(MINS) congested COST toll acceleration links MINS
+FUNCTION  COST[4] = TIME + ROUND(((LW.CGSTSPEED / DECEL(1,LW.CGSTSPEED)) / 60) / 2 * 1000) / 1000 ;(MINS) congested COST toll deceleration links MINS
+FUNCTION  COST[5] = TIME                                                                          ;(MINS) congested COST for non-toll TRUCK ONLY links
+;FUNCTION  COST[6] = TIME                                                                          ;(MINS) congested COST for non-toll FREEWAY LINKS w/ TRUCKS
+;FUNCTION  COST[7] = TIME                                                                          ;(MINS) congested COST for non-toll CLASS I - IV ARTERIALS w/ TRUCKS
+; Added by Kapil Arya on 04-07-14 to model express lane using CTOLL method
+FUNCTION COST[6] = TIME + (LW.CTOLL * LW.ELTOLL * 60) ; COST OF EXPRESS LANE IS TRAVEL TIME PLUS TIME EQUIVALENT OF TOLL
+
+FUNCTION   V = VOL[1] ; TOTAL VOLUME
+
+; basics
+
+;  T0 = LI.TOTALCOST
+  T0 = LI.LINKCOST ; CHANGED BY KAPIL ARYA ON 04-08-14 TO BE REFLECTIVE OF FF TRAVEL TIME ON LINKS
+  ;C  = LI.CAPACITY * LI.NUM_LANES * LI.UROADFACTOR / LI.CONFACAMP
+  ; Daily ODME uses unlimited capacity
+  C  = LI.CAPACITY * LI.NUM_LANES * 2.5
+  IF (LI.TIME > 0) LW.CGSTSPEED = LI.DISTANCE / (LI.TIME / 60)   ; CONVERT TIME (MINS) TO HOURS
+
+  IF (LI.FACL_TYPE = 48,96,97) ADDTOGROUP=1   ; TRUCK RESTRICTED ROADS
+  IF (LI.FACL_TYPE = 80-89)    ADDTOGROUP=2   ; HOV LANES
+  IF (LI.FACL_TYPE = 76)       ADDTOGROUP=3   ; TRUCK ONLY RAMPS/LANES
+  IF (LI.FACL_TYPE = 49)       ADDTOGROUP=4   ; TRANSIT ONLY FACILITIES
+; Added by Kapil Arya on 04-07-14 to model express lane using CTOLL method
+  IF (LI.FACL_TYPE = 94)       ADDTOGROUP=5   ; EXPRESS LANES
+
+  ; classify links based on presence/absence of tolls
+  LINKCLASS = 1 ; no toll
+  LW.RATE = 0
+
+  IF (A = 5000-10000)
+    LW.CTOLL = 0.062 ;.062
+  ELSEIF (A = 10001 - 14000 )
+    LW.CTOLL =  0.067 ;0.067
+  ELSEIF (A = 14001 - 16000)
+    LW.CTOLL = 0.129 ;1.129
+  ELSEIF (A = 16001- 17000)
+    LW.CTOLL = 0.135 ;1.135Page 14  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+  ELSEIF (A = 17001 - 18000)
+    LW.CTOLL = 0.149 ;1.149
+  ELSEIF (A = 18001 - 20000)
+    LW.CTOLL = 0.078 ;.078
+  ELSE
+    LW.CTOLL = 0.06 ; .06
+  ENDIF
+
+  IF (LI.TOLL > 0)
+    LINKCLASS = 2 ; with toll
+    T0 = LI.LINKCOST
+
+    IF (LI.TOLLTYPE = 1)
+      LW.DELAY  = LI.SVCMINUTES + (LI.SVCSECONDS / 60)   ; CONVERT SECONDS TO (MINS)
+      LW.SERVR  = 1 / (LW.DELAY / 60)                    ; CONVERT (MINS) DELAY TO HOURS AND INVERT (VPH PER LANE)
+      LW.ARRIVR = 0
+    ELSE
+      LW.DELAY  = 0
+      LW.SERVR  = 1000000                                ; PREVENT DIVIDE BY ZERO FOR RAMP BOOTHS
+      LW.ARRIVR = 0
+    ENDIF
+  ENDIF
+
+  IF (LI.TOLL_ACC > 0)
+    LINKCLASS=3 ; Toll Plaza Acceleration link
+    LW.DELAY = ROUND(((LW.CGSTSPEED / 2.5) / 60) / 2 * 1000) / 1000           ; (MINS) congested COST toll acceleration links
+    LW.RATE = 2.5
+  ENDIF
+
+  IF (LI.TOLL_DEC > 0)
+    LINKCLASS=4 ; Toll Plaza Deceleration link
+    LW.DELAY = ROUND(((LW.CGSTSPEED / DECEL(1,LW.CGSTSPEED)) / 60) / 2 * 1000) / 1000 ; (MINS) congested COST toll deceleration links
+    LW.RATE = DECEL(1,LW.CGSTSPEED)
+  ENDIF
+
+  IF (LI.TOLL > MAXPLZNO) MAXPLZNO = LI.TOLL
+
+  IF (LI.FACL_TYPE = 76) LINKCLASS=5
+
+; Added by Kapil Arya on 04-07-14 to model express lane using CTOLL method
+  IF (LI.FACL_TYPE = 94)
+    LINKCLASS=6   ; EXPRESS LANES
+   ; IF (@PERIOD@ = 1) ; AM
+      LW.ELTOLL = LI.DISTANCE *  0.15 ;1
+
+
+
+  ENDIF
+
+ENDPHASE
+
+;=========================================================================================
+;=== ILOOP (ASSIGNMENT) PHASE ===
+;=========================================================================================Page 15  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+PHASE=ILOOP
+
+; NORMAL TBRPM MODE
+  PATHLOAD PATH=COST, DEC=2, VOL[1]=MI.1.1, PENI=1,  ESTMO=1, EXCLUDEGROUP=2-4          ;HOV
+
+ENDPHASE
+
+;=========================================================================================
+;=== ADJUST PHASE (WITH REPORTING)===
+;=========================================================================================
+; User Specified Functions
+; Delay functions, one for congested travel time, the other for toll links convert to time equivalent
+
+PHASE=ADJUST
+
+  IF (TIME > 0) LW.CGSTSPEED = LI.DISTANCE / (TIME / 60)                  ; (MPH) CONVERT TIME (MINS) TO HRS
+
+  IF (LI.CARTOLL > 0)
+    _SVCSECONDS = '00' + LTRIM(STR(LI.SVCSECONDS,2,0))
+    _SVCSECLEN  = STRLEN(_SVCSECONDS)-1
+    _SVCSECONDS = SUBSTR(_SVCSECONDS,_SVCSECLEN,2)
+
+    IF (LI.TOLL > _TOLLLINKS) _TOLLLINKS = LI.TOLL
+
+    IF (LI.TOLLTYPE = 1)
+      LW.ARRIVR = ROUND((V / LI.UROADFACTOR) * LI.CONFACAMP / LI.PLZALNSMin) ; (HRS)  Hourly Volume per toll lane ie. arrival rate in vehicles per hour
+      LW.SERVT  = LI.SVCMINUTES + (LI.SVCSECONDS / 60)                    ; (MINS) Plaza lane service time in minutes per vehicle
+      LW.SERVR  = 1 / (LW.SERVT / 60)                                     ; (HRS)  Plaza lane service rate in vehicle per hour
+
+      IF ((LW.ARRIVR >= LW.SERVR) && (LW.SERVR > 1000))
+        LW.ARRIVR = 0.99 * LW.SERVR                                       ; (HRS)  Prevent infinite or negative queue
+      ELSEIF (LW.ARRIVR >= LW.SERVR)
+        LW.ARRIVR = 0.95 * LW.SERVR                                       ; (HRS)  Prevent infinite or negative queue
+      ENDIF
+
+      IF (LW.SERVR = 0) LW.SERVR = 1000                                   ; PREVENT DIVIDE BY ZERO
+      _REV  = (ROUND(V * LI.PCTTRUCKS) * 3 * LI.CARTOLL) + (ROUND(V * (1 - LI.PCTTRUCKS)) * LI.CARTOLL)
+      _UTIL = (V / (LW.SERVR / (LI.UROADFACTOR * LI.CONFACAMP)))
+
+      LW.DELAY = ROUND(1 / ((LW.SERVR - LW.ARRIVR) / 60) * 1000) / 1000   ; CONVERT HOURLY RATES TO (MINS) OF DELAY
+    ENDIF
+
+    IF (LW.SERVR = 0) LW.SERVR = 1000                                     ; PREVENT DIVIDE BY ZERO
+
+    TOLLVOL[ITERATION] = TOLLVOL[ITERATION] + V
+    TOLLREVENUE[ITERATION] = TOLLREVENUE[ITERATION] + _REV
+  ENDIF
+
+  IF (LI.TOLL_ACC > 0) LW.DELAY = ROUND(((LW.CGSTSPEED / 2.5) / 60) / 2 * 1000) / 1000           ;(MINS) congested COST toll acceleration links
+  IF (LI.TOLL_DEC > 0) LW.DELAY = ROUND(((LW.CGSTSPEED / DECEL(1,LW.CGSTSPEED)) / 60) / 2 * 1000) / 1000 ;(MINS) congested COST toll deceleration links
+
+  IF (LI.FACL_TYPE = 90-99) TOLLVMT[ITERATION] = TOLLVMT[ITERATION] + (LI.DISTANCE * V)
+
+ENDPHASEPage 16  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+PHASE=CONVERGE
+  IF (ITERATION < 6) BREAK ;Do not even test for Iterations 2-20
+  IF ((GAP[ITERATION] < GAPCUTOFF) && (GAP[ITERATION-1] < GAPCUTOFF) && (GAP[ITERATION-2] < GAPCUTOFF))
+     BALANCE = 1
+  ENDIF
+ENDPHASE
+
+
+HIGHWAY Stack Size = 10232 bytes.
+................................................................................
+
+
+MATI[1] VOYAGER M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Seed_ODFlows_B19.MAT Opened
+MAT PGM=MATRIX (v.09/23/2016 [6.4.2 x64])  DATE=Thu Sep 21 09:55:13 2017 
+ID=
+PAR Zones=45 M=1
+  TOTAL
+
+NETI M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Subarea_B19_17.net Opened
+NET PGM=NETWORK (v.09/23/2016 [6.4.2 x64]) DATE=Thu Sep 21 09:55:14 2017
+ID= 
+PAR Zones=45 Nodes=325 Links=268 NodeRecs=258 
+NVR:   N  X  Y  _TOLL_ACC  _TOLL_DEC  SUB_TYPE  OLD_NODE
+LVR:   A  B  CNT_1  CNT_2  CNT_3  CNT_4  CNT_5  CNT_6  CNT_7  CNT_8  CNT_9
+  CNT_10  CNT_11  CNT_12  CNT_13  CNT_14  CNT_15  CNT_16  CNT_17  CNT_18
+  CNT_19  CNT_20  CNT_21  CNT_22  CNT_23  CNT_24  CNT_2020  CNT_PER_1
+  CNT_PER_2  CNT_PER_3  OBJECTID  LINK_ID  DISTANCE  DISTANCEFT  DISTANCEMI
+  TIME  TIME2  CAPACITY  AREA_TYPE  FACL_TYPE  SCREENLINE  NUM_LANES  USER
+  TOLL  DIRCODE  ZONE  CONSTRUCTN  LANDUSE  LOCATION  USECODE  CORRIDOR
+  C_SEGMENT  COSITE=009  PSWADT  DIR_COUNT  SL_TAG=002  CCC  EVAC
+  LINK_ID2=010  SPD_LNK  SPD_LNK2  SHAPE_LENG  SITE1DIR=010  TWOWAY
+  TOLLTYPE  PLAZADESC=034  PLZALNSMIN  PLZALNSMAX  CARTOLL  SVCMINUTES
+  SVCSECONDS  DECELCODE  ACCELCODE  EXCTCHGLNS  AVILANES  PCTTRUCKS
+  COUNTY=001  YEAR=001  PERIOD  AUTO_PCT  LT_PCT  HT_PCT  TRK_PCT
+  PD_VOL_PCT  AUTO  LT_TRK  HY_TRK  PDDIR_CNT  PDDIR_SPL  DLDIR_SPL
+  DLTRK_PCT  DLTRK_SPL  TRK_AADT  TRK_PSWADT  DLTRK_DIR  CAP_ORIG  SPEED
+  UROADFACTOR  CONFAC  BPRCOEFFICIENT  BPREXPONENT  CONFACAMP  CONFACPMP
+  CONFACMDP  CONFACEVP  TOLLCOST  LINKCOST  TOTALCOST  DELAY  TRKCOST
+  TOLL_ACC  TOLL_DEC  LINKFLG  FTYPE  ROAD_NAME=013  LOC
+
+
+LOOKUP   DECEL:  FAIL=  --  --  --
+         DECEL(1,30)4
+         DECEL(1,70)6.2
+
+
+M(724): The NETI variables can not provide LinkClass directly, PHASE=LINKREAD is required.
+M(727):    268 links for which default value for T1 was provided.
+
+W(926): 0 links for which speed = 0 was dectected,0 links for which C = 0 was dectected,16 links for which T0 = 0 was dectected.Please double check your network to avoide any undesirable effects on highway assignment process!
+
+W(701): FILEI TURNPENI messages  :
+W(704): Improper data record     :225    32            1    -1Page 17  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+W(705): Link not found in network:169    167    174    1    -1
+
+NETO M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Network_B19_17.NET (M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Network_B19_17.NET) Opened
+NET PGM=HIGHWAY (v.09/23/2016 [6.4.2 x64]) DATE=Thu Sep 21 09:55:14 2017
+ID=
+PAR Zones=45 Nodes=325 Links=268 NodeRecs=258 
+  A  B  CNT_1  CNT_2  CNT_3  CNT_4  CNT_5  CNT_6  CNT_7  CNT_8  CNT_9  CNT_10
+  CNT_11  CNT_12  CNT_13  CNT_14  CNT_15  CNT_16  CNT_17  CNT_18  CNT_19  CNT_20
+  CNT_21  CNT_22  CNT_23  CNT_24  CNT_2020  CNT_PER_1  CNT_PER_2  CNT_PER_3
+  OBJECTID  LINK_ID  DISTANCE  DISTANCEFT  DISTANCEMI  TIME  TIME2  CAPACITY
+  AREA_TYPE  FACL_TYPE  SCREENLINE  NUM_LANES  USER  TOLL  DIRCODE  ZONE
+  CONSTRUCTN  LANDUSE  LOCATION  USECODE  CORRIDOR  C_SEGMENT  COSITE=9  PSWADT
+  DIR_COUNT  SL_TAG=2  CCC  EVAC  LINK_ID2=10  SPD_LNK  SPD_LNK2  SHAPE_LENG
+  SITE1DIR=10  TWOWAY  TOLLTYPE  PLAZADESC=34  PLZALNSMIN  PLZALNSMAX  CARTOLL
+  SVCMINUTES  SVCSECONDS  DECELCODE  ACCELCODE  EXCTCHGLNS  AVILANES  PCTTRUCKS
+  COUNTY=1  YEAR=1  PERIOD  AUTO_PCT  LT_PCT  HT_PCT  TRK_PCT  PD_VOL_PCT  AUTO
+  LT_TRK  HY_TRK  PDDIR_CNT  PDDIR_SPL  DLDIR_SPL  DLTRK_PCT  DLTRK_SPL
+  TRK_AADT  TRK_PSWADT  DLTRK_DIR  CAP_ORIG  SPEED  UROADFACTOR  CONFAC
+  BPRCOEFFICIENT  BPREXPONENT  CONFACAMP  CONFACPMP  CONFACMDP  CONFACEVP
+  TOLLCOST  LINKCOST  TOTALCOST  DELAY  TRKCOST  TOLL_ACC  TOLL_DEC  LINKFLG
+  FTYPE  ROAD_NAME=13  LOC  V_25  TIME_25  VC_25  CSPD_25  VDT_25  VHT_25  V1_25
+  VT_25  V1T_25
+
+M(749): ICP file 1, 39 links where LW.AADT has a value.
+
+M(763): ICP file 1, 39 ESTM Screenlines.
+
+--------------------------------- Iteration 1 ----------------------------------
+
+COMBINE=EQUI LambdaSearch=AREA
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+     9        259 0.000000    21.50     0.35       --       --       --       --  
+
+
+Variable Values at end of Iteration 1 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62Page 18  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+--------------------------------- Iteration 2 ----------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   237         --       --       --       --       31 0.000004     0.01 0.000806  
+
+
+Variable Values at end of Iteration 2 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62
+
+--------------------------------- Iteration 3 ----------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   230          2 0.000000 0.000000 0.000000       36 0.000000 0.000321 0.000043  
+
+
+Variable Values at end of Iteration 3 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62Page 19  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+--------------------------------- Iteration 4 ----------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   219         --       --       --       --       49 0.000000 0.001337 0.000071  
+
+
+Variable Values at end of Iteration 4 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62
+
+--------------------------------- Iteration 5 ----------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   211          5 0.000000 0.000000 0.000000       52 0.000000 0.000545 0.000040  
+
+
+Variable Values at end of Iteration 5 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62Page 20  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+--------------------------------- Iteration 6 ----------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   219          8 0.000000 0.000000 0.000000       41 0.000000 0.000192 0.000017  
+
+
+Variable Values at end of Iteration 6 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62
+
+--------------------------------- Iteration 7 ----------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   219         18 0.000000 0.000000 0.000000       31 0.000000 0.001836 0.000134  
+
+
+Variable Values at end of Iteration 7 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62Page 21  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+--------------------------------- Iteration 8 ----------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   222          9 0.000000 0.000000 0.000000       37 0.000000 0.000391 0.000049  
+
+
+Variable Values at end of Iteration 8 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62
+
+--------------------------------- Iteration 9 ----------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   221          4 0.000000 0.000000 0.000000       43 0.000000 0.000174 0.000015  
+
+
+Variable Values at end of Iteration 9 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62Page 22  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+--------------------------------- Iteration 10 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   229         --       --       --       --       39 0.000000 0.001306 0.000082  
+
+
+Variable Values at end of Iteration 10 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62
+
+--------------------------------- Iteration 11 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   223         12 0.000000 0.000000 0.000000       33 0.000000 0.000371 0.000048  
+
+
+Variable Values at end of Iteration 11 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62Page 23  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+--------------------------------- Iteration 12 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   205         24 0.000000 0.000000 0.000000       39 0.000000 0.000185 0.000017  
+
+
+Variable Values at end of Iteration 12 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62
+
+--------------------------------- Iteration 13 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   232          1 0.000000 0.000000 0.000000       35 0.000000 0.000798 0.000072  
+
+
+Variable Values at end of Iteration 13 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62Page 24  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+--------------------------------- Iteration 14 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   230         --       --       --       --       38 0.000000 0.000361 0.000041  
+
+
+Variable Values at end of Iteration 14 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62
+
+--------------------------------- Iteration 15 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   227          6 0.000000 0.000000 0.000000       35 0.000000 0.000138 0.000017  
+
+
+Variable Values at end of Iteration 15 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62Page 25  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+--------------------------------- Iteration 16 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   216         21 0.000000 0.000000 0.000000       31 0.000000 0.001703 0.000133  
+
+
+Variable Values at end of Iteration 16 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62
+
+--------------------------------- Iteration 17 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   202         --       --       --       --       66 0.000000 0.000513 0.000028  
+
+
+Variable Values at end of Iteration 17 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62Page 26  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+--------------------------------- Iteration 18 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   233          2 0.000000 0.000000 0.000000       33 0.000000 0.000148 0.000019  
+
+
+Variable Values at end of Iteration 18 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62
+
+--------------------------------- Iteration 19 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   220          3 0.000000 0.000000 0.000000       45 0.000000 0.001223 0.000071  
+
+
+Variable Values at end of Iteration 19 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62Page 27  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+--------------------------------- Iteration 20 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   216          3 0.000000 0.000000 0.000000       49 0.000000 0.000372 0.000031  
+
+
+Variable Values at end of Iteration 20 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62
+
+--------------------------------- Iteration 21 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   204         26 0.000000 0.000000 0.000000       38 0.000000 0.000174 0.000017  
+
+
+Variable Values at end of Iteration 21 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62Page 28  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+--------------------------------- Iteration 22 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   225         10 0.000000 0.000000 0.000000       33 0.000000 0.001739 0.000114  
+
+
+Variable Values at end of Iteration 22 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62
+
+--------------------------------- Iteration 23 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   223          3 0.000000 0.000000 0.000000       42 0.000000 0.000311 0.000038  
+
+
+Variable Values at end of Iteration 23 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62Page 29  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+--------------------------------- Iteration 24 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   202         35 0.000000 0.000000 0.000000       31 0.000000 0.000110 0.000017  
+
+
+Variable Values at end of Iteration 24 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62
+
+--------------------------------- Iteration 25 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   213          2 0.000000 0.000000 0.000000       53 0.000000 0.001605 0.000076  
+
+
+Variable Values at end of Iteration 25 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62Page 30  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+--------------------------------- Iteration 26 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   227          6 0.000000 0.000000 0.000000       35 0.000000 0.000325 0.000045  
+
+
+Variable Values at end of Iteration 26 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62
+
+--------------------------------- Iteration 27 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   218          2 0.000000 0.000000 0.000000       48 0.000000 0.000143 0.000013  
+
+
+Variable Values at end of Iteration 27 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62Page 31  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+--------------------------------- Iteration 28 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   202         23 0.000000 0.000000 0.000000       43 0.000000 0.001258 0.000073  
+
+
+Variable Values at end of Iteration 28 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62
+
+--------------------------------- Iteration 29 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   217          4 0.000000 0.000000 0.000000       47 0.000000 0.000343 0.000035  
+
+
+Variable Values at end of Iteration 29 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62Page 32  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+--------------------------------- Iteration 30 ---------------------------------
+
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+   208         11 0.000000 0.000000 0.000000       49 0.000000 0.000181 0.000013  
+
+
+M(662): Convergence achieved by:
+      MAXITERS        = 30
+      GAP             = 0.00002Page 33  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+Iter   Vcost   VDist   VTime     AAD    RAAD   PDiff    RMSE     Gap  RelGap  Lambda  Factor
+        E+03            E+03                                
+----   -----   -----   -----     ---    ----   -----    ----     ---  ------  ------  ------
+
+  1    1,877 537,254   1,871      --      --      --      --       0       0 1.00000 0.01640
+  2    1,233 541,612   1,227     693   0.176      --   2,322 0.34295 0.42119 0.49109 0.01583
+  3    1,070 537,873   1,064     549   0.060      --   1,818 0.13201 0.11909 0.85456 0.18937
+  4    1,065 537,823   1,059     111   0.023      --     432 0.00499 0.02350 0.10983 0.02734
+  5    1,063 537,785   1,058      35   0.005      --     170 0.00133 0.00680 0.07032 0.01883
+  6    1,063 537,656   1,057      52   0.008      --     196 0.00047 0.00266 0.23522 0.08236
+  7    1,062 537,646   1,057      25   0.006      --     102 0.00045 0.00655 0.03031 0.01095
+  8    1,062 537,635   1,056      14   0.002      --      68 0.00028 0.00268 0.02918 0.01085
+  9    1,062 537,572   1,056      32   0.005      --     124 8.14e-5 0.00160 0.15942 0.07054
+ 10    1,062 537,565   1,056      19   0.003      --      82 5.85e-5 0.00499 0.02499 0.01134
+ 11    1,062 537,560   1,056       8   0.001      --      39 0.00013 0.00155 0.01708 0.00789
+ 12    1,062 537,519   1,056      24   0.004      --      95 5.78e-5 0.00122 0.12583 0.06646
+ 13    1,062 537,515   1,056      15   0.002      --      65 8.56e-5 0.00395 0.01987 0.01071
+ 14    1,062 537,512   1,056       6   0.001      --      31 9.82e-5 0.00123 0.01367 0.00747
+ 15    1,062 537,483   1,056      19   0.003      --      78 4.81e-5 0.00100 0.10457 0.06380
+ 16    1,062 537,483   1,056      15   0.004      --      56 0.00016 0.00337 0.01531 0.00949
+ 17    1,062 537,480   1,056       6   0.001      --      29 8.96e-5 0.00114 0.01270 0.00797
+ 18    1,062 537,458   1,056      16   0.003      --      66 1.78e-5 0.00084 0.08959 0.06176
+ 19    1,062 537,458   1,056      13   0.002      --      52 5.88e-5 0.00298 0.01459 0.01021
+ 20    1,062 537,456   1,056       4   0.001      --      22 6.44e-5 0.00086 0.00968 0.00684
+ 21    1,062 537,438   1,056      15   0.002      --      59 2.08e-5 0.00075 0.08002 0.06144
+ 22    1,062 537,437   1,056      10   0.002      --      44 9.08e-5 0.00267 0.01350 0.01051
+ 23    1,062 537,435   1,056       4   0.001      --      19 5.41e-5 0.00073 0.00822 0.00645
+ 24    1,062 537,421   1,056      13   0.002      --      53 2.51e-5 0.00067 0.07232 0.06118
+ 25    1,061 537,421   1,056      11   0.003      --      40 9.68e-5 0.00240 0.01092 0.00934
+ 26    1,061 537,420   1,056       4   0.001      --      20 5.78e-5 0.00077 0.00864 0.00746
+ 27    1,061 537,408   1,056      12   0.002      --      48 1.27e-5 0.00060 0.06518 0.06016
+ 28    1,062 537,407   1,056       8   0.001      --      36 8.52e-5 0.00221 0.01118 0.01044
+ 29    1,061 537,406   1,056       3   0.000      --      15 4.24e-5 0.00059 0.00660 0.00620
+ 30    1,061 537,396   1,056      11   0.002      --      44 1.72e-5 0.00056 0.06042 0.06042Page 34  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+Iter             VehCost             VehDist          VehTime/60  Ave_D/T
+-------------------------------------------------------------------------
+
+  1         1,876,531.78          537,253.74           31,177.54    17.23
+  2         1,232,980.79          541,612.06           20,451.69    26.48
+  3         1,070,214.01          537,872.90           17,738.91    30.32
+  4         1,064,869.50          537,822.99           17,649.83    30.47
+  5         1,063,453.97          537,785.08           17,626.24    30.51
+  6         1,062,958.95          537,656.05           17,617.99    30.52
+  7         1,062,481.87          537,645.93           17,610.04    30.53
+  8         1,062,189.25          537,635.36           17,605.16    30.54
+  9         1,062,102.72          537,571.78           17,603.72    30.54
+ 10         1,062,164.93          537,565.02           17,604.76    30.54
+ 11         1,062,029.87          537,560.21           17,602.51    30.54
+ 12         1,061,968.38          537,519.49           17,601.48    30.54
+ 13         1,062,059.30          537,515.15           17,603       30.54
+ 14         1,061,955             537,511.98           17,601.26    30.54
+ 15         1,061,903.92          537,483.18           17,600.41    30.54
+ 16         1,061,730.18          537,482.51           17,597.51    30.54
+ 17         1,061,635.05          537,479.99           17,595.93    30.55
+ 18         1,061,616.07          537,458.18           17,595.61    30.55
+ 19         1,061,678.56          537,457.60           17,596.65    30.54
+ 20         1,061,610.11          537,455.92           17,595.51    30.55
+ 21         1,061,587.94          537,438.36           17,595.14    30.54
+ 22         1,061,684.41          537,436.51           17,596.75    30.54
+ 23         1,061,626.89          537,435.25           17,595.79    30.54
+ 24         1,061,600.19          537,420.88           17,595.35    30.54
+ 25         1,061,497.33          537,421.09           17,593.63    30.55
+ 26         1,061,435.87          537,419.90           17,592.61    30.55
+ 27         1,061,422.30          537,407.95           17,592.38    30.55
+ 28         1,061,512.82          537,406.75           17,593.89    30.55
+ 29         1,061,467.72          537,405.94           17,593.14    30.55
+ 30         1,061,449.44          537,395.71           17,592.83    30.55
+
+PAR: LAMBDA=0 GAP=0.00005 AAD=0 RAAD=0 PDIFF=1 RMSE=0 PDIFFVALUE=0 RELATIVEGAP=0
+Iter                      Gap                     RGAP                   Lambda                    vcost                   rvcost
+   1  0.0000000000000000e+000  0.0000000000000000e+000  1.0000000000000000e+000  1.8765317764967736e+006  6.6008061143658007e+005
+   2  3.4294702419304995e-001  4.2119033276444495e-001  4.9109199999999997e-001  1.2329807879435075e+006  1.0861547331110425e+006
+   3  1.3201079565233267e-001  1.1908775924926442e-001  8.5456399999999999e-001  1.0702140131030451e+006  1.0861478687099228e+006
+   4  4.9938713136205362e-003  2.3504692538041834e-002  1.0983200000000000e-001  1.0648695020435750e+006  1.0450589617751541e+006
+   5  1.3292971285393828e-003  6.7993110117015075e-003  7.0315999999999990e-002  1.0634539740722394e+006  1.0576291231123051e+006
+   6  4.6549111237248654e-004  2.6633632611200784e-003  2.3522399999999999e-001  1.0629589456988915e+006  1.0606216098278032e+006
+   7  4.4882109595295475e-004  6.5505156658709042e-003  3.0312000000000002e-002  1.0624818672999300e+006  1.0559960164729133e+006
+   8  2.7541185982386611e-004  2.6841969338869463e-003  2.9180000000000001e-002  1.0621892471928278e+006  1.0596299567294130e+006
+   9  8.1456834216113262e-005  1.6019487465758163e-003  1.5942000000000001e-001  1.0621027246194130e+006  1.0604876744596609e+006
+  10  5.8567350487715223e-005  4.9877665428865728e-003  2.4988000000000000e-002  1.0621649291619398e+006  1.0568052041844476e+006
+  11  1.2715576326578890e-004  1.5485280724002600e-003  1.7079999999999998e-002  1.0620298687696580e+006  1.0605201369516135e+006
+  12  5.7897115040767709e-005  1.2247164771976948e-003  1.2583200000000000e-001  1.0619683803041691e+006  1.0607291832900997e+006
+  13  8.5617498824271836e-005  3.9505458994384931e-003  1.9867999999999997e-002  1.0620593033807212e+006  1.0577730254740252e+006
+  14  9.8209728129710044e-005  1.2309014421927776e-003  1.3672000000000000e-002  1.0619549988252786e+006  1.0607520130524957e+006
+  15  4.8101327225474641e-005  9.9860371078784658e-004  1.0457200000000000e-001  1.0619039173803814e+006  1.0608945266227620e+006
+  16  1.6360513183160904e-004  3.3687592141484653e-003  1.5311999999999999e-002  1.0617301844499859e+006  1.0583266187741659e+006
+  17  8.9603302803577814e-005  1.1385480143840802e-003  1.2699999999999999e-002  1.0616350499187729e+006  1.0605213536566687e+006
+  18  1.7879528719483748e-005  8.4223074076623765e-004  8.9588000000000001e-002  1.0616160683844083e+006  1.0607409082442564e+006
+  19  5.8868880691906581e-005  2.9814329395401297e-003  1.4592000000000001e-002  1.0616785645340786e+006  1.0584509312689819e+006
+  20  6.4474572272377848e-005  8.6487243730804192e-004  9.6800000000000011e-003  1.0616101132627395e+006  1.0607603480063323e+006
+  21  2.0888844810019443e-005  7.4875838267520281e-004  8.0020000000000008e-002  1.0615879374538348e+006  1.0608152237913013e+006
+  22  9.0873182684559424e-005  2.6677668205580774e-003  1.3504000000000002e-002  1.0616844073284108e+006  1.0587558683771908e+006
+  23  5.4174683969491728e-005  7.3227349012624078e-004  8.2160000000000011e-003  1.0616268909111684e+006  1.0609069639820438e+006
+  24  2.5146381889630609e-005  6.7454709062205181e-004  7.2319999999999995e-002  1.0616001948359453e+006  1.0609107735805782e+006
+  25  9.6893652668879359e-005  2.3979662099136404e-003  1.0924000000000000e-002  1.0614973325153936e+006  1.0590545134402909e+006
+  26  5.7898996091839749e-005  7.6944252058879338e-004  8.6440000000000006e-003  1.0614358728854868e+006  1.0606805713322647e+006
+  27  1.2791918833839016e-005  6.0382496403819127e-004  6.5180000000000002e-002  1.0614222950839535e+006  1.0607949514077129e+006
+  28  8.5285699225850513e-005  2.2051955909514849e-003  1.1183999999999999e-002  1.0615128192265637e+006  1.0590816513186968e+006
+  29  4.2482792880321441e-005  5.8619622825619615e-004  6.5960000000000003e-003  1.0614677231973247e+006  1.0608905644156875e+006
+  30  1.7221927383804502e-005  5.5934673272749213e-004  6.0424000000000005e-002  1.0614494426772755e+006  1.0608739946944586e+006
+
+
+Variable Values at end of Iteration 30 I loop:
+
+	BALANCE    :   1      
+	VDT        :  45.82187
+	VHT        :   0.34418
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    AssignedPage 35  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+    ---    --------        ----    --------    --------
+      1  161,664.07          --   14,868.45  146,795.62
+ICP PGM=HIGHWAY (v.09/23/2016 [6.4.2 x64]) DATE=Thu Sep 21 09:55:14 2017
+ID=PAR Zones=45 Screenlines=39 HighSL=39 Values=0                   
+Estmo_done: temp file size 28097 
+
+Estmo_done: input file M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\output\ICP_B19.ICP.0 file size 112406 
+
+Estmo_done: total temp files size 112406 
+
+
+M(752): ICP file 1, 3,148 ESTMICPO SL-I-J records processed.
+
+Phase                    Seconds       Count
+-
+LinkInput                     --           1
+PathBlding                    --       1,350
+Tracing(untimed)              --      28,980
+VOL Loading                   --      13,560
+Adjusting                   1.00          30
+Estm Saving                31.00       1,380
+Estm Processing               --           1
+-ICPs to temp file            --           1
+-temp file to ICP             --           1
+
+HIGHWAY  ReturnCode = 1  Elapsed Time = 00:00:34
+################################################################################

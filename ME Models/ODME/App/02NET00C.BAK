@@ -1,0 +1,65 @@
+ 
+NETWORK (v.08/05/2014 [6.1.1])  Tue Aug 29 10:03:41 2017
+
+FILEO NETO = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\output\Loaded Network 16.NET"
+FILEO PRINTO[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\POST_ME_B19.CSV"
+FILEI LINKI[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\output\FINAL_HWYLOAD_AM_B19_16.NET"
+
+  ;Print Header
+  _Cnt=_Cnt+1
+
+  IF (_CNT=1)
+    PRINT CSV=T LIST='A,B,SCREENLINE,COUNT,ESTVOL,V/C' PRINTO=1
+  ENDIF
+
+  IF (li.1.CNT_2020>0)
+    VC=V_1/CNT_2020
+    ** ***
+F(161): V_1 is unrecognized variable name
+F(048): VC missing valid expression.
+
+  ENDIF
+
+  IF (li.1.CNT_2020>0)
+    PRINT CSV=T LIST=A,B,LOC,CNT_2020,V_1(10.0),VC,PRINTO=1
+  ENDIF
+
+
+NETWORK Stack Size = 878 bytes.
+................................................................................
+
+
+
+
+M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\output\FINAL_HWYLOAD_AM_B19_16.NET   (VOYAGER):
+
+NET PGM=HIGHWAY (v.08/05/2014 [6.1.1]) DATE=Tue Aug 29 10:03:41 2017
+ID= 
+PAR Zones=45 Nodes=323 Links=262 NodeRecs=256 
+NVR 7    N    X    Y    _TOLL_ACC    _TOLL_DEC    SUB_TYPE    OLD_NODE
+LVR 126    A    B    CNT_1    CNT_2    CNT_3    CNT_4    CNT_5    CNT_6
+    CNT_7    CNT_8    CNT_9    CNT_10    CNT_11    CNT_12    CNT_13    CNT_14
+    CNT_15    CNT_16    CNT_17    CNT_18    CNT_19    CNT_20    CNT_21
+    CNT_22    CNT_23    CNT_24    LOC_CHECK    CNT_2020    CNT_2040
+    DIR_SB_NB    OBJECTID    LINK_ID    DISTANCE    DISTANCEFT    DISTANCEMI
+    TIME    TIME2    CAPACITY    AREA_TYPE    FACL_TYPE    SCREENLINE
+    NUM_LANES    USER    TOLL    DIRCODE    ZONE    CONSTRUCTN    LANDUSE
+    LOCATION    USECODE    CORRIDOR    C_SEGMENT    COSITE=9    PSWADT
+    DIR_COUNT    SL_TAG=2    CCC    EVAC    LINK_ID2=10    SPD_LNK    SPD_LNK2
+    SHAPE_LENG    SITE1DIR=10    TWOWAY    TOLLTYPE    PLAZADESC=34
+    PLZALNSMIN    PLZALNSMAX    CARTOLL    SVCMINUTES    SVCSECONDS
+    DECELCODE    ACCELCODE    EXCTCHGLNS    AVILANES    PCTTRUCKS    COUNTY=1
+    YEAR=1    PERIOD    AUTO_PCT    LT_PCT    HT_PCT    TRK_PCT    PD_VOL_PCT
+    AUTO    LT_TRK    HY_TRK    PDDIR_CNT    PDDIR_SPL    DLDIR_SPLPage 17  (VOYAGER NETWORK) 
+Florida Department of Transportation
+------------------------------------
+    DLTRK_PCT    DLTRK_SPL    TRK_AADT    TRK_PSWADT    DLTRK_DIR    CAP_ORIG
+    SPEED    UROADFACTOR    CONFAC    BPRCOEFFICIENT    BPREXPONENT
+    CONFACAMP    CONFACPMP    CONFACMDP    CONFACEVP    TOLLCOST    LINKCOST
+    TOTALCOST    DELAY    TRKCOST    TOLL_ACC    TOLL_DEC    LINKFLG    FTYPE
+    ROAD_NAME=13    LOC    AADT    V_25    TIME_25    VC_25    CSPD_25
+    VDT_25    VHT_25    V1_25    VT_25    V1T_25
+
+
+NETWORK  ReturnCode = 2  Elapsed Time = 00:00:01
+################################################################################

@@ -1,0 +1,117 @@
+---
+title: "ODME_Assignment_Review"
+author: "Amar Sarvepalli"
+date: "July 18, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE, echo = TRUE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+
+# Location of network counts and volumes
+path <- "C:\\projects\\Veterans_ExpressWay\\ODME\\Review"
+
+loaded_network_2020 <- "odme_loaded\\2020_ODME_loaded.dbf"
+loaded_network_2040 <- "odme_loaded\\2040_ODME_loaded.dbf"
+
+```
+
+
+```{r libraries, message=FALSE, warning=FALSE, echo = FALSE}
+
+# load libraries
+library(foreign)
+library(dplyr)
+library(tidyr)
+library(leaflet)
+library(rgdal)
+library(maptools)
+library(ggplot2)
+library(plotly)
+```
+
+
+```{r Read DBF files, message=FALSE, warning=FALSE}
+setwd(path)
+
+loaded_2020 <- read.dbf(paste0(path,"\\",loaded_network_2020))
+loaded_2040 <- read.dbf(paste0(path,"\\",loaded_network_2040))
+
+# ToDO rename V_1 as estimated volume for corresponding year
+count_links_2020 <- loaded_2020 %>% filter(CNT_2020 > 0 ) %>% 
+               select(A, B, NUM_LANES, SPEED, CAPACITY, 
+                       FTYPE, LOC, count = CNT_2020,  volume = V_1) 
+
+count_links_2040 <- loaded_2040 %>% filter(CNT_2040 > 0 ) %>% 
+  select(A, B, NUM_LANES, SPEED, CAPACITY, 
+         FTYPE, LOC, count = CNT_2040,  volume = V_1) 
+
+```
+
+
+
+```{r Compute Stats & Plot, echo=FALSE, message=FALSE, warning=FALSE}
+
+# Plot ODME Stats
+for(f in 1:2){
+  
+  ifelse(f==1, count_links <- count_links_2020, count_links <- count_links_2040)
+  
+  # fix FTYPE code on one of the main line
+  count_links$FTYPE[count_links$FTYPE == 0] <- 71
+  count_links$FTYPE <- as.factor(count_links$FTYPE)
+  
+  
+  # Function to plot
+  p <- qplot(count, volume, data = count_links, colour = FTYPE)
+  p <- ggplotly(p)
+  
+  q <- ggplot(data = count_links, aes(x = count, y = volume)) +
+    geom_point(aes(text = paste("Location:", LOC)), size = .5) +
+    geom_smooth(aes(colour = FTYPE, fill = FTYPE, method = "lm", level = 0.9)) #+ facet_wrap(~ FTYPE)
+  p <- ggplotly(q)
+  
+  # Compute R-Squared and %RMSE
+  Compute_PRMSE_RSq <- function(x,y){
+    reg = lm(y ~ x)
+    R2 = summary(reg)$r.squared
+    rmse = sqrt(mean(reg$residuals^2))
+    prmse = rmse * (100 * length(x) / sum(x))
+    return(list("R2" = R2, fitted = reg$fitted.values, "prmse" = prmse))  
+  }
+  
+  # Add R-Squared
+  x = count_links$count
+  y = count_links$volume
+  stats <- Compute_PRMSE_RSq(x,y)
+  y2 = stats$fitted
+  
+  r <- p %>%
+    add_trace(x = x , y = stats$fitted, 
+              type = "scatter", mode = "lines", 
+              line = list(dash = "dashed")) %>%
+    layout (title = "Counts to Volume", 
+            xaxis = list(title = "Counts"), 
+            yaxis = list(title = "Est. Volume"),
+            annotations = list(x = mean(x), y = max(y), showarrow = F,
+                               text = paste0("R-Squared = ",round(stats$R2,4), "\n",
+                                             "%RMSE = ", round(stats$prmse,2))),
+            height = 500, width = 500)
+  
+  # plots by model years
+  ifelse(f==1, odme_plot_2020 <- r, odme_plot_2040 <- r)
+  
+}
+
+
+# Save plots as R objects
+saveRDS(odme_plot_2020, (paste0(path,"\\plot_odme_2020.rds")))
+saveRDS(odme_plot_2040, (paste0(path,"\\plot_odme_2040.rds")))
+        
+```
+
+

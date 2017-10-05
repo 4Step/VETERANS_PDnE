@@ -1,0 +1,130 @@
+Page 1  (VOYAGER PILOT) Model Run
+Florida Department of Transportation
+------------------------------------
+PILOT (v.08/05/2014 [6.1.1]) Mon Jul 31 08:32:01 2017
+
+Args: M:\Projects\Veterans ELToDv2.3 2017-0628\Scripts\Cube_Analyst\ODME\Review\odme_loaded\Export_Net_to_CSV.000 -SM:\Projects\Veterans ELToDv2.3 2017-0628\Scripts\Cube_Analyst\ODME\Review\odme_loaded -Pelto -PH:58 -PW:80 -IModel Run
+Input:   M:...s\Cube_Analyst\ODME\Review\odme_loaded\Export_Net_to_CSV.000
+
+RUN PGM=NETWORK,0
+
+PILOT Stack Size = 42 bytes.
+................................................................................
+Page 2  (VOYAGER NETWORK) Model Run
+Florida Department of Transportation
+------------------------------------
+NETWORK (v.08/05/2014 [6.1.1])  Mon Jul 31 08:32:02 2017
+
+
+FILEI LINKI[1] = "LOADED_DY.net"
+FILEO NETO = "ODME_VOLUMES.net"
+FILEO PRINTO[1] = "ODME_VOLUMES.csv"
+;ELTODV3 SCRIPT
+;if two distributions are used, the dir1-4 need to be defined for each of the four directional distributions after establishing the output link lists
+;dir1 should be distribution 1 WB,SB for one subnet, dir2 is distribution 1 for EB,NB for same subnet then the dir3&4 for the other subnet
+;once the two sub networks have their own link lists, they should be combined and dir1-4 columns defined according to the distribution defintions.
+;see SW10th notes on details for application
+ PHASE=LINKMERGE
+
+ IF (li.1.LOC > 0)
+
+     IF (li.1.FTYPE=91)
+      GL_VOL = DY_TOT
+     ENDIF
+
+     IF (li.1.FTYPE=96)  ; Express Lanes
+       EL_VOL = DY_TOT
+     ENDIF
+
+     _Cnt=_Cnt+1
+
+    IF (_CNT=1)
+      PRINT CSV=T LIST='  A,  B,  LOC, FTYPE, GL_VOL, EL_VOL' PRINTO=1
+    ENDIF
+
+    PRINT CSV=T LIST=a, b, LOC,  FTYPE, GL_VOL,  EL_VOL, PRINTO=1
+
+    ENDIF
+
+ENDIF
+*****
+F(078): Misplaced IF logic
+
+
+ENDPHASE
+
+
+NETWORK Stack Size = 956 bytes.
+................................................................................
+
+
+
+
+LOADED_DY.net   (VOYAGER):
+
+NET PGM=NETWORK (v.08/05/2014 [6.1.1]) DATE=Fri Jul 28 11:08:35 2017
+ID= 
+PAR Zones=45 Nodes=323 Links=322 NodeRecs=256 
+NVR 7    N    X    Y    _TOLL_ACC    _TOLL_DEC    SUB_TYPE    OLD_NODE
+LVR 312    A    B    DIR1    DIR2    DIR3    DIR4    FTYPE    TOLLSEGNUMPage 3  (VOYAGER NETWORK) Model Run
+Florida Department of Transportation
+------------------------------------
+    TOLLSEGLEN    MINSEGTOLL    DISTANCE    SPEED    NUM_LANES    CAPACITY
+    OBJECTID    LINK_ID    DISTANCEFT    DISTANCEMI    TIME    AREA_TYPE
+    FACL_TYPE    SCREENLINE    ZONE    CONSTRUCTN    LANDUSE    LOCATION
+    USECODE    CORRIDOR    C_SEGMENT    COSITE=009    AADT    PSWADT
+    DIR_COUNT    SL_TAG=002    CCC    EVAC    LINK_ID2=010    SPD_LNK
+    SPD_LNK2    SHAPE_LENG    SITE1DIR=010    TOLLTYPE    PLAZADESC=034
+    PLZALNSMIN    PLZALNSMAX    CARTOLL    SVCMINUTES    SVCSECONDS
+    DECELCODE    ACCELCODE    EXCTCHGLNS    AVILANES    PCTTRUCKS    COUNTY=001
+    YEAR=001    PERIOD    AUTO_PCT    LT_PCT    HT_PCT    TRK_PCT    PD_VOL_PCT
+    AUTO    LT_TRK    HY_TRK    PDDIR_CNT    PDDIR_SPL    DLDIR_SPL
+    DLTRK_PCT    DLTRK_SPL    TRK_AADT    TRK_PSWADT    DLTRK_DIR    CAP_ORIG
+    UROADFACTOR    CONFAC    BPRCOEFFICIENT    BPREXPONENT    CONFACAMP
+    CONFACPMP    CONFACMDP    CONFACEVP    TOLLCOST    LINKCOST    TOTALCOST
+    DELAY    TRKCOST    TOLL_ACC    TOLL_DEC    LINKFLG    ROAD_NAME=013    LOC
+    LOC_CHECK    CNT_2020    CNT_2040    TOLLLINK    PULLLINK    VOL_PULL
+    TL_DIST    LW_TIMEWEIGHT_1    LW_TWGT_1LANE_1    V_HR1_SOV    V_HR1_HOV
+    V_HR1_TRK    V_HR2_SOV    V_HR2_HOV    V_HR2_TRK    V_HR3_SOV    V_HR3_HOV
+    V_HR3_TRK    V_HR4_SOV    V_HR4_HOV    V_HR4_TRK    V_HR5_SOV    V_HR5_HOV
+    V_HR5_TRK    V_HR6_SOV    V_HR6_HOV    V_HR6_TRK    V_HR7_SOV    V_HR7_HOV
+    V_HR7_TRK    V_HR1_TOT    V_HR2_TOT    V_HR3_TOT    V_HR4_TOT    V_HR5_TOT
+    V_HR6_TOT    V_HR7_TOT    VC_HR1    VC_HR2    VC_HR3    VC_HR4    VC_HR5
+    VC_HR6    VC_HR7    TOLL_HR1    TOLL_HR2    TOLL_HR3    TOLL_HR4
+    TOLL_HR5    TOLL_HR6    TOLL_HR7    CSPD_HR1    CSPD_HR2    CSPD_HR3
+    CSPD_HR4    CSPD_HR5    CSPD_HR6    CSPD_HR7    TIME_HR1    TIME_HR2
+    TIME_HR3    TIME_HR4    TIME_HR5    TIME_HR6    TIME_HR7    V_HR20_SOV
+    V_HR20_HOV    V_HR20_TRK    V_HR21_SOV    V_HR21_HOV    V_HR21_TRK
+    V_HR22_SOV    V_HR22_HOV    V_HR22_TRK    V_HR23_SOV    V_HR23_HOV
+    V_HR23_TRK    V_HR24_SOV    V_HR24_HOV    V_HR24_TRK    V_HR20_TOT
+    V_HR21_TOT    V_HR22_TOT    V_HR23_TOT    V_HR24_TOT    VC_HR20    VC_HR21
+    VC_HR22    VC_HR23    VC_HR24    TOLL_HR20    TOLL_HR21    TOLL_HR22
+    TOLL_HR23    TOLL_HR24    CSPD_HR20    CSPD_HR21    CSPD_HR22    CSPD_HR23
+    CSPD_HR24    TIME_HR20    TIME_HR21    TIME_HR22    TIME_HR23    TIME_HR24
+    NT_SOV    NT_HOV    NT_TRK    NT_TOT    V_HR11_SOV    V_HR11_HOV
+    V_HR11_TRK    V_HR12_SOV    V_HR12_HOV    V_HR12_TRK    V_HR13_SOV
+    V_HR13_HOV    V_HR13_TRK    V_HR14_SOV    V_HR14_HOV    V_HR14_TRK
+    V_HR15_SOV    V_HR15_HOV    V_HR15_TRK    V_HR16_SOV    V_HR16_HOV
+    V_HR16_TRK    V_HR11_TOT    V_HR12_TOT    V_HR13_TOT    V_HR14_TOT
+    V_HR15_TOT    V_HR16_TOT    MD_SOV    MD_HOV    MD_TRK    MD_TOT    VC_HR11
+    VC_HR12    VC_HR13    VC_HR14    VC_HR15    VC_HR16    TOLL_HR11
+    TOLL_HR12    TOLL_HR13    TOLL_HR14    TOLL_HR15    TOLL_HR16    CSPD_HR11
+    CSPD_HR12    CSPD_HR13    CSPD_HR14    CSPD_HR15    CSPD_HR16    TIME_HR11
+    TIME_HR12    TIME_HR13    TIME_HR14    TIME_HR15    TIME_HR16    V_HR17_SOV
+    V_HR17_HOV    V_HR17_TRK    V_HR18_SOV    V_HR18_HOV    V_HR18_TRK
+    V_HR19_SOV    V_HR19_HOV    V_HR19_TRK    V_HR17_TOT    V_HR18_TOT
+    V_HR19_TOT    PM_SOV    PM_HOV    PM_TRK    PM_TOT    VC_HR17    VC_HR18
+    VC_HR19    TOLL_HR17    TOLL_HR18    TOLL_HR19    CSPD_HR17    CSPD_HR18
+    CSPD_HR19    TIME_HR17    TIME_HR18    TIME_HR19    V_HR8_SOV    V_HR8_HOV
+    V_HR8_TRK    V_HR9_SOV    V_HR9_HOV    V_HR9_TRK    V_HR10_SOV
+    V_HR10_HOV    V_HR10_TRK    V_HR8_TOT    V_HR9_TOT    V_HR10_TOT    AM_SOV
+    AM_HOV    AM_TRK    AM_TOT    VC_HR8    VC_HR9    VC_HR10    TOLL_HR8
+    TOLL_HR9    TOLL_HR10    CSPD_HR8    CSPD_HR9    CSPD_HR10    TIME_HR8
+    TIME_HR9    TIME_HR10    DY_SOV    DY_HOV    DY_TRK    DY_TOT
+
+
+NETWORK  ReturnCode = 2  Elapsed Time = 00:00:00
+################################################################################
+
+
+VOYAGER  ReturnCode = 2  Elapsed Time = 00:00:01

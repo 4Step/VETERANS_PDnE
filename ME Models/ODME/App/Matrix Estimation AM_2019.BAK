@@ -1,0 +1,310 @@
+Page 1  (VOYAGER PILOT) 
+Florida Department of Transportation
+------------------------------------
+PILOT (v.08/05/2014 [6.1.1]) Fri Aug 25 08:21:35 2017
+
+Args: C:\Users\KN815vs\AppData\Local\Temp\CitC77D.tmp -SM:\PROJECTS\VETERANS ELTODV2.3 2017-0628_PDNE\SCRIPTS\CUBE_ANALYST\ODME\APP\ -RM:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\App\Matrix Estimation AM_2019.PRN -PH:58 -PW:80 -I -P"Matr"
+Input:   C:\Users\KN815vs\AppData\Local\Temp\CitC77D.tmp
+
+RUN PGM=MATRIX,287
+RUN PGM=NETWORK,1355 MSG='Add Dir to NET'
+SYS=(Del "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\SUMMARY_B19.DAT")
+LOOP HR = 1, 24, 1
+  LOOP LOOPID = 1, 100, 1
+    IF (LOOPID=1)
+SYS=(Copy "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\TBRPM_Subarea_OD.MAT" "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Seed_ODFlows_B19.MAT")
+    ELSE
+SYS=(Copy "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\MAT_LOOP_B19.MAT" "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Seed_ODFlows_B19.MAT")
+    ENDIF
+RUN PGM=NETWORK,2939 PRNFILE="M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\App\02NET00A.PRN" MSG='Remove EL Links'
+RUN PGM=HIGHWAY,3822 PRNFILE="M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\App\02HWY00A.PRN"
+RUN PGM=MATRIX,15116 PRNFILE="M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\App\02MAT00A.PRN" MSG='Set Up OD Matrix with Confidence'
+RUN PGM='ANALYST_DRIVE',16031, CTLFILE="M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\App\02EST00A.CTL"
+RUN PGM=MATRIX,16453 PRNFILE="M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\App\02MAT00B.PRN" MSG='Develop input matrix for Assignment'
+RUN PGM=NETWORK,17573 PRNFILE="M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\App\02NET00B.PRN" MSG='Compute Validation Summaries'
+  ENDLOOP
+RUN PGM=HIGHWAY,23036 PRNFILE="M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\App\02HWY00B.PRN" MSG='Post ME Run AM Peak Period Hwy Assignment'
+RUN PGM=NETWORK,33162 PRNFILE="M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\App\02NET00C.PRN" MSG='Profile Summary'
+RUN PGM=MATRIX,34275
+ENDLOOP
+
+PILOT Stack Size = 2640 bytes.
+................................................................................
+Page 2  (VOYAGER MATRIX) 
+Florida Department of Transportation
+------------------------------------
+MATRIX (v.08/05/2014 [6.1.1])  Fri Aug 25 08:21:36 2017
+
+FILEI MATI[4] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\Subarea_D6HWY80A_PMPK.MAT"
+FILEI MATI[3] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\Subarea_D6HWY80A_MDOP.MAT"
+FILEI MATI[2] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\Subarea_D6HWY80A_EVOP.MAT"
+FILEI MATI[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\Subarea_D6HWY80A_AMPK.MAT"
+FILEO MATO[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\TBRPM_Subarea_OD.MAT",
+ MO = 1, NAME = TOTAL
+
+MW[1] = (Mi.1.1 + Mi.2.1 + Mi.3.1 + Mi.4.1) * 0.05
+
+
+MATRIX Stack Size = 878 bytes.
+................................................................................
+
+
+MATI[4] TPP M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\Subarea_D6HWY80A_PMPK.MAT Opened
+MAT PGM=HIGHWAY DATE=Mon Jul 17 11:00:36 2017 
+ID=
+PAR Zones=45 M=1
+  TOTAL
+
+MATI[3] TPP M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\Subarea_D6HWY80A_MDOP.MAT Opened
+MAT PGM=HIGHWAY DATE=Mon Jul 17 07:28:15 2017 
+ID=
+PAR Zones=45 M=1
+  TOTAL
+
+MATI[2] TPP M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\Subarea_D6HWY80A_EVOP.MAT Opened
+MAT PGM=HIGHWAY DATE=Mon Jul 17 13:11:29 2017 
+ID=
+PAR Zones=45 M=1
+  TOTAL
+
+MATI[1] TPP M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\Subarea_D6HWY80A_AMPK.MAT Opened
+MAT PGM=HIGHWAY DATE=Fri Jul 14 11:10:22 2017 
+ID=
+PAR Zones=45 M=1
+  TOTALPage 3  (VOYAGER MATRIX) 
+Florida Department of Transportation
+------------------------------------
+
+Totals after Iteration 1 I loop:
+
+	MI.04.001: 157,803.48     @J=I:      76.6   
+	MI.03.001: 262,888.47     @J=I:      61.84  
+	MI.02.001: 165,339.81     @J=I:      48.57  
+	MI.01.001: 106,355.66     @J=I:      36.06  
+	MW[1]    :  34,619.371    @J=I:      11.1535
+	MO.01.001:  34,619.52  
+
+MATRIX   ReturnCode = 0  Elapsed Time = 00:00:00
+################################################################################
+Page 4  (VOYAGER NETWORK) 
+Florida Department of Transportation
+------------------------------------
+NETWORK (v.08/05/2014 [6.1.1])  Fri Aug 25 08:21:36 2017
+
+FILEO NETO = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\User_Defined_SA_ver3.net"
+FILEI LINKI[2] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\Profile_Counts_Dir.dbf"
+FILEI LINKI[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\User_Defined_SA_ver3.net"
+
+
+NETWORK Stack Size = 306 bytes.
+................................................................................
+
+
+
+
+M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\User_Defined_SA_ver3.net   (VOYAGER):
+
+NET PGM=CUBE   DATE=Fri Aug 25 08:09:49 2017
+ID=Model Run
+PAR Zones=45    Nodes=323   Links=322    NodeRecs=256  
+NVR 7    N    X    Y    _TOLL_ACC    _TOLL_DEC    SUB_TYPE    OLD_NODE
+LVR 92    A    B    OBJECTID    LINK_ID    DISTANCE    DISTANCEFT
+    DISTANCEMI    TIME    TIME2    CAPACITY    AREA_TYPE    FACL_TYPE
+    SCREENLINE    NUM_LANES    USER    TOLL    DIRCODE    ZONE    CONSTRUCTN
+    LANDUSE    LOCATION    USECODE    CORRIDOR    C_SEGMENT    COSITE=9
+    PSWADT    DIR_COUNT    SL_TAG=2    CCC    EVAC    LINK_ID2=10    SPD_LNK
+    SPD_LNK2    SHAPE_LENG    SITE1DIR=10    TWOWAY    TOLLTYPE    PLAZADESC=34
+    PLZALNSMIN    PLZALNSMAX    CARTOLL    SVCMINUTES    SVCSECONDS
+    DECELCODE    ACCELCODE    EXCTCHGLNS    AVILANES    PCTTRUCKS    COUNTY=1
+    YEAR=1    PERIOD    AUTO_PCT    LT_PCT    HT_PCT    TRK_PCT    PD_VOL_PCT
+    AUTO    LT_TRK    HY_TRK    PDDIR_CNT    PDDIR_SPL    DLDIR_SPL
+    DLTRK_PCT    DLTRK_SPL    TRK_AADT    TRK_PSWADT    DLTRK_DIR    CAP_ORIG
+    SPEED    UROADFACTOR    CONFAC    BPRCOEFFICIENT    BPREXPONENT
+    CONFACAMP    CONFACPMP    CONFACMDP    CONFACEVP    TOLLCOST    LINKCOST
+    TOTALCOST    DELAY    TRKCOST    TOLL_ACC    TOLL_DEC    LINKFLG    FTYPE
+    ROAD_NAME=13    LOC    LOC_CHECK    CNT_2020    CNT_2040    AADT
+
+
+M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\Profile_Counts_Dir.dbf (DBF):
+A            B            LOC_CHECK    CNT_2020     CNT_2040     DIR_SB_NB    
+
+
+Begin PROCESS PHASE INPUT
+       48 records read from LINKI[2]: M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\Profile_Counts_Dir.dbf
+End   PROCESS PHASE INPUT
+
+
+Begin PROCESS PHASE NODEMERGE
+         256 records merged from NODEI[1]: M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\User_Defined_SA_ver3.net
+         256 data base records.Page 5  (VOYAGER NETWORK) 
+Florida Department of Transportation
+------------------------------------
+
+Variable  Obs<>0           Total           Ave           Min           Max           RMS  
+--------  ------           -----           ---           ---           ---           ---  
+N            256              --            --          3           323               --
+X            256  122,554,134.95    478,727.09    472,275.01    494,312.87    478,740.46
+Y            256  345,132,593.85  1,348,174.19  1,317,638.86  1,381,751.07  1,348,288.9 
+SUB_TYPE      70          174             2.49          2             3             2.54
+OLD_NODE     247    1,904,162         7,709.16         22         9,534         7,850.1 
+
+      Obs = 0:  _TOLL_ACC  _TOLL_DEC
+
+_Variables with values:
+
+_ZONES               45      
+
+End   PROCESS PHASE NODEMERGE
+
+
+Begin PROCESS PHASE LINKMERGE
+         322 records merged from NETI[1]: M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\User_Defined_SA_ver3.net
+          48 records merged from NETI[2]: L2.115392
+         322 data base records.Page 6  (VOYAGER NETWORK) 
+Florida Department of Transportation
+------------------------------------
+
+Variable        Obs<>0               Total             Ave           Min             Max             RMS  
+--------        ------               -----             ---           ---             ---             ---  
+A                  322                  --              --          3             323                 --
+B                  322                  --              --          3             323                 --
+LOC_CHECK           47            1,130              24.04          1              48              27.64
+CNT_2020            48          746,600          15,554.17      1,850          42,650          21,750.82
+CNT_2040            48        1,207,010          25,146.04      2,950          64,300          34,571.58
+DIR_SB_NB           48               72               1.5           1               2               1.58
+OBJECTID           322        3,873,967          12,030.95      1,077          17,990          12,983.42
+LINK_ID            322  239,311,377,953     743,203,037.12  2,207,931     917,707,218     762,404,498.14
+DISTANCE           322               91.71            0.28          0.01            1.16            0.36
+DISTANCEFT         322          507,880           1,577.27         53           7,249           1,966.88
+DISTANCEMI         322               96.19            0.3           0.01            1.37            0.37
+TIME               302              132.55            0.44          0.01            2.15            0.57
+TIME2              302              132.55            0.44          0.01            2.15            0.57
+CAPACITY           322          591,323.39        1,836.41        556.5        10,000           2,403.37
+AREA_TYPE          322           10,960              34.04         31              42              34.35
+FACL_TYPE          322           22,338              69.37         11              99              75.04
+SCREENLINE         322           31,226              96.98         16              99              97.8 
+NUM_LANES          322              649               2.02          1               5               2.25
+TOLL                20              754              37.7          21              64              40.94
+DIRCODE            322              483               1.5           1               2               1.58
+ZONE                35           37,396           1,068.46      1,012           1,093           1,068.73
+CONSTRUCTN          13               19               1.46          1               3               1.69
+LOCATION           322              322               1             1               1               1   
+CORRIDOR           171           18,923             110.66         14             521             148.45
+C_SEGMENT          170      188,830,905       1,110,770.03  1,014,002       1,521,003       1,115,193.8 
+COSITE             322                                      (FD_10522)  (X       )
+SL_TAG               8                                      (NS      )  (NS      )
+CCC                158              158               1             1               1               1   
+EVAC               161              661               4.11          1             101              17.83
+LINK_ID2           322                                      (00022079)  (09177072)
+SPD_LNK             74          337,485           4,560.61      3,262           5,660           4,624.91
+SHAPE_LENG         322          507,855.51        1,577.19         42.77        7,249.47        1,966.87
+SITE1DIR           322                                      (FD_10522)  (X2      )
+TWOWAY              82              164               2             2               2               2   
+TOLLTYPE            20               40               2             2               2               2   
+PLAZADESC           20                                      (VET NB A)  (VET SB W)
+PLZALNSMIN          20               38               1.9           1               4               2.12
+PLZALNSMAX          20               50               2.5           1               7               3.02
+CARTOLL             23               14.74            0.64          0.03            1.35            0.75
+SVCSECONDS          20               20               1             1               1               1   
+EXCTCHGLNS          14               28               2             2               2               2   
+AVILANES            20               34               1.7           1               2               1.76
+PCTTRUCKS           16                0.38            0.02          0.02            0.05            0.03
+CAP_ORIG           322          544,185           1,690.02        530          10,000           2,286.7 
+SPEED              322           14,373              44.64         16              65              46.86
+UROADFACTOR        322              236.8             0.74          0.7             1               0.74
+CONFAC             322               28.98            0.09          0.09            0.09            0.09
+BPRCOEFFICIENT     322               69.3             0.22          0.15            0.25            0.22
+BPREXPONENT        322            1,175               3.65          3.5             4               3.66
+CONFACAMP          322              145.58            0.45          0.45            0.45            0.45
+CONFACPMP          322              115.98            0.36          0.36            0.36            0.36Page 7  (VOYAGER NETWORK) 
+Florida Department of Transportation
+------------------------------------
+CONFACMDP          322               59.18            0.18          0.18            0.18            0.18
+CONFACEVP          322               78.09            0.24          0.24            0.24            0.24
+TOLLCOST            23               54.85            2.38          0.1             5.02            2.78
+LINKCOST           302              132.55            0.44          0.01            2.15            0.57
+TOTALCOST          322              187.4             0.58          0.01            5.02            0.93
+TRKCOST            322              155.28            0.48          0.01            2.15            0.63
+FTYPE              208           17,985              86.47         71              98              87.08
+ROAD_NAME            9                                      (Dale Mab)  (Wilsky B)
+LOC                 48            1,176              24.5           1              48              28.15
+
+      Obs = 0:  USER  LANDUSE  USECODE  PSWADT  DIR_COUNT  SPD_LNK2
+      Obs = 0:  SVCMINUTES  DECELCODE  ACCELCODE  COUNTY  YEAR  PERIOD
+      Obs = 0:  AUTO_PCT  LT_PCT  HT_PCT  TRK_PCT  PD_VOL_PCT  AUTO  LT_TRK
+      Obs = 0:  HY_TRK  PDDIR_CNT  PDDIR_SPL  DLDIR_SPL  DLTRK_PCT
+      Obs = 0:  DLTRK_SPL  TRK_AADT  TRK_PSWADT  DLTRK_DIR  DELAY  TOLL_ACC
+      Obs = 0:  TOLL_DEC  LINKFLG  AADT
+
+_Variables with values:
+
+_ZONES               45      
+
+End   PROCESS PHASE LINKMERGE
+
+M(664): Unconnected Zones:  1-2<->  7<->  8-9<-  10->  15<->  29-30<->  31<-  32-33->  34<-  35-37<->
+        38->  39-40<-  41->  42-43<-  44->  45<->
+
+FILEO NETO=M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\User_Defined_SA_ver3.net
+
+NET PGM=NETWORK (v.08/05/2014 [6.1.1]) DATE=Fri Aug 25 08:21:36 2017
+ID= 
+PAR Zones=45 Nodes=323 Links=322 NodeRecs=256 
+NVR 7    N    X    Y    _TOLL_ACC    _TOLL_DEC    SUB_TYPE    OLD_NODE
+LVR 93    A    B    LOC_CHECK    CNT_2020    CNT_2040    DIR_SB_NB
+    OBJECTID    LINK_ID    DISTANCE    DISTANCEFT    DISTANCEMI    TIME
+    TIME2    CAPACITY    AREA_TYPE    FACL_TYPE    SCREENLINE    NUM_LANES
+    USER    TOLL    DIRCODE    ZONE    CONSTRUCTN    LANDUSE    LOCATION
+    USECODE    CORRIDOR    C_SEGMENT    COSITE=009    PSWADT    DIR_COUNT
+    SL_TAG=002    CCC    EVAC    LINK_ID2=010    SPD_LNK    SPD_LNK2
+    SHAPE_LENG    SITE1DIR=010    TWOWAY    TOLLTYPE    PLAZADESC=034
+    PLZALNSMIN    PLZALNSMAX    CARTOLL    SVCMINUTES    SVCSECONDS
+    DECELCODE    ACCELCODE    EXCTCHGLNS    AVILANES    PCTTRUCKS    COUNTY=001
+    YEAR=001    PERIOD    AUTO_PCT    LT_PCT    HT_PCT    TRK_PCT    PD_VOL_PCT
+    AUTO    LT_TRK    HY_TRK    PDDIR_CNT    PDDIR_SPL    DLDIR_SPL
+    DLTRK_PCT    DLTRK_SPL    TRK_AADT    TRK_PSWADT    DLTRK_DIR    CAP_ORIG
+    SPEED    UROADFACTOR    CONFAC    BPRCOEFFICIENT    BPREXPONENT
+    CONFACAMP    CONFACPMP    CONFACMDP    CONFACEVP    TOLLCOST    LINKCOST
+    TOTALCOST    DELAY    TRKCOST    TOLL_ACC    TOLL_DEC    LINKFLG    FTYPE
+    ROAD_NAME=013    LOC    AADT
+
+
+NETWORK  ReturnCode = 0  Elapsed Time = 00:00:00
+################################################################################
+
+M(100): Del "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\SUMMARY_B19.DAT"
+M(100): OS reports: The system cannot find the file specified.
+
+--------------------------------------------------------------------------------
+
+SYS "Del "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\SUMMARY_B19.DAT""
+
+SYS ReturnCode = 0
+
+--------------------------------------------------------------------------------
+M(100): Copy "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\TBRPM_Subarea_OD.MAT" "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Seed_ODFlows_B19.MAT"
+
+M(635): Switching print to M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\App\02NET00A.PRN. 
+NETWORK (v.08/05/2014 [6.1.1])  Fri Aug 25 08:21:36 2017
+NETWORK  ReturnCode = 0  Elapsed Time = 00:00:00
+################################################################################
+
+
+M(635): Switching print to M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\App\02HWY00A.PRN. 
+HIGHWAY (v.08/05/2014 [6.1.1])  Fri Aug 25 08:21:36 2017
+HIGHWAY  ReturnCode = 1  Elapsed Time = 00:00:02
+################################################################################
+
+
+M(635): Switching print to M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\App\02MAT00A.PRN. 
+MATRIX (v.08/05/2014 [6.1.1])  Fri Aug 25 08:21:38 2017
+MATRIX   ReturnCode = 0  Elapsed Time = 00:00:00
+################################################################################
+
+M(628): Executing PGM=C:\Program Files\Citilabs\CubeVoyager\ANALYST_DRIVE.exe C:\Users\KN815vs\AppData\Local\Temp\Voy19956_53700.$$$.
+
+
+F(625): RUN ANALYST_DRIVE Return Code=24.
+
+
+VOYAGER  ReturnCode = 2  Elapsed Time = 00:00:04

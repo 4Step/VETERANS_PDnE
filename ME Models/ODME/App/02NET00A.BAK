@@ -1,0 +1,14 @@
+;;<<Default Template>><<NETWORK>><<Default>>;;
+; Do not change filenames or add or remove FILEI/FILEO statements using an editor. Use Cube/Application Manager.
+RUN PGM=NETWORK PRNFILE="C:\projects\Veterans_ExpressWay\ODME\App\02NET00A.PRN" MSG='Remove EL Links'
+FILEO NETO = "{SCENARIO_DIR}\Output\Subarea_{ALT}{YEAR}.net"
+FILEI LINKI[1] = "{SCENARIO_DIR}\Input\User_Defined_SA.NET"
+
+PROCESS PHASE=LINKMERGE  
+
+; Delete EL Links (along with ingress, egress to EL from GU)
+IF (LI.1.FTYPE == 96 || LI.1.FTYPE == 97 || LI.1.FTYPE == 98 ) DELETE
+
+ENDPROCESS
+
+ENDRUN

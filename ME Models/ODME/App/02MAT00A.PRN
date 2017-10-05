@@ -1,0 +1,61 @@
+ 
+MATRIX (v.09/23/2016 [6.4.2 x64])  Thu Sep 21 09:55:48 2017
+
+FILEO PRINTO[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\CarsTripEnds_B19.DAT"
+FILEO MATO[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\DemandAndConf_B19.MAT",
+   MO=1,2 NAME=TRIPS,CONF
+FILEI MATI[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Seed_ODFlows_B19.MAT"
+
+MW[1]=mi.1.1
+MW[2]=1 ; ADD KEY
+MW[3]=mi.1.1.t
+
+prod1=rowsum(1)
+attr1=rowsum(3)
+
+conf_p=50
+conf_a=50
+prod2=0
+prod3=0
+
+
+print list=i(10.0),prod1(10.2),prod2(10.0),prod3(10.0),attr1(10.2),conf_p(10.0),conf_a(10.0), printo=1
+;print form=10.0,list=i,prod,attr,conf_p,conf_a printo=1
+
+
+MATRIX Stack Size = 1166 bytes.
+................................................................................
+
+
+MATI[1] TPP M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Seed_ODFlows_B19.MAT Opened
+MAT PGM=MATRIX (v.09/23/2016 [6.4.2 x64])  DATE=Thu Sep 21 09:55:13 2017 
+ID=
+PAR Zones=45 M=1
+  TOTAL
+
+Totals from Transpose:
+
+	MI.01.001.T: 173,097
+
+M(660): Transpose Disk Usage (bytes): Data=10,519, Index=360.Page 36  (VOYAGER MATRIX) 
+Florida Department of Transportation
+------------------------------------
+
+Totals after Iteration 1 I loop:
+
+	MI.01.001  : 173,097.49   @J=I:      55.77
+	MI.01.001.T: 173,097.49   @J=I:      55.77
+	MW[1]      : 173,097.49   @J=I:      55.77
+	MW[2]      :   2,025      @J=I:      45   
+	MW[3]      : 173,097.49   @J=I:      55.77
+	MO.01.001  : 173,097.49
+	MO.01.002  :   2,025   
+
+Variable Values at end of Iteration 1 I loop:
+
+    ATTR1 : 11,942
+    CONF_P:     50
+    CONF_A:     50
+
+MATRIX   ReturnCode = 0  Elapsed Time = 00:00:01
+################################################################################

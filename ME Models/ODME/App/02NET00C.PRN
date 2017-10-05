@@ -1,0 +1,235 @@
+ 
+NETWORK (v.09/23/2016 [6.4.2 x64])  Fri Sep 15 11:49:53 2017
+
+FILEO NETO = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\output\Loaded Network 2.NET"
+FILEO PRINTO[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\POST_ME_B19.CSV"
+FILEI LINKI[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\output\FINAL_HWYLOAD_AM_B19_2.NET"
+
+  ;Print Header
+  _Cnt=_Cnt+1
+
+  IF (_CNT=1)
+    PRINT CSV=T LIST='A,B,SCREENLINE,COUNT,ESTVOL,V/C' PRINTO=1
+  ENDIF
+
+  IF (li.1.CNT_2020>0)
+    VC=V_25/CNT_2020
+  ENDIF
+
+  IF (li.1.CNT_2020>0)
+    PRINT CSV=T LIST=A,B,LOC,CNT_2020,V_25(10.0),VC,PRINTO=1
+  ENDIF
+
+
+NETWORK Stack Size = 1100 bytes.
+................................................................................
+
+
+
+
+M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\output\FINAL_HWYLOAD_AM_B19_2.NET   (VOYAGER):
+
+NET PGM=HIGHWAY (v.09/23/2016 [6.4.2 x64]) DATE=Fri Sep 15 11:49:53 2017
+ID= 
+PAR Zones=45 Nodes=325 Links=268 NodeRecs=258 
+NVR 7    N    X    Y    _TOLL_ACC    _TOLL_DEC    SUB_TYPE    OLD_NODE
+LVR 125    A    B    CNT_1    CNT_2    CNT_3    CNT_4    CNT_5    CNT_6
+    CNT_7    CNT_8    CNT_9    CNT_10    CNT_11    CNT_12    CNT_13    CNT_14
+    CNT_15    CNT_16    CNT_17    CNT_18    CNT_19    CNT_20    CNT_21
+    CNT_22    CNT_23    CNT_24    CNT_2020    CNT_PER_1    CNT_PER_2
+    CNT_PER_3    OBJECTID    LINK_ID    DISTANCE    DISTANCEFT    DISTANCEMI
+    TIME    TIME2    CAPACITY    AREA_TYPE    FACL_TYPE    SCREENLINE
+    NUM_LANES    USER    TOLL    DIRCODE    ZONE    CONSTRUCTN    LANDUSE
+    LOCATION    USECODE    CORRIDOR    C_SEGMENT    COSITE=9    PSWADT
+    DIR_COUNT    SL_TAG=2    CCC    EVAC    LINK_ID2=10    SPD_LNK    SPD_LNK2
+    SHAPE_LENG    SITE1DIR=10    TWOWAY    TOLLTYPE    PLAZADESC=34
+    PLZALNSMIN    PLZALNSMAX    CARTOLL    SVCMINUTES    SVCSECONDS
+    DECELCODE    ACCELCODE    EXCTCHGLNS    AVILANES    PCTTRUCKS    COUNTY=1
+    YEAR=1    PERIOD    AUTO_PCT    LT_PCT    HT_PCT    TRK_PCT    PD_VOL_PCT
+    AUTO    LT_TRK    HY_TRK    PDDIR_CNT    PDDIR_SPL    DLDIR_SPL
+    DLTRK_PCT    DLTRK_SPL    TRK_AADT    TRK_PSWADT    DLTRK_DIR    CAP_ORIG
+    SPEED    UROADFACTOR    CONFAC    BPRCOEFFICIENT    BPREXPONENT
+    CONFACAMP    CONFACPMP    CONFACMDP    CONFACEVP    TOLLCOST    LINKCOST
+    TOTALCOST    DELAY    TRKCOST    TOLL_ACC    TOLL_DEC    LINKFLG    FTYPEPage 340  (VOYAGER NETWORK) 
+Florida Department of Transportation
+------------------------------------
+    ROAD_NAME=13    LOC    V_25    TIME_25    VC_25    CSPD_25    VDT_25
+    VHT_25    V1_25    VT_25    V1T_25
+
+
+
+Begin PROCESS PHASE NODEMERGE
+         258 records merged from NODEI[1]: M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\output\FINAL_HWYLOAD_AM_B19_2.NET
+         258 data base records.
+
+Variable  Obs<>0           Total           Ave           Min           Max           RMS  
+--------  ------           -----           ---           ---           ---           ---  
+N            258              --            --          3           325               --
+X            258  123,503,606.67    478,696.15    472,275.01    494,312.87    478,709.55
+Y            258  347,845,462.35  1,348,238.23  1,317,638.86  1,381,751.07  1,348,352.23
+SUB_TYPE      70          174             2.49          2             3             2.54
+OLD_NODE     247    1,904,162         7,709.16         22         9,534         7,850.1 
+
+      Obs = 0:  _TOLL_ACC  _TOLL_DEC
+
+_Variables with values:
+
+_ZONES               45      
+
+End   PROCESS PHASE NODEMERGE
+
+
+Begin PROCESS PHASE LINKMERGE
+         268 records merged from NETI[1]: M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\output\FINAL_HWYLOAD_AM_B19_2.NET
+         268 data base records.Page 341  (VOYAGER NETWORK) 
+Florida Department of Transportation
+------------------------------------
+
+Variable        Obs<>0               Total             Ave           Min             Max             RMS  
+--------        ------               -----             ---           ---             ---             ---  
+A                  268                  --              --          3             325                 --
+B                  268                  --              --          3             325                 --
+CNT_1               46            7,988             173.65         18             346             198.74
+CNT_2               46            4,466              97.09         12             179             106.65
+CNT_3               46            3,211              69.8          12             111              72.97
+CNT_4               46            4,210              91.52         16             145              95.59
+CNT_5               46            9,735             211.63         23             417             240.65
+CNT_6               46           31,800             691.3          48           1,538             852.61
+CNT_7               46           94,166           2,047.09        139           4,574           2,533.47
+CNT_8               46          118,293           2,571.59        223           5,441           3,057.87
+CNT_9               46          107,369           2,334.11        231           4,754           2,706.92
+CNT_10              46           85,097           1,849.93        242           3,386           2,026.18
+CNT_11              46           70,904           1,541.39        233           2,615           1,640.17
+CNT_12              46           68,256           1,483.83        255           2,321           1,546.79
+CNT_13              46           69,505           1,510.98        295           2,132           1,555.28
+CNT_14              46           71,067           1,544.93        306           2,157           1,589.34
+CNT_15              46           79,789           1,734.54        310           2,639           1,799.45
+CNT_16              46          100,498           2,184.74        307           3,863           2,358.87
+CNT_17              46          124,795           2,712.93        308           5,266           3,059.16
+CNT_18              46          124,788           2,712.78        314           5,226           3,046.38
+CNT_19              46          100,689           2,188.89        270           4,109           2,425.9 
+CNT_20              46           64,872           1,410.26        187           2,566           1,540.81
+CNT_21              46           45,230             983.26        123           1,838           1,087.45
+CNT_22              46           36,798             799.96        100           1,493             883.98
+CNT_23              46           26,004             565.3          68           1,074             630.37
+CNT_24              46           17,352             377.22         38             765             436.19
+CNT_2020            46        1,466,882          31,888.74      6,600          42,650          32,773.72
+CNT_PER_1           46          323,000           7,021.74      1,000          15,000           8,365.3 
+CNT_PER_2           46          351,000           7,630.43      1,000          14,000           8,499.36
+CNT_PER_3           46          792,882          17,236.57      3,600          24,650          17,754.73
+OBJECTID           268        2,903,510          10,833.99      1,077          17,990          11,763.35
+LINK_ID            268  190,150,188,762     709,515,629.71  2,207,931     917,707,218     728,534,139.17
+DISTANCE           268               73.55            0.27          0.01            1.44            0.36
+DISTANCEFT         268          392,241           1,463.59         53           7,249           1,837.83
+DISTANCEMI         268               74.28            0.28          0.01            1.37            0.35
+TIME               252              111.04            0.44          0.01            2.15            0.58
+TIME2              252              111.04            0.44          0.01            2.15            0.58
+CAPACITY           268          478,211.17        1,784.37        556.5        10,000           2,463.04
+AREA_TYPE          268            9,228              34.43         31              42              34.77
+FACL_TYPE          268           17,121              63.88         11              99              70.33
+SCREENLINE         268           26,206              97.78         16              99              98.28
+NUM_LANES          268              596               2.22          1               5               2.44
+TOLL                16              512              32            21              64              34.35
+DIRCODE            268              400               1.49          1               2               1.57
+ZONE                35           37,396           1,068.46      1,012           1,093           1,068.73
+CONSTRUCTN          13               19               1.46          1               3               1.69
+LOCATION           268              268               1             1               1               1   
+CORRIDOR           114           12,306             107.95         14             521             147.54
+C_SEGMENT          113      125,213,445       1,108,083.58  1,014,002       1,521,003       1,112,677.95
+COSITE             268                                      (FD_10605)  (X       )
+SL_TAG               4                                      (NS      )  (NS      )Page 342  (VOYAGER NETWORK) 
+Florida Department of Transportation
+------------------------------------
+CCC                102              102               1             1               1               1   
+EVAC               105              605               5.76          1             101              22.06
+LINK_ID2           268                                      (00022079)  (09177072)
+SPD_LNK             56          251,080           4,483.57      3,262           5,660           4,554.2 
+SHAPE_LENG         268          392,215.47        1,463.49         42.77        7,249.47        1,837.82
+SITE1DIR           268                                      (FD_10605)  (X2      )
+TWOWAY              88              176               2             2               2               2   
+TOLLTYPE            16               32               2             2               2               2   
+PLAZADESC           16                                      (VET NB A)  (VET SB W)
+PLZALNSMIN          16               34               2.13          1               4               2.32
+PLZALNSMAX          16               46               2.88          1               7               3.34
+CARTOLL             19                9.84            0.52          0.03            1.1             0.6 
+SVCSECONDS          16               16               1             1               1               1   
+EXCTCHGLNS          14               28               2             2               2               2   
+AVILANES            16               30               1.88          1               2               1.9 
+PCTTRUCKS           16                0.38            0.02          0.02            0.05            0.03
+CAP_ORIG           268          448,643           1,674.04        530          10,000           2,379.27
+SPEED              268           11,292              42.13         16              65              44.28
+UROADFACTOR        268              199.45            0.74          0.7             1               0.75
+CONFAC             268               24.12            0.09          0.09            0.09            0.09
+BPRCOEFFICIENT     268               55.65            0.21          0.15            0.25            0.21
+BPREXPONENT        268              985               3.68          3.5             4               3.68
+CONFACAMP          268              121.16            0.45          0.45            0.45            0.45
+CONFACPMP          268               96.53            0.36          0.36            0.36            0.36
+CONFACMDP          268               49.26            0.18          0.18            0.18            0.18
+CONFACEVP          268               64.99            0.24          0.24            0.24            0.24
+TOLLCOST            19               36.62            1.93          0.1             4.09            2.22
+LINKCOST           252              111.04            0.44          0.01            2.15            0.58
+TOTALCOST          268              147.66            0.55          0.01            4.09            0.82
+TRKCOST            268              128.34            0.48          0.01            2.15            0.63
+FTYPE              154           12,674              82.3          51              91              82.96
+ROAD_NAME           12                                      (Dale Mab)  (Wilsky B)
+LOC                 46            1,085              23.59          1              48              27.14
+V_25               259        1,230,633.22        4,751.48         20.26       20,923.32        6,134.79
+TIME_25            268              145.67            0.54          0.01            3.96            0.8 
+VC_25              259               38.61            0.15          0               0.63            0.19
+CSPD_25            268           11,663.62           43.52          0.31          384.26           53.83
+VDT_25             259          344,372.74        1,329.62          0.51       13,583.99        2,184.42
+VHT_25             259            9,547.33           36.86          0.05          725.48           74.43
+V1_25              259        1,230,633.22        4,751.48         20.26       20,923.32        6,134.79
+VT_25              260        1,524,804.11        5,864.63         23.56       20,923.32        7,269.43
+V1T_25             260        1,524,804.11        5,864.63         23.56       20,923.32        7,269.43
+VC                  44               11.26            0.26          0.06            0.61            0.29
+
+      Obs = 0:  USER  LANDUSE  USECODE  PSWADT  DIR_COUNT  SPD_LNK2
+      Obs = 0:  SVCMINUTES  DECELCODE  ACCELCODE  COUNTY  YEAR  PERIOD
+      Obs = 0:  AUTO_PCT  LT_PCT  HT_PCT  TRK_PCT  PD_VOL_PCT  AUTO  LT_TRK
+      Obs = 0:  HY_TRK  PDDIR_CNT  PDDIR_SPL  DLDIR_SPL  DLTRK_PCT
+      Obs = 0:  DLTRK_SPL  TRK_AADT  TRK_PSWADT  DLTRK_DIR  DELAY  TOLL_ACC
+      Obs = 0:  TOLL_DEC  LINKFLG
+Page 343  (VOYAGER NETWORK) 
+Florida Department of Transportation
+------------------------------------
+_Variables with values:
+
+_ZONES               45      
+_CNT                268      
+
+End   PROCESS PHASE LINKMERGE
+
+M(664): Unconnected Zones:  1-2<->  7<->  8-9<-  10->  15<->  29-30<->  31<-  32-33->  34<-  35-37<->
+        38->  39-40<-  41->  42-43<-  44->  45<->
+
+FILEO NETO=M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\output\Loaded Network 2.NET
+
+NET PGM=NETWORK (v.09/23/2016 [6.4.2 x64]) DATE=Fri Sep 15 11:49:53 2017
+ID= 
+PAR Zones=45 Nodes=325 Links=268 NodeRecs=258 
+NVR 7    N    X    Y    _TOLL_ACC    _TOLL_DEC    SUB_TYPE    OLD_NODE
+LVR 126    A    B    CNT_1    CNT_2    CNT_3    CNT_4    CNT_5    CNT_6
+    CNT_7    CNT_8    CNT_9    CNT_10    CNT_11    CNT_12    CNT_13    CNT_14
+    CNT_15    CNT_16    CNT_17    CNT_18    CNT_19    CNT_20    CNT_21
+    CNT_22    CNT_23    CNT_24    CNT_2020    CNT_PER_1    CNT_PER_2
+    CNT_PER_3    OBJECTID    LINK_ID    DISTANCE    DISTANCEFT    DISTANCEMI
+    TIME    TIME2    CAPACITY    AREA_TYPE    FACL_TYPE    SCREENLINE
+    NUM_LANES    USER    TOLL    DIRCODE    ZONE    CONSTRUCTN    LANDUSE
+    LOCATION    USECODE    CORRIDOR    C_SEGMENT    COSITE=009    PSWADT
+    DIR_COUNT    SL_TAG=002    CCC    EVAC    LINK_ID2=010    SPD_LNK
+    SPD_LNK2    SHAPE_LENG    SITE1DIR=010    TWOWAY    TOLLTYPE
+    PLAZADESC=034    PLZALNSMIN    PLZALNSMAX    CARTOLL    SVCMINUTES
+    SVCSECONDS    DECELCODE    ACCELCODE    EXCTCHGLNS    AVILANES    PCTTRUCKS
+    COUNTY=001    YEAR=001    PERIOD    AUTO_PCT    LT_PCT    HT_PCT    TRK_PCT
+    PD_VOL_PCT    AUTO    LT_TRK    HY_TRK    PDDIR_CNT    PDDIR_SPL
+    DLDIR_SPL    DLTRK_PCT    DLTRK_SPL    TRK_AADT    TRK_PSWADT    DLTRK_DIR
+    CAP_ORIG    SPEED    UROADFACTOR    CONFAC    BPRCOEFFICIENT    BPREXPONENT
+    CONFACAMP    CONFACPMP    CONFACMDP    CONFACEVP    TOLLCOST    LINKCOST
+    TOTALCOST    DELAY    TRKCOST    TOLL_ACC    TOLL_DEC    LINKFLG    FTYPE
+    ROAD_NAME=013    LOC    V_25    TIME_25    VC_25    CSPD_25    VDT_25
+    VHT_25    V1_25    VT_25    V1T_25    VC
+
+
+NETWORK  ReturnCode = 0  Elapsed Time = 00:00:00
+################################################################################

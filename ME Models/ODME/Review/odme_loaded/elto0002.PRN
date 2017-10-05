@@ -1,0 +1,481 @@
+Page 1  (VOYAGER PILOT) Model Run
+Florida Department of Transportation
+------------------------------------
+PILOT (v.08/05/2014 [6.1.1]) Mon Jul 31 08:32:17 2017
+
+Args: M:\Projects\Veterans ELToDv2.3 2017-0628\Scripts\Cube_Analyst\ODME\Review\odme_loaded\Export_Net_to_CSV.001 -SM:\Projects\Veterans ELToDv2.3 2017-0628\Scripts\Cube_Analyst\ODME\Review\odme_loaded -Pelto -PH:58 -PW:80 -IModel Run
+Input:   M:...s\Cube_Analyst\ODME\Review\odme_loaded\Export_Net_to_CSV.001
+
+RUN PGM=NETWORK,0
+
+PILOT Stack Size = 42 bytes.
+................................................................................
+Page 2  (VOYAGER NETWORK) Model Run
+Florida Department of Transportation
+------------------------------------
+NETWORK (v.08/05/2014 [6.1.1])  Mon Jul 31 08:32:17 2017
+
+
+FILEI LINKI[1] = "LOADED_DY.net"
+FILEO NETO = "ODME_VOLUMES.net"
+FILEO PRINTO[1] = "ODME_VOLUMES.csv"
+;ELTODV3 SCRIPT
+;if two distributions are used, the dir1-4 need to be defined for each of the four directional distributions after establishing the output link lists
+;dir1 should be distribution 1 WB,SB for one subnet, dir2 is distribution 1 for EB,NB for same subnet then the dir3&4 for the other subnet
+;once the two sub networks have their own link lists, they should be combined and dir1-4 columns defined according to the distribution defintions.
+;see SW10th notes on details for application
+ PHASE=LINKMERGE
+
+ IF (li.1.LOC > 0)
+
+     IF (li.1.FTYPE=91)
+      GL_VOL = DY_TOT
+     ENDIF
+
+     IF (li.1.FTYPE=96)  ; Express Lanes
+       EL_VOL = DY_TOT
+     ENDIF
+
+     _Cnt=_Cnt+1
+
+    IF (_CNT=1)
+      PRINT CSV=T LIST='  A,  B,  LOC, FTYPE, GL_VOL, EL_VOL' PRINTO=1
+    ENDIF
+
+    PRINT CSV=T LIST=a, b, LOC,  FTYPE, GL_VOL,  EL_VOL, PRINTO=1
+
+ENDIF
+
+ENDPHASE
+
+
+NETWORK Stack Size = 956 bytes.
+................................................................................
+
+
+
+
+LOADED_DY.net   (VOYAGER):
+
+NET PGM=NETWORK (v.08/05/2014 [6.1.1]) DATE=Fri Jul 28 11:08:35 2017
+ID= 
+PAR Zones=45 Nodes=323 Links=322 NodeRecs=256 
+NVR 7    N    X    Y    _TOLL_ACC    _TOLL_DEC    SUB_TYPE    OLD_NODE
+LVR 312    A    B    DIR1    DIR2    DIR3    DIR4    FTYPE    TOLLSEGNUM
+    TOLLSEGLEN    MINSEGTOLL    DISTANCE    SPEED    NUM_LANES    CAPACITY
+    OBJECTID    LINK_ID    DISTANCEFT    DISTANCEMI    TIME    AREA_TYPE
+    FACL_TYPE    SCREENLINE    ZONE    CONSTRUCTN    LANDUSE    LOCATION
+    USECODE    CORRIDOR    C_SEGMENT    COSITE=009    AADT    PSWADT
+    DIR_COUNT    SL_TAG=002    CCC    EVAC    LINK_ID2=010    SPD_LNKPage 3  (VOYAGER NETWORK) Model Run
+Florida Department of Transportation
+------------------------------------
+    SPD_LNK2    SHAPE_LENG    SITE1DIR=010    TOLLTYPE    PLAZADESC=034
+    PLZALNSMIN    PLZALNSMAX    CARTOLL    SVCMINUTES    SVCSECONDS
+    DECELCODE    ACCELCODE    EXCTCHGLNS    AVILANES    PCTTRUCKS    COUNTY=001
+    YEAR=001    PERIOD    AUTO_PCT    LT_PCT    HT_PCT    TRK_PCT    PD_VOL_PCT
+    AUTO    LT_TRK    HY_TRK    PDDIR_CNT    PDDIR_SPL    DLDIR_SPL
+    DLTRK_PCT    DLTRK_SPL    TRK_AADT    TRK_PSWADT    DLTRK_DIR    CAP_ORIG
+    UROADFACTOR    CONFAC    BPRCOEFFICIENT    BPREXPONENT    CONFACAMP
+    CONFACPMP    CONFACMDP    CONFACEVP    TOLLCOST    LINKCOST    TOTALCOST
+    DELAY    TRKCOST    TOLL_ACC    TOLL_DEC    LINKFLG    ROAD_NAME=013    LOC
+    LOC_CHECK    CNT_2020    CNT_2040    TOLLLINK    PULLLINK    VOL_PULL
+    TL_DIST    LW_TIMEWEIGHT_1    LW_TWGT_1LANE_1    V_HR1_SOV    V_HR1_HOV
+    V_HR1_TRK    V_HR2_SOV    V_HR2_HOV    V_HR2_TRK    V_HR3_SOV    V_HR3_HOV
+    V_HR3_TRK    V_HR4_SOV    V_HR4_HOV    V_HR4_TRK    V_HR5_SOV    V_HR5_HOV
+    V_HR5_TRK    V_HR6_SOV    V_HR6_HOV    V_HR6_TRK    V_HR7_SOV    V_HR7_HOV
+    V_HR7_TRK    V_HR1_TOT    V_HR2_TOT    V_HR3_TOT    V_HR4_TOT    V_HR5_TOT
+    V_HR6_TOT    V_HR7_TOT    VC_HR1    VC_HR2    VC_HR3    VC_HR4    VC_HR5
+    VC_HR6    VC_HR7    TOLL_HR1    TOLL_HR2    TOLL_HR3    TOLL_HR4
+    TOLL_HR5    TOLL_HR6    TOLL_HR7    CSPD_HR1    CSPD_HR2    CSPD_HR3
+    CSPD_HR4    CSPD_HR5    CSPD_HR6    CSPD_HR7    TIME_HR1    TIME_HR2
+    TIME_HR3    TIME_HR4    TIME_HR5    TIME_HR6    TIME_HR7    V_HR20_SOV
+    V_HR20_HOV    V_HR20_TRK    V_HR21_SOV    V_HR21_HOV    V_HR21_TRK
+    V_HR22_SOV    V_HR22_HOV    V_HR22_TRK    V_HR23_SOV    V_HR23_HOV
+    V_HR23_TRK    V_HR24_SOV    V_HR24_HOV    V_HR24_TRK    V_HR20_TOT
+    V_HR21_TOT    V_HR22_TOT    V_HR23_TOT    V_HR24_TOT    VC_HR20    VC_HR21
+    VC_HR22    VC_HR23    VC_HR24    TOLL_HR20    TOLL_HR21    TOLL_HR22
+    TOLL_HR23    TOLL_HR24    CSPD_HR20    CSPD_HR21    CSPD_HR22    CSPD_HR23
+    CSPD_HR24    TIME_HR20    TIME_HR21    TIME_HR22    TIME_HR23    TIME_HR24
+    NT_SOV    NT_HOV    NT_TRK    NT_TOT    V_HR11_SOV    V_HR11_HOV
+    V_HR11_TRK    V_HR12_SOV    V_HR12_HOV    V_HR12_TRK    V_HR13_SOV
+    V_HR13_HOV    V_HR13_TRK    V_HR14_SOV    V_HR14_HOV    V_HR14_TRK
+    V_HR15_SOV    V_HR15_HOV    V_HR15_TRK    V_HR16_SOV    V_HR16_HOV
+    V_HR16_TRK    V_HR11_TOT    V_HR12_TOT    V_HR13_TOT    V_HR14_TOT
+    V_HR15_TOT    V_HR16_TOT    MD_SOV    MD_HOV    MD_TRK    MD_TOT    VC_HR11
+    VC_HR12    VC_HR13    VC_HR14    VC_HR15    VC_HR16    TOLL_HR11
+    TOLL_HR12    TOLL_HR13    TOLL_HR14    TOLL_HR15    TOLL_HR16    CSPD_HR11
+    CSPD_HR12    CSPD_HR13    CSPD_HR14    CSPD_HR15    CSPD_HR16    TIME_HR11
+    TIME_HR12    TIME_HR13    TIME_HR14    TIME_HR15    TIME_HR16    V_HR17_SOV
+    V_HR17_HOV    V_HR17_TRK    V_HR18_SOV    V_HR18_HOV    V_HR18_TRK
+    V_HR19_SOV    V_HR19_HOV    V_HR19_TRK    V_HR17_TOT    V_HR18_TOT
+    V_HR19_TOT    PM_SOV    PM_HOV    PM_TRK    PM_TOT    VC_HR17    VC_HR18
+    VC_HR19    TOLL_HR17    TOLL_HR18    TOLL_HR19    CSPD_HR17    CSPD_HR18
+    CSPD_HR19    TIME_HR17    TIME_HR18    TIME_HR19    V_HR8_SOV    V_HR8_HOV
+    V_HR8_TRK    V_HR9_SOV    V_HR9_HOV    V_HR9_TRK    V_HR10_SOV
+    V_HR10_HOV    V_HR10_TRK    V_HR8_TOT    V_HR9_TOT    V_HR10_TOT    AM_SOV
+    AM_HOV    AM_TRK    AM_TOT    VC_HR8    VC_HR9    VC_HR10    TOLL_HR8
+    TOLL_HR9    TOLL_HR10    CSPD_HR8    CSPD_HR9    CSPD_HR10    TIME_HR8
+    TIME_HR9    TIME_HR10    DY_SOV    DY_HOV    DY_TRK    DY_TOT
+
+
+
+Begin PROCESS PHASE NODEMERGE
+         256 records merged from NODEI[1]: LOADED_DY.net
+         256 data base records.Page 4  (VOYAGER NETWORK) Model Run
+Florida Department of Transportation
+------------------------------------
+
+Variable  Obs<>0           Total           Ave           Min           Max           RMS  
+--------  ------           -----           ---           ---           ---           ---  
+N            256              --            --          3           323               --
+X            256  122,554,134.95    478,727.09    472,275.01    494,312.87    478,740.46
+Y            256  345,132,593.85  1,348,174.19  1,317,638.86  1,381,751.07  1,348,288.9 
+SUB_TYPE      70          174             2.49          2             3             2.54
+OLD_NODE     247    1,904,162         7,709.16         22         9,534         7,850.1 
+
+      Obs = 0:  _TOLL_ACC  _TOLL_DEC
+
+_Variables with values:
+
+_ZONES               45      
+
+End   PROCESS PHASE NODEMERGE
+
+
+Begin PROCESS PHASE LINKMERGE
+         322 records merged from NETI[1]: LOADED_DY.net
+         322 data base records.Page 5  (VOYAGER NETWORK) Model Run
+Florida Department of Transportation
+------------------------------------
+
+Variable         Obs<>0               Total             Ave           Min             Max             RMS  
+--------         ------               -----             ---           ---             ---             ---  
+A                   322                  --              --          3             323                 --
+B                   322                  --              --          3             323                 --
+DIR1                  9                9               1             1               1               1   
+DIR2                  9                9               1             1               1               1   
+DIR3                 63               63               1             1               1               1   
+DIR4                 57               57               1             1               1               1   
+FTYPE               322           23,875              74.15         52              98              76.43
+TOLLSEGNUM            4                6               1.5           1               2               1.58
+TOLLSEGLEN            4               27.6             6.9           6.4             7.4             6.92
+MINSEGTOLL            4                0.7             0.18          0.18            0.18            0.18
+DISTANCE            322               91.71            0.28          0.01            1.16            0.36
+SPEED               322           15,110              46.93         16              65              49.26
+NUM_LANES           322              649               2.02          1               5               2.25
+CAPACITY            322          579,364.4         1,799.27        556.5        10,000           2,370.33
+OBJECTID            322        3,873,967          12,030.95      1,077          17,990          12,983.42
+LINK_ID             322  239,311,377,939     743,203,037.08  2,207,931     917,707,218     762,404,498.1 
+DISTANCEFT          322          507,880           1,577.27         53           7,249           1,966.88
+DISTANCEMI          322               96.19            0.3           0.01            1.37            0.37
+TIME                302              132.55            0.44          0.01            2.15            0.57
+AREA_TYPE           322           10,960              34.04         31              42              34.35
+FACL_TYPE           322           22,338              69.37         11              99              75.04
+SCREENLINE          322           31,226              96.98         16              99              97.8 
+ZONE                 35           37,396           1,068.46      1,012           1,093           1,068.73
+CONSTRUCTN           13               19               1.46          1               3               1.69
+LOCATION            322              322               1             1               1               1   
+CORRIDOR            171           18,923             110.66         14             521             148.45
+C_SEGMENT           170      188,830,905       1,110,770.03  1,014,002       1,521,003       1,115,193.8 
+COSITE              322                                      (FD_10522)  (X       )
+SL_TAG                8                                      (NS      )  (NS      )
+CCC                 158              158               1             1               1               1   
+EVAC                161              661               4.11          1             101              17.83
+LINK_ID2            322                                      (00022079)  (09177072)
+SPD_LNK              74          337,485           4,560.61      3,262           5,660           4,624.91
+SHAPE_LENG          322          507,855.52        1,577.19         42.77        7,249.47        1,966.87
+SITE1DIR            322                                      (FD_10522)  (X2      )
+TOLLTYPE             20               40               2             2               2               2   
+PLAZADESC            20                                      (VET NB A)  (VET SB W)
+PLZALNSMIN           20               38               1.9           1               4               2.12
+PLZALNSMAX           20               50               2.5           1               7               3.02
+CARTOLL              23               14.74            0.64          0.03            1.35            0.75
+SVCSECONDS           20               20               1             1               1               1   
+EXCTCHGLNS           14               28               2             2               2               2   
+AVILANES             20               34               1.7           1               2               1.76
+PCTTRUCKS            16                0.38            0.02          0.02            0.05            0.03
+CAP_ORIG            322          544,185           1,690.02        530          10,000           2,286.7 
+UROADFACTOR         322              236.8             0.74          0.7             1               0.74
+CONFAC              322               28.98            0.09          0.09            0.09            0.09
+BPRCOEFFICIENT      322               69.3             0.22          0.15            0.25            0.22
+BPREXPONENT         322            1,175               3.65          3.5             4               3.66
+CONFACAMP           322              145.58            0.45          0.45            0.45            0.45
+CONFACPMP           322              115.98            0.36          0.36            0.36            0.36Page 6  (VOYAGER NETWORK) Model Run
+Florida Department of Transportation
+------------------------------------
+CONFACMDP           322               59.18            0.18          0.18            0.18            0.18
+CONFACEVP           322               78.09            0.24          0.24            0.24            0.24
+TOLLCOST             23               54.85            2.38          0.1             5.02            2.78
+LINKCOST            302              132.55            0.44          0.01            2.15            0.57
+TOTALCOST           322              187.4             0.58          0.01            5.02            0.93
+TRKCOST             322              155.28            0.48          0.01            2.15            0.63
+ROAD_NAME             8                                      (Dale Mab)  (Wilsky B)
+LOC                  44              990              22.5           1              44              25.84
+LOC_CHECK            44              990              22.5           1              44              25.84
+CNT_2020             44          678,000          15,409.09      1,850          42,650          21,702.14
+CNT_2040             44        1,100,316          25,007.18      2,950          64,300          34,467.1 
+TOLLLINK              4                4               1             1               1               1   
+PULLLINK              8                8               1             1               1               1   
+TL_DIST              49               19.53            0.4           0.02            0.92            0.45
+LW_TIMEWEIGHT_1     322              334.41            1.04          1               1.2             1.04
+LW_TWGT_1LANE_1     322              335.44            1.04          1               1.28            1.05
+V_HR1_SOV           311           56,320.27          181.09          1.72          949.07          268.99
+V_HR2_SOV           311           32,363.64          104.06          1.17          518.82          151.19
+V_HR3_SOV           311           22,709.61           73.02          0.99          339.39          103.8 
+V_HR4_SOV           311           26,255.29           84.42          1.24          354.17          119.31
+V_HR5_SOV           311           45,570.15          146.53          1.36          891.36          233.23
+V_HR6_SOV           311          131,242.79          422             2.55        3,049.35          751.82
+V_HR7_SOV           314          366,999.37        1,168.79          6.93        8,683.84        2,068   
+V_HR1_TOT           311           56,320.27          181.09          1.72          949.07          268.99
+V_HR2_TOT           311           32,363.64          104.06          1.17          518.82          151.19
+V_HR3_TOT           311           22,709.61           73.02          0.99          339.39          103.8 
+V_HR4_TOT           311           26,255.29           84.42          1.24          354.17          119.31
+V_HR5_TOT           311           45,570.15          146.53          1.36          891.36          233.23
+V_HR6_TOT           311          131,242.79          422             2.55        3,049.35          751.82
+V_HR7_TOT           314          366,999.37        1,168.79          6.93        8,683.84        2,068   
+VC_HR1              311               16.85            0.05          0               0.19            0.07
+VC_HR2              311                9.58            0.03          0               0.1             0.04
+VC_HR3              311                6.63            0.02          0               0.07            0.03
+VC_HR4              311                7.36            0.02          0               0.07            0.03
+VC_HR5              311               12.05            0.04          0               0.15            0.05
+VC_HR6              311               33.45            0.11          0               0.52            0.15
+VC_HR7              314               95.19            0.3           0               1.15            0.42
+TOLL_HR1              4                0.7             0.18          0.18            0.18            0.18
+TOLL_HR2              4                0.7             0.18          0.18            0.18            0.18
+TOLL_HR3              4                0.7             0.18          0.18            0.18            0.18
+TOLL_HR4              4                0.7             0.18          0.18            0.18            0.18
+TOLL_HR5              4                0.7             0.18          0.18            0.18            0.18
+TOLL_HR6              4                0.7             0.18          0.18            0.18            0.18
+TOLL_HR7              4                0.7             0.18          0.18            0.18            0.18
+CSPD_HR1            322           15,107.94           46.92         16              64.99           49.26
+CSPD_HR2            322           15,108.26           46.92         16              64.99           49.26
+CSPD_HR3            322           15,108.38           46.92         16              64.99           49.26
+CSPD_HR4            322           15,108.36           46.92         16              64.99           49.26
+CSPD_HR5            322           15,108.17           46.92         16              64.99           49.26
+CSPD_HR6            322           15,107.03           46.92         16              64.99           49.25
+CSPD_HR7            322           14,695.25           45.64         13.2            64.99           48.12
+TIME_HR1            322              126.31            0.39          0.02            2.15            0.53
+TIME_HR2            322              126.31            0.39          0.02            2.15            0.53
+TIME_HR3            322              126.31            0.39          0.02            2.15            0.53Page 7  (VOYAGER NETWORK) Model Run
+Florida Department of Transportation
+------------------------------------
+TIME_HR4            322              126.31            0.39          0.02            2.15            0.53
+TIME_HR5            322              126.31            0.39          0.02            2.15            0.53
+TIME_HR6            322              126.32            0.39          0.02            2.15            0.53
+TIME_HR7            322              131.37            0.41          0.02            2.15            0.56
+V_HR20_SOV          312          349,846.47        1,121.3          14.82        5,304.51        1,601.6 
+V_HR21_SOV          311          252,420.73          811.64          9.85        3,946.04        1,168.5 
+V_HR22_SOV          311          206,411.4           663.7           7.9         3,249.29          957.79
+V_HR23_SOV          311          152,057.7           488.93          5.51        2,437.56          710.31
+V_HR24_SOV          311          103,098.37          331.51          3.07        1,749.01          494.07
+V_HR20_TOT          312          349,846.47        1,121.3          14.82        5,304.51        1,601.6 
+V_HR21_TOT          311          252,420.73          811.64          9.85        3,946.04        1,168.5 
+V_HR22_TOT          311          206,411.4           663.7           7.9         3,249.29          957.79
+V_HR23_TOT          311          152,057.7           488.93          5.51        2,437.56          710.31
+V_HR24_TOT          311          103,098.37          331.51          3.07        1,749.01          494.07
+VC_HR20             312              102.46            0.33          0.01            1.05            0.41
+VC_HR21             311               74.37            0.24          0               0.77            0.3 
+VC_HR22             311               60.9             0.2           0               0.64            0.25
+VC_HR23             311               45.02            0.14          0               0.48            0.19
+VC_HR24             311               30.88            0.1           0               0.34            0.13
+TOLL_HR20             4                0.7             0.18          0.18            0.18            0.18
+TOLL_HR21             4                0.7             0.18          0.18            0.18            0.18
+TOLL_HR22             4                0.7             0.18          0.18            0.18            0.18
+TOLL_HR23             4                0.7             0.18          0.18            0.18            0.18
+TOLL_HR24             4                0.7             0.18          0.18            0.18            0.18
+CSPD_HR20           322           15,015.56           46.63         16              64.99           49.02
+CSPD_HR21           322           15,102.97           46.9          16              64.99           49.24
+CSPD_HR22           322           15,104.9            46.91         16              64.99           49.25
+CSPD_HR23           322           15,106.31           46.91         16              64.99           49.25
+CSPD_HR24           322           15,107.21           46.92         16              64.99           49.25
+TIME_HR20           322              127.04            0.39          0.02            2.15            0.53
+TIME_HR21           322              126.35            0.39          0.02            2.15            0.53
+TIME_HR22           322              126.34            0.39          0.02            2.15            0.53
+TIME_HR23           322              126.32            0.39          0.02            2.15            0.53
+TIME_HR24           322              126.32            0.39          0.02            2.15            0.53
+NT_SOV              315        1,745,295.78        5,540.62         53.8        22,201.97        7,808.6 
+NT_TOT              315        1,745,295.78        5,540.62         53.8        22,201.97        7,808.6 
+V_HR11_SOV          312          361,288.59        1,157.98         27.35        6,148.1         1,704.61
+V_HR12_SOV          312          370,859.26        1,188.65         30.65        5,862.74        1,710.25
+V_HR13_SOV          312          383,479.97        1,229.1          34.68        5,547.07        1,734.24
+V_HR14_SOV          312          391,253.2         1,254.02         39.32        4,979.93        1,743.89
+V_HR15_SOV          313          426,851.5         1,363.74         46.09        5,620.9         1,893.79
+V_HR16_SOV          316          530,073.77        1,677.45         71.97        7,767           2,303.63
+V_HR11_TOT          312          361,288.59        1,157.98         27.35        6,148.1         1,704.61
+V_HR12_TOT          312          370,859.26        1,188.65         30.65        5,862.74        1,710.25
+V_HR13_TOT          312          383,479.97        1,229.1          34.68        5,547.07        1,734.24
+V_HR14_TOT          312          391,253.2         1,254.02         39.32        4,979.93        1,743.89
+V_HR15_TOT          313          426,851.5         1,363.74         46.09        5,620.9         1,893.79
+V_HR16_TOT          316          530,073.77        1,677.45         71.97        7,767           2,303.63
+MD_SOV              316        2,463,806.28        7,796.86        119.19       32,532.97       10,879.16
+MD_TOT              316        2,463,806.28        7,796.86        119.19       32,532.97       10,879.16
+VC_HR11             312               99.55            0.32          0.01            0.81            0.38
+VC_HR12             312              103.3             0.33          0.01            0.86            0.39
+VC_HR13             312              108.11            0.35          0.01            0.94            0.41
+VC_HR14             312              112               0.36          0.01            1.02            0.43Page 8  (VOYAGER NETWORK) Model Run
+Florida Department of Transportation
+------------------------------------
+VC_HR15             313              123.49            0.39          0.01            1.16            0.47
+VC_HR16             316              160.28            0.51          0.01            1.55            0.61
+TOLL_HR11             4                0.7             0.18          0.18            0.18            0.18
+TOLL_HR12             4                0.7             0.18          0.18            0.18            0.18
+TOLL_HR13             4                0.7             0.18          0.18            0.18            0.18
+TOLL_HR14             4                0.7             0.18          0.18            0.18            0.18
+TOLL_HR15             4                0.7             0.18          0.18            0.18            0.18
+TOLL_HR16             4                0.7             0.18          0.18            0.18            0.18
+CSPD_HR11           322           15,099.12           46.89         16              64.99           49.23
+CSPD_HR12           322           15,098.12           46.89         16              64.99           49.23
+CSPD_HR13           322           15,090.77           46.87         16              64.99           49.22
+CSPD_HR14           322           15,070.11           46.8          16              64.99           49.17
+CSPD_HR15           322           14,923.11           46.35         11.73           64.99           48.82
+CSPD_HR16           322           14,186.61           44.06          6.15           64.99           47.5 
+TIME_HR11           322              126.37            0.39          0.02            2.15            0.53
+TIME_HR12           322              126.38            0.39          0.02            2.15            0.53
+TIME_HR13           322              126.4             0.39          0.02            2.15            0.53
+TIME_HR14           322              126.5             0.39          0.02            2.15            0.53
+TIME_HR15           322              128.09            0.4           0.02            2.15            0.54
+TIME_HR16           322              145.06            0.45          0.02            3.36            0.63
+V_HR17_SOV          316          634,416.95        2,007.65         51.18       10,008.02        2,749.54
+V_HR18_SOV          316          629,581.5         1,992.35         49.42        9,840.43        2,725.85
+V_HR19_SOV          316          523,556.37        1,656.82         21.59        8,035.03        2,357.36
+V_HR17_TOT          316          634,416.95        2,007.65         51.18       10,008.02        2,749.54
+V_HR18_TOT          316          629,581.5         1,992.35         49.42        9,840.43        2,725.85
+V_HR19_TOT          316          523,556.37        1,656.82         21.59        8,035.03        2,357.36
+PM_SOV              316        1,787,554.83        5,656.82        141.57       27,883.48        7,823.25
+PM_TOT              316        1,787,554.83        5,656.82        141.57       27,883.48        7,823.25
+VC_HR17             316              198.47            0.63          0.01            1.96            0.76
+VC_HR18             316              196.22            0.62          0               1.93            0.75
+VC_HR19             316              155.34            0.49          0               1.58            0.62
+TOLL_HR17             4                0.72            0.18          0.18            0.19            0.18
+TOLL_HR18             4                0.71            0.18          0.18            0.18            0.18
+TOLL_HR19             4                0.7             0.18          0.18            0.18            0.18
+CSPD_HR17           322           12,939.75           40.19          4.12           64.99           45.13
+CSPD_HR18           322           13,015.67           40.42          4.22           64.99           45.27
+CSPD_HR19           322           14,021.24           43.54          5.96           64.99           47.1 
+TIME_HR17           322              188.84            0.59          0.02            6.33            0.91
+TIME_HR18           322              185.22            0.58          0.02            6.11            0.88
+TIME_HR19           322              149.53            0.46          0.02            3.71            0.66
+V_HR8_SOV           314          458,821.47        1,461.21         38.79       10,025.44        2,309.21
+V_HR9_SOV           314          442,882.25        1,410.45         41.71        9,251.82        2,199.48
+V_HR10_SOV          312          390,386.6         1,251.24         46.16        7,126.79        1,858.79
+V_HR8_TOT           314          458,821.47        1,461.21         38.79       10,025.44        2,309.21
+V_HR9_TOT           314          442,882.25        1,410.45         41.71        9,251.82        2,199.48
+V_HR10_TOT          312          390,386.6         1,251.24         46.16        7,126.79        1,858.79
+AM_SOV              314        1,292,090.31        4,114.94        126.66       26,404.05        6,343.4 
+AM_TOT              314        1,292,090.31        4,114.94        126.66       26,404.05        6,343.4 
+VC_HR8              314              129.16            0.41          0.01            1.3             0.5 
+VC_HR9              314              123.49            0.39          0.01            1.2             0.48
+VC_HR10             312              108.76            0.35          0.01            0.93            0.41
+TOLL_HR8              4                0.7             0.18          0.18            0.18            0.18
+TOLL_HR9              4                0.7             0.18          0.18            0.18            0.18
+TOLL_HR10             4                0.7             0.18          0.18            0.18            0.18Page 9  (VOYAGER NETWORK) Model Run
+Florida Department of Transportation
+------------------------------------
+CSPD_HR8            322           14,366.76           44.62          9.5            64.98           47.34
+CSPD_HR9            322           14,638.51           45.46         12.1            64.98           48.04
+CSPD_HR10           322           15,057.33           46.76         16              64.99           49.09
+TIME_HR8            322              136.68            0.42          0.02            2.42            0.58
+TIME_HR9            322              132.1             0.41          0.02            2.15            0.56
+TIME_HR10           322              126.5             0.39          0.02            2.15            0.53
+DY_SOV              318        7,288,747.2        22,920.59        842.66       95,812.77       31,787.83
+DY_TOT              318        7,288,747.2        22,920.59        842.66       95,812.77       31,787.83
+GL_VOL               16          877,914.51       54,869.66     38,100.66       77,694.52       56,028.03
+
+      Obs = 0:  LANDUSE  USECODE  AADT  PSWADT  DIR_COUNT  SPD_LNK2
+      Obs = 0:  SVCMINUTES  DECELCODE  ACCELCODE  COUNTY  YEAR  PERIOD
+      Obs = 0:  AUTO_PCT  LT_PCT  HT_PCT  TRK_PCT  PD_VOL_PCT  AUTO  LT_TRK
+      Obs = 0:  HY_TRK  PDDIR_CNT  PDDIR_SPL  DLDIR_SPL  DLTRK_PCT
+      Obs = 0:  DLTRK_SPL  TRK_AADT  TRK_PSWADT  DLTRK_DIR  DELAY  TOLL_ACC
+      Obs = 0:  TOLL_DEC  LINKFLG  VOL_PULL  V_HR1_HOV  V_HR1_TRK
+      Obs = 0:  V_HR2_HOV  V_HR2_TRK  V_HR3_HOV  V_HR3_TRK  V_HR4_HOV
+      Obs = 0:  V_HR4_TRK  V_HR5_HOV  V_HR5_TRK  V_HR6_HOV  V_HR6_TRK
+      Obs = 0:  V_HR7_HOV  V_HR7_TRK  V_HR20_HOV  V_HR20_TRK  V_HR21_HOV
+      Obs = 0:  V_HR21_TRK  V_HR22_HOV  V_HR22_TRK  V_HR23_HOV  V_HR23_TRK
+      Obs = 0:  V_HR24_HOV  V_HR24_TRK  NT_HOV  NT_TRK  V_HR11_HOV
+      Obs = 0:  V_HR11_TRK  V_HR12_HOV  V_HR12_TRK  V_HR13_HOV  V_HR13_TRK
+      Obs = 0:  V_HR14_HOV  V_HR14_TRK  V_HR15_HOV  V_HR15_TRK  V_HR16_HOV
+      Obs = 0:  V_HR16_TRK  MD_HOV  MD_TRK  V_HR17_HOV  V_HR17_TRK
+      Obs = 0:  V_HR18_HOV  V_HR18_TRK  V_HR19_HOV  V_HR19_TRK  PM_HOV
+      Obs = 0:  PM_TRK  V_HR8_HOV  V_HR8_TRK  V_HR9_HOV  V_HR9_TRK
+      Obs = 0:  V_HR10_HOV  V_HR10_TRK  AM_HOV  AM_TRK  DY_HOV  DY_TRK
+      Obs = 0:  EL_VOL
+
+_Variables with values:
+
+_ZONES               45      
+_CNT                 44      
+
+End   PROCESS PHASE LINKMERGE
+
+M(664): Unconnected Zones:  1-2<->  7<->  8-9<-  10->  15<->  29-30<->  31<-  32-33->  34<-  35-37<->
+        38->  39-40<-  41->  42-43<-  44->  45<->
+
+FILEO NETO=ODME_VOLUMES.net
+
+NET PGM=NETWORK (v.08/05/2014 [6.1.1]) DATE=Mon Jul 31 08:32:17 2017
+ID=Model Run
+PAR Zones=45 Nodes=323 Links=322 NodeRecs=256 
+NVR 7    N    X    Y    _TOLL_ACC    _TOLL_DEC    SUB_TYPE    OLD_NODE
+LVR 314    A    B    DIR1    DIR2    DIR3    DIR4    FTYPE    TOLLSEGNUM
+    TOLLSEGLEN    MINSEGTOLL    DISTANCE    SPEED    NUM_LANES    CAPACITY
+    OBJECTID    LINK_ID    DISTANCEFT    DISTANCEMI    TIME    AREA_TYPE
+    FACL_TYPE    SCREENLINE    ZONE    CONSTRUCTN    LANDUSE    LOCATION
+    USECODE    CORRIDOR    C_SEGMENT    COSITE=009    AADT    PSWADT
+    DIR_COUNT    SL_TAG=002    CCC    EVAC    LINK_ID2=010    SPD_LNK
+    SPD_LNK2    SHAPE_LENG    SITE1DIR=010    TOLLTYPE    PLAZADESC=034
+    PLZALNSMIN    PLZALNSMAX    CARTOLL    SVCMINUTES    SVCSECONDS
+    DECELCODE    ACCELCODE    EXCTCHGLNS    AVILANES    PCTTRUCKS    COUNTY=001Page 10  (VOYAGER NETWORK) Model Run
+Florida Department of Transportation
+-------------------------------------
+    YEAR=001    PERIOD    AUTO_PCT    LT_PCT    HT_PCT    TRK_PCT    PD_VOL_PCT
+    AUTO    LT_TRK    HY_TRK    PDDIR_CNT    PDDIR_SPL    DLDIR_SPL
+    DLTRK_PCT    DLTRK_SPL    TRK_AADT    TRK_PSWADT    DLTRK_DIR    CAP_ORIG
+    UROADFACTOR    CONFAC    BPRCOEFFICIENT    BPREXPONENT    CONFACAMP
+    CONFACPMP    CONFACMDP    CONFACEVP    TOLLCOST    LINKCOST    TOTALCOST
+    DELAY    TRKCOST    TOLL_ACC    TOLL_DEC    LINKFLG    ROAD_NAME=013    LOC
+    LOC_CHECK    CNT_2020    CNT_2040    TOLLLINK    PULLLINK    VOL_PULL
+    TL_DIST    LW_TIMEWEIGHT_1    LW_TWGT_1LANE_1    V_HR1_SOV    V_HR1_HOV
+    V_HR1_TRK    V_HR2_SOV    V_HR2_HOV    V_HR2_TRK    V_HR3_SOV    V_HR3_HOV
+    V_HR3_TRK    V_HR4_SOV    V_HR4_HOV    V_HR4_TRK    V_HR5_SOV    V_HR5_HOV
+    V_HR5_TRK    V_HR6_SOV    V_HR6_HOV    V_HR6_TRK    V_HR7_SOV    V_HR7_HOV
+    V_HR7_TRK    V_HR1_TOT    V_HR2_TOT    V_HR3_TOT    V_HR4_TOT    V_HR5_TOT
+    V_HR6_TOT    V_HR7_TOT    VC_HR1    VC_HR2    VC_HR3    VC_HR4    VC_HR5
+    VC_HR6    VC_HR7    TOLL_HR1    TOLL_HR2    TOLL_HR3    TOLL_HR4
+    TOLL_HR5    TOLL_HR6    TOLL_HR7    CSPD_HR1    CSPD_HR2    CSPD_HR3
+    CSPD_HR4    CSPD_HR5    CSPD_HR6    CSPD_HR7    TIME_HR1    TIME_HR2
+    TIME_HR3    TIME_HR4    TIME_HR5    TIME_HR6    TIME_HR7    V_HR20_SOV
+    V_HR20_HOV    V_HR20_TRK    V_HR21_SOV    V_HR21_HOV    V_HR21_TRK
+    V_HR22_SOV    V_HR22_HOV    V_HR22_TRK    V_HR23_SOV    V_HR23_HOV
+    V_HR23_TRK    V_HR24_SOV    V_HR24_HOV    V_HR24_TRK    V_HR20_TOT
+    V_HR21_TOT    V_HR22_TOT    V_HR23_TOT    V_HR24_TOT    VC_HR20    VC_HR21
+    VC_HR22    VC_HR23    VC_HR24    TOLL_HR20    TOLL_HR21    TOLL_HR22
+    TOLL_HR23    TOLL_HR24    CSPD_HR20    CSPD_HR21    CSPD_HR22    CSPD_HR23
+    CSPD_HR24    TIME_HR20    TIME_HR21    TIME_HR22    TIME_HR23    TIME_HR24
+    NT_SOV    NT_HOV    NT_TRK    NT_TOT    V_HR11_SOV    V_HR11_HOV
+    V_HR11_TRK    V_HR12_SOV    V_HR12_HOV    V_HR12_TRK    V_HR13_SOV
+    V_HR13_HOV    V_HR13_TRK    V_HR14_SOV    V_HR14_HOV    V_HR14_TRK
+    V_HR15_SOV    V_HR15_HOV    V_HR15_TRK    V_HR16_SOV    V_HR16_HOV
+    V_HR16_TRK    V_HR11_TOT    V_HR12_TOT    V_HR13_TOT    V_HR14_TOT
+    V_HR15_TOT    V_HR16_TOT    MD_SOV    MD_HOV    MD_TRK    MD_TOT    VC_HR11
+    VC_HR12    VC_HR13    VC_HR14    VC_HR15    VC_HR16    TOLL_HR11
+    TOLL_HR12    TOLL_HR13    TOLL_HR14    TOLL_HR15    TOLL_HR16    CSPD_HR11
+    CSPD_HR12    CSPD_HR13    CSPD_HR14    CSPD_HR15    CSPD_HR16    TIME_HR11
+    TIME_HR12    TIME_HR13    TIME_HR14    TIME_HR15    TIME_HR16    V_HR17_SOV
+    V_HR17_HOV    V_HR17_TRK    V_HR18_SOV    V_HR18_HOV    V_HR18_TRK
+    V_HR19_SOV    V_HR19_HOV    V_HR19_TRK    V_HR17_TOT    V_HR18_TOT
+    V_HR19_TOT    PM_SOV    PM_HOV    PM_TRK    PM_TOT    VC_HR17    VC_HR18
+    VC_HR19    TOLL_HR17    TOLL_HR18    TOLL_HR19    CSPD_HR17    CSPD_HR18
+    CSPD_HR19    TIME_HR17    TIME_HR18    TIME_HR19    V_HR8_SOV    V_HR8_HOV
+    V_HR8_TRK    V_HR9_SOV    V_HR9_HOV    V_HR9_TRK    V_HR10_SOV
+    V_HR10_HOV    V_HR10_TRK    V_HR8_TOT    V_HR9_TOT    V_HR10_TOT    AM_SOV
+    AM_HOV    AM_TRK    AM_TOT    VC_HR8    VC_HR9    VC_HR10    TOLL_HR8
+    TOLL_HR9    TOLL_HR10    CSPD_HR8    CSPD_HR9    CSPD_HR10    TIME_HR8
+    TIME_HR9    TIME_HR10    DY_SOV    DY_HOV    DY_TRK    DY_TOT    GL_VOL
+    EL_VOL
+
+
+NETWORK  ReturnCode = 0  Elapsed Time = 00:00:00
+################################################################################
+
+
+VOYAGER  ReturnCode = 0  Elapsed Time = 00:00:00

@@ -1,0 +1,8 @@
+
+Seed_Extraction:
+Regional network "UNLOADED_PK_40B.NET" and subarea polygon 3 from "getSubArea_unloaded_2040.VPR" are used to extract subarea_mat_extraction.net via CUBE process
+The extracted subarea network is used as input to TBRPM highway assignment to extract subarea matrix file.
+
+Subarea_Network: 
+This is a cleaned network that matches to the Toll plan. 
+

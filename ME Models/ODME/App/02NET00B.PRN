@@ -1,0 +1,367 @@
+ 
+NETWORK (v.09/23/2016 [6.4.2 x64])  Fri Sep 15 11:49:52 2017
+
+FILEI LINKI[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Network_B19_2.NET"
+FILEO PRINTO[2] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\VOLCNT_B19.DAT"
+FILEO PRINTO[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\SUMMARY_B19.DAT",
+  APPEND=T
+
+PHASE=LINKMERGE
+
+;CNT_AMPRD=li.1.CNT15_AM
+
+CNT_MDPRD=li.1.CNT_2
+;CNT_MDPRD= li.1.{count_field}
+
+;CNT_PMPRD=li.1.CNT15_PM
+;CNT_NTPRD=li.1.CNT15_NT
+;CNT_DYPRD=li.1.CNT_AADT
+
+
+_ReportTitle= '====================================  RMSE and Other Volume/Count Evaluation Summary ========================================'
+
+
+;---Get Lane, Volume, CNT_AMPRD etc.
+V_1=V_25
+TOTAL_VOL=ROUND (V_1) ;(V_2);(V_1)
+
+
+  if (CNT_MDPRD>0)
+   print form=10.0, list= CNT_MDPRD,v_1 printo=2
+
+   if (V_1>CNT_MDPRD)
+   _posdiff=_posdiff+(V_1-CNT_MDPRD)
+   elseif (V_1<CNT_MDPRD)
+   _negdiff=_negdiff+(CNT_MDPRD-V_1)
+   endif
+  _totaldiff=-_negdiff+_posdiff
+  endif
+
+
+_CNT_MDPRDsum=_CNT_MDPRDsum+CNT_MDPRD
+
+; initialize arrays and variables
+   ARRAY _err=13, _cns=13, _cnt=13, _RGP=13, _vols=13
+
+   _RGP[1]=1, _RGP[2]=5000, _RGP[3]=10000, _RGP[4]=20000, _RGP[5]=30000, _RGP[6]=40000, _RGP[7]=50000,
+   _RGP[8]=60000, _RGP[9]=70000, _RGP[10]=80000, _RGP[11]=90000, _RGP[12]=100000, _RGP[13]=500000
+   IF (A=1)
+     LOOP _iter=1,13
+           _err[_iter]=0,_cnt[_iter]=0,_cns[_iter]=0,_vols[_iter]=0
+     ENDLOOP
+
+   ENDIFPage 326  (VOYAGER NETWORK) 
+Florida Department of Transportation
+------------------------------------
+
+; calculate and compartmentalize
+   IF (CNT_MDPRD>0) VOLCNT=TOTAL_VOL/CNT_MDPRD, _TVOL=TOTAL_VOL, NETDIFF=TOTAL_VOL-CNT_MDPRD, ABSDIFF=ABS(NETDIFF), ERRORSQ=NETDIFF^2, PCTDIFF=100*NETDIFF/CNT_MDPRD _group=1
+
+   IF (CNT_MDPRD>5000) _group=2
+   IF (CNT_MDPRD>10000) _group=3
+   IF (CNT_MDPRD>20000) _group=4
+   IF (CNT_MDPRD>30000) _group=5
+   IF (CNT_MDPRD>40000) _group=6
+   IF (CNT_MDPRD>50000) _group=7
+   IF (CNT_MDPRD>60000) _group=8
+   IF (CNT_MDPRD>70000) _group=9
+   IF (CNT_MDPRD>80000) _group=10
+   IF (CNT_MDPRD>90000) _group=11
+   IF (CNT_MDPRD>100000) _group=12
+
+   IF (CNT_MDPRD>0)
+     _ERR[_group]=ERRORSQ+_ERR[_group], _CNS[_group]=CNT_MDPRD+_CNS[_group], _CNT[_group]=_CNT[_group]+1, _VOLS[_group]=_TVOL+_VOLS[_group]
+     _ERR[13]=ERRORSQ+_ERR[13], _CNS[13]=CNT_MDPRD+_CNS[13], _CNT[13]=_CNT[13]+1, _VOLS[13]=_TVOL+_VOLS[13]
+   ENDIF
+
+ENDPHASE
+
+; =========================================================
+; SUMMARY REPORTING
+; =========================================================
+PHASE=SUMMARY
+
+if (_CNT_MDPRDsum>0)   ;condition on _CNT_MDPRDsum>0
+
+;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+;+++ Loop to write out the Percent Root Mean Square Error
+LOOP _iter=1,12
+
+   if (_iter=1) _limit='45 - 55'
+   if (_iter=2) _limit='35 - 45'
+   if (_iter=3) _limit='27 - 35'
+   if (_iter=4) _limit='24 - 27'
+   if (_iter=5) _limit='22 - 24'
+   if (_iter=6) _limit='20 - 22'
+   if (_iter=7) _limit='18 - 20'
+   if (_iter=8) _limit='17 - 18'
+   if (_iter=9) _limit='16 - 17'
+   if (_iter=10) _limit='15 - 16'
+   if (_iter=11) _limit='14 - 15'
+   if (_iter=12) _limit='LT 14  '
+
+ if (_iter=1) print list="\n",_ReportTitle,"\n","\n",
+ 
+ '                                                        Iteration:  ',50(L),"\n","\n",
+      ' **************************************** RMSE and Volume/Count By Volume Group ******************************************',"\n","\n",
+      ;printo=1
+      "                     Confidence Levels ; Default Conf =",10000(7.0c)," ; Conf_P =",50(7.0c)," ; Conf_A = ",50(7.0c),"\n",
+      printo=1Page 327  (VOYAGER NETWORK) 
+Florida Department of Transportation
+------------------------------------
+
+_RptTitle2= ' Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links'
+_RptTitle2a=' -------    --------------      -------------  ----------------    ----------    ----------  -----------------  -----------'
+
+  if (_iter=1) print list=_RptTitle2,"\n",_RptTitle2a," ", printo=1
+
+  if (_cnt[_iter]>0) print,
+ list="    ",_iter(2.0c),"    ",_RGP[_iter](7.0c),"-",_RGP[_iter+1](7.0c),"       ",sqrt(_err[_iter]/(_cnt[_iter]-1))/(_cns[_iter]/_cnt[_iter])*100(11.3),"%",
+ "       ", _limit,"%",
+ "      ",_vols[_iter](11.0c),
+ "   ",_cns[_iter](11.0c),
+ "          ",(_vols[_iter]/_cns[_iter])(5.2c),
+ "          ",_cnt[_iter](5.0C), PRINTO=1
+
+ENDLOOP
+
+_iter=13
+
+ if (_iter=13) _limit='32 - 39'
+
+list="   ALL ","   ",_RGP[1](7.0c),"-",_RGP[_iter](7.0c),"       ",sqrt(_err[_iter]/(_cnt[_iter]-1))/(_cns[_iter]/_cnt[_iter])*100(11.3),"%",
+ "       ", _limit,"%",
+ "      ",_vols[_iter](11.0c),
+ "   ",_cns[_iter](11.0c),
+ "          ",(_vols[_iter]/_cns[_iter])(5.2c),
+ "          ",_cnt[_iter](5.0C),"\n", PRINTO=1
+
+endif ; condition on _CNT_MDPRDsum>0
+
+list="       Sum of positive differences =",_posdiff(10.0c), " ; Sum of negative differences =",_negdiff(10.0c)," ; Total difference =" _totaldiff(10.0c),"\n","\n",printo=1
+
+
+ENDPHASE
+
+NETWORK Stack Size = 13010 bytes.
+................................................................................
+
+
+
+
+M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Network_B19_2.NET   (VOYAGER):
+
+NET PGM=HIGHWAY (v.09/23/2016 [6.4.2 x64]) DATE=Fri Sep 15 11:49:49 2017
+ID= 
+PAR Zones=45 Nodes=325 Links=268 NodeRecs=258 
+NVR 7    N    X    Y    _TOLL_ACC    _TOLL_DEC    SUB_TYPE    OLD_NODE
+LVR 125    A    B    CNT_1    CNT_2    CNT_3    CNT_4    CNT_5    CNT_6
+    CNT_7    CNT_8    CNT_9    CNT_10    CNT_11    CNT_12    CNT_13    CNT_14
+    CNT_15    CNT_16    CNT_17    CNT_18    CNT_19    CNT_20    CNT_21
+    CNT_22    CNT_23    CNT_24    CNT_2020    CNT_PER_1    CNT_PER_2
+    CNT_PER_3    OBJECTID    LINK_ID    DISTANCE    DISTANCEFT    DISTANCEMI
+    TIME    TIME2    CAPACITY    AREA_TYPE    FACL_TYPE    SCREENLINE
+    NUM_LANES    USER    TOLL    DIRCODE    ZONE    CONSTRUCTN    LANDUSE
+    LOCATION    USECODE    CORRIDOR    C_SEGMENT    COSITE=9    PSWADTPage 328  (VOYAGER NETWORK) 
+Florida Department of Transportation
+------------------------------------
+    DIR_COUNT    SL_TAG=2    CCC    EVAC    LINK_ID2=10    SPD_LNK    SPD_LNK2
+    SHAPE_LENG    SITE1DIR=10    TWOWAY    TOLLTYPE    PLAZADESC=34
+    PLZALNSMIN    PLZALNSMAX    CARTOLL    SVCMINUTES    SVCSECONDS
+    DECELCODE    ACCELCODE    EXCTCHGLNS    AVILANES    PCTTRUCKS    COUNTY=1
+    YEAR=1    PERIOD    AUTO_PCT    LT_PCT    HT_PCT    TRK_PCT    PD_VOL_PCT
+    AUTO    LT_TRK    HY_TRK    PDDIR_CNT    PDDIR_SPL    DLDIR_SPL
+    DLTRK_PCT    DLTRK_SPL    TRK_AADT    TRK_PSWADT    DLTRK_DIR    CAP_ORIG
+    SPEED    UROADFACTOR    CONFAC    BPRCOEFFICIENT    BPREXPONENT
+    CONFACAMP    CONFACPMP    CONFACMDP    CONFACEVP    TOLLCOST    LINKCOST
+    TOTALCOST    DELAY    TRKCOST    TOLL_ACC    TOLL_DEC    LINKFLG    FTYPE
+    ROAD_NAME=13    LOC    V_25    TIME_25    VC_25    CSPD_25    VDT_25
+    VHT_25    V1_25    VT_25    V1T_25
+
+
+
+Begin PROCESS PHASE NODEMERGE
+         258 records merged from NODEI[1]: M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Network_B19_2.NET
+         258 data base records.
+
+Variable  Obs<>0           Total           Ave           Min           Max           RMS  
+--------  ------           -----           ---           ---           ---           ---  
+N            258              --            --          3           325               --
+X            258  123,503,606.67    478,696.15    472,275.01    494,312.87    478,709.55
+Y            258  347,845,462.35  1,348,238.23  1,317,638.86  1,381,751.07  1,348,352.23
+SUB_TYPE      70          174             2.49          2             3             2.54
+OLD_NODE     247    1,904,162         7,709.16         22         9,534         7,850.1 
+
+      Obs = 0:  _TOLL_ACC  _TOLL_DEC
+
+_Variables with values:
+
+_ZONES                    45      
+_REPORTTITLE  
+_LIMIT        
+_RPTTITLE2    
+_RPTTITLE2A   
+
+End   PROCESS PHASE NODEMERGE
+
+
+Begin PROCESS PHASE LINKMERGE
+         268 records merged from NETI[1]: M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Network_B19_2.NET
+         268 data base records.Page 329  (VOYAGER NETWORK) 
+Florida Department of Transportation
+------------------------------------
+
+Variable        Obs<>0               Total             Ave           Min             Max             RMS  
+--------        ------               -----             ---           ---             ---             ---  
+A                  268                  --              --          3             325                 --
+B                  268                  --              --          3             325                 --
+CNT_1               46            7,988             173.65         18             346             198.74
+CNT_2               46            4,466              97.09         12             179             106.65
+CNT_3               46            3,211              69.8          12             111              72.97
+CNT_4               46            4,210              91.52         16             145              95.59
+CNT_5               46            9,735             211.63         23             417             240.65
+CNT_6               46           31,800             691.3          48           1,538             852.61
+CNT_7               46           94,166           2,047.09        139           4,574           2,533.47
+CNT_8               46          118,293           2,571.59        223           5,441           3,057.87
+CNT_9               46          107,369           2,334.11        231           4,754           2,706.92
+CNT_10              46           85,097           1,849.93        242           3,386           2,026.18
+CNT_11              46           70,904           1,541.39        233           2,615           1,640.17
+CNT_12              46           68,256           1,483.83        255           2,321           1,546.79
+CNT_13              46           69,505           1,510.98        295           2,132           1,555.28
+CNT_14              46           71,067           1,544.93        306           2,157           1,589.34
+CNT_15              46           79,789           1,734.54        310           2,639           1,799.45
+CNT_16              46          100,498           2,184.74        307           3,863           2,358.87
+CNT_17              46          124,795           2,712.93        308           5,266           3,059.16
+CNT_18              46          124,788           2,712.78        314           5,226           3,046.38
+CNT_19              46          100,689           2,188.89        270           4,109           2,425.9 
+CNT_20              46           64,872           1,410.26        187           2,566           1,540.81
+CNT_21              46           45,230             983.26        123           1,838           1,087.45
+CNT_22              46           36,798             799.96        100           1,493             883.98
+CNT_23              46           26,004             565.3          68           1,074             630.37
+CNT_24              46           17,352             377.22         38             765             436.19
+CNT_2020            46        1,466,882          31,888.74      6,600          42,650          32,773.72
+CNT_PER_1           46          323,000           7,021.74      1,000          15,000           8,365.3 
+CNT_PER_2           46          351,000           7,630.43      1,000          14,000           8,499.36
+CNT_PER_3           46          792,882          17,236.57      3,600          24,650          17,754.73
+OBJECTID           268        2,903,510          10,833.99      1,077          17,990          11,763.35
+LINK_ID            268  190,150,188,762     709,515,629.71  2,207,931     917,707,218     728,534,139.17
+DISTANCE           268               73.55            0.27          0.01            1.44            0.36
+DISTANCEFT         268          392,241           1,463.59         53           7,249           1,837.83
+DISTANCEMI         268               74.28            0.28          0.01            1.37            0.35
+TIME               252              111.04            0.44          0.01            2.15            0.58
+TIME2              252              111.04            0.44          0.01            2.15            0.58
+CAPACITY           268          478,211.17        1,784.37        556.5        10,000           2,463.04
+AREA_TYPE          268            9,228              34.43         31              42              34.77
+FACL_TYPE          268           17,121              63.88         11              99              70.33
+SCREENLINE         268           26,206              97.78         16              99              98.28
+NUM_LANES          268              596               2.22          1               5               2.44
+TOLL                16              512              32            21              64              34.35
+DIRCODE            268              400               1.49          1               2               1.57
+ZONE                35           37,396           1,068.46      1,012           1,093           1,068.73
+CONSTRUCTN          13               19               1.46          1               3               1.69
+LOCATION           268              268               1             1               1               1   
+CORRIDOR           114           12,306             107.95         14             521             147.54
+C_SEGMENT          113      125,213,445       1,108,083.58  1,014,002       1,521,003       1,112,677.95
+COSITE             268                                      (FD_10605)  (X       )
+SL_TAG               4                                      (NS      )  (NS      )Page 330  (VOYAGER NETWORK) 
+Florida Department of Transportation
+------------------------------------
+CCC                102              102               1             1               1               1   
+EVAC               105              605               5.76          1             101              22.06
+LINK_ID2           268                                      (00022079)  (09177072)
+SPD_LNK             56          251,080           4,483.57      3,262           5,660           4,554.2 
+SHAPE_LENG         268          392,215.47        1,463.49         42.77        7,249.47        1,837.82
+SITE1DIR           268                                      (FD_10605)  (X2      )
+TWOWAY              88              176               2             2               2               2   
+TOLLTYPE            16               32               2             2               2               2   
+PLAZADESC           16                                      (VET NB A)  (VET SB W)
+PLZALNSMIN          16               34               2.13          1               4               2.32
+PLZALNSMAX          16               46               2.88          1               7               3.34
+CARTOLL             19                9.84            0.52          0.03            1.1             0.6 
+SVCSECONDS          16               16               1             1               1               1   
+EXCTCHGLNS          14               28               2             2               2               2   
+AVILANES            16               30               1.88          1               2               1.9 
+PCTTRUCKS           16                0.38            0.02          0.02            0.05            0.03
+CAP_ORIG           268          448,643           1,674.04        530          10,000           2,379.27
+SPEED              268           11,292              42.13         16              65              44.28
+UROADFACTOR        268              199.45            0.74          0.7             1               0.75
+CONFAC             268               24.12            0.09          0.09            0.09            0.09
+BPRCOEFFICIENT     268               55.65            0.21          0.15            0.25            0.21
+BPREXPONENT        268              985               3.68          3.5             4               3.68
+CONFACAMP          268              121.16            0.45          0.45            0.45            0.45
+CONFACPMP          268               96.53            0.36          0.36            0.36            0.36
+CONFACMDP          268               49.26            0.18          0.18            0.18            0.18
+CONFACEVP          268               64.99            0.24          0.24            0.24            0.24
+TOLLCOST            19               36.62            1.93          0.1             4.09            2.22
+LINKCOST           252              111.04            0.44          0.01            2.15            0.58
+TOTALCOST          268              147.66            0.55          0.01            4.09            0.82
+TRKCOST            268              128.34            0.48          0.01            2.15            0.63
+FTYPE              154           12,674              82.3          51              91              82.96
+ROAD_NAME           12                                      (Dale Mab)  (Wilsky B)
+LOC                 46            1,085              23.59          1              48              27.14
+V_25               263        1,231,875.43        4,683.94         20.26       20,923.32        6,055.01
+TIME_25            268              154.85            0.58          0.01            3.96            0.83
+VC_25              263              152.49            0.58          0               2.41            0.72
+CSPD_25            268           10,829.08           40.41          0.31          372.42           50.84
+VDT_25             263          344,371.94        1,309.4           0.51       13,583.99        2,161.66
+VHT_25             263           10,420.47           39.62          0.05          725.48           76.55
+V1_25              263        1,231,875.43        4,683.94         20.26       20,923.32        6,055.01
+VT_25              264        1,526,046.32        5,780.48         23.56       20,923.32        7,186.47
+V1T_25             264        1,526,046.32        5,780.48         23.56       20,923.32        7,186.47
+CNT_MDPRD           46            4,466              97.09         12             179             106.65
+V_1                263        1,231,875.43        4,683.94         20.26       20,923.32        6,055.01
+TOTAL_VOL          263        1,231,874           4,683.93         20          20,923           6,054.95
+VOLCNT              46            3,797.83           82.56         14.96          336.58           92.08
+NETDIFF             46          338,569           7,360.2       2,346          13,825           8,167.31
+ABSDIFF             46          338,569           7,360.2       2,346          13,825           8,167.31
+ERRORSQ             46    3,068,425,471      66,704,901.54  5,503,716     191,130,625      88,192,922.05
+PCTDIFF             46          375,183.47        8,156.16      1,396.43       33,558.33        9,118.83
+
+      Obs = 0:  USER  LANDUSE  USECODE  PSWADT  DIR_COUNT  SPD_LNK2
+      Obs = 0:  SVCMINUTES  DECELCODE  ACCELCODE  COUNTY  YEAR  PERIOD
+      Obs = 0:  AUTO_PCT  LT_PCT  HT_PCT  TRK_PCT  PD_VOL_PCT  AUTO  LT_TRKPage 331  (VOYAGER NETWORK) 
+Florida Department of Transportation
+------------------------------------
+      Obs = 0:  HY_TRK  PDDIR_CNT  PDDIR_SPL  DLDIR_SPL  DLTRK_PCT
+      Obs = 0:  DLTRK_SPL  TRK_AADT  TRK_PSWADT  DLTRK_DIR  DELAY  TOLL_ACC
+      Obs = 0:  TOLL_DEC  LINKFLG
+
+_Variables with values:
+
+_ZONES                    45                                                                                                               
+_REPORTTITLE  ====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+_POSDIFF             338,569.75016                                                                                                         
+_TOTALDIFF           338,569.75016                                                                                                         
+_CNT_MDPRDSUM          4,466                                                                                                               
+_TVOL                  4,576                                                                                                               
+_GROUP                     1                                                                                                               
+_LIMIT        
+_RPTTITLE2    
+_RPTTITLE2A   
+
+End   PROCESS PHASE LINKMERGE
+
+M(664): Unconnected Zones:  1-2<->  7<->  8-9<-  10->  15<->  29-30<->  31<-  32-33->  34<-  35-37<->
+        38->  39-40<-  41->  42-43<-  44->  45<->
+
+
+Begin PROCESS PHASE SUMMARY
+
+_Variables with values:
+
+_ZONES                    45                                                                                                               
+_REPORTTITLE  ====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+_POSDIFF             338,569.75016                                                                                                         
+_TOTALDIFF           338,569.75016                                                                                                         
+_CNT_MDPRDSUM          4,466                                                                                                               
+_TVOL                  4,576                                                                                                               
+_GROUP                     1                                                                                                               
+_ITER                     13                                                                                                               
+_LIMIT        32 - 39
+_RPTTITLE2     Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+_RPTTITLE2A    -------    --------------      -------------  ----------------    ----------    ----------  -----------------  -----------
+
+End   PROCESS PHASE SUMMARY
+
+NETWORK  ReturnCode = 0  Elapsed Time = 00:00:00
+################################################################################

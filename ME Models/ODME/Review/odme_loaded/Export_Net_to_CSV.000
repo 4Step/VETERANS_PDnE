@@ -1,0 +1,37 @@
+RUN PGM=NETWORK 
+
+FILEI LINKI[1] = "LOADED_DY.net"
+FILEO NETO = "ODME_VOLUMES.net"
+FILEO PRINTO[1] = "ODME_VOLUMES.csv"
+;ELTODV3 SCRIPT
+;if two distributions are used, the dir1-4 need to be defined for each of the four directional distributions after establishing the output link lists
+;dir1 should be distribution 1 WB,SB for one subnet, dir2 is distribution 1 for EB,NB for same subnet then the dir3&4 for the other subnet
+;once the two sub networks have their own link lists, they should be combined and dir1-4 columns defined according to the distribution defintions.
+;see SW10th notes on details for application
+ PHASE=LINKMERGE
+ 
+ IF (li.1.LOC > 0)
+ 
+     IF (li.1.FTYPE=91)
+      GL_VOL = DY_TOT
+     ENDIF
+     
+     IF (li.1.FTYPE=96)  ; Express Lanes 
+       EL_VOL = DY_TOT
+     ENDIF  
+     
+     _Cnt=_Cnt+1
+
+    IF (_CNT=1)
+      PRINT CSV=T LIST='  A,  B,  LOC, FTYPE, GL_VOL, EL_VOL' PRINTO=1
+    ENDIF
+
+    PRINT CSV=T LIST=a, b, LOC,  FTYPE, GL_VOL,  EL_VOL, PRINTO=1
+
+    ENDIF
+
+ENDIF 
+
+ENDPHASE
+
+ENDRUN

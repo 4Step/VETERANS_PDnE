@@ -1,0 +1,33 @@
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  1
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     10 ; Conf_A =      10
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          1504.289%       45 - 55%           90,548         6,148          14.73             36
+   ALL          1-500,000          1504.289%       32 - 39%           90,548         6,148          14.73             36
+
+       Sum of positive differences =    84,621 ; Sum of negative differences =       222 ; Total difference =    84,399
+
+
+====================================  RMSE and Other Volume/Count Evaluation Summary ========================================
+
+                                                        Iteration:  2
+
+ **************************************** RMSE and Volume/Count By Volume Group ******************************************
+
+                     Confidence Levels ; Default Conf = 10,000 ; Conf_P =     10 ; Conf_A =      10
+
+ Vol Grp    CNT_AADT  Range      Model RMSE(%)  Allow RMSE Range     Volume      CNT_AADT     Volume/CNT_AADT   No of Links
+ -------    --------------      -------------  ----------------    ----------    ----------  -----------------  ----------- 
+     1          1-  5,000          4581.271%       45 - 55%          237,027         6,148          38.55             36
+   ALL          1-500,000          4581.271%       32 - 39%          237,027         6,148          38.55             36
+
+       Sum of positive differences =   230,878 ; Sum of negative differences =         0 ; Total difference =   230,878
+
+

@@ -1,0 +1,458 @@
+ 
+HIGHWAY (v.09/23/2016 [6.4.2 x64])  Fri Sep 15 11:49:53 2017
+
+FILEI LOOKUPI[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\Hourly_Distribution_7_Anderson.csv"
+FILEI TURNPENI = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Input\subarea_turn_penalty.PEN"
+FILEO NETO = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\output\FINAL_HWYLOAD_AM_B19_2.NET"
+FILEI NETI = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Subarea_B19_2.net"
+FILEI MATI[1] = "M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\MAT_LOOP_B19.MAT"
+
+PAR  MAXITERS=30, relativegap=0, GAP=0.00005, AAD=0, RAAD=0, RMSE=0, ZONEMSG=100
+TURNS N=1-99999
+ARRAY TOLLVOL=30, TOLLREVENUE=30, TOLLVMT=30
+;Look up deceleration rate based on approach speed
+
+LOOKUP,
+ INTERPOLATE=Y, LIST=Y, NAME=DECEL,
+       LOOKUP[1]=1,RESULT=2,
+R = '30 4',
+    '70 6.2'
+
+; Lookup Hourly distribtution
+LOOKUP LOOKUPI=1, NAME=GETHRFACTOR, LOOKUP[1]=1, RESULT=2,
+                                    LOOKUP[2]=1, RESULT=3,
+                                    INTERPOLATE=F
+
+PROCESS PHASE=LINKREAD
+; Get count locations
+IF (LI.CNT_PER_2 >0)
+    ; lw.AADT = li.CNT_2
+    lw.AADT = li.CNT_PER_2
+
+
+
+    lw.screen=li.LOC
+    lw.conf=10000
+ENDIF
+
+
+FUNCTION  TC[1] = T0 * (1 + (1 * LI.BPRCOEFFICIENT * (MIN(V/C,4.00) ^ LI.BPREXPONENT)))   ;(MINS) congested time for non-toll links
+FUNCTION  TC[2] = (LW.CTOLL * LI.CARTOLL * 60); + LI.SVCMINUTES + (LI.SVCSECONDS / 60)             ;(MINS) time for toll links
+FUNCTION  TC[3] = T0 * (1 + (1 * LI.BPRCOEFFICIENT * (MIN(V/C,4.00) ^ LI.BPREXPONENT)))   ;(MINS) congested time toll acceleration links
+FUNCTION  TC[4] = T0 * (1 + (1 * LI.BPRCOEFFICIENT * (MIN(V/C,4.00) ^ LI.BPREXPONENT)))   ;(MINS) congested time toll deceleration links
+FUNCTION  TC[5] = T0 * (1 + (1 * LI.BPRCOEFFICIENT * (MIN(V/C,4.00) ^ LI.BPREXPONENT)))   ;(MINS) congested time for non-toll TRUCK ONLY links
+;FUNCTION  TC[6] = T0 * (1 + ({DAMPING} * LI.BPRCOEFFICIENT * ((1 + (VOL[1] / MAX(V,1)))^LI.BPREXPONENT) * (MIN(V/C,4.00)^LI.BPRGAMMA)))   ;(MINS) congested time for non-toll FREEWAY LINKS
+;FUNCTION  TC[7] = T0 * (1 + ({DAMPING} * LI.BPRCOEFFICIENT * ((1 + (VOL[1] / MAX(V,1)))^LI.BPREXPONENT) * (LI.BPRGAMMA^MIN(V/C,4.00))))   ;(MINS) congested time for non-toll CLASS I - IV ARTERIALS links
+FUNCTION TC[6] = T0 * (1 + (1 * LI.BPRCOEFFICIENT * (MIN(V/C,4.00) ^ LI.BPREXPONENT)))  ; (MINS) congested time for express links
+
+FUNCTION  COST[1] = TIME                                                                          ;(MINS) congested COST for non-toll links
+FUNCTION  COST[2] = TIME + ROUND((1 / (LW.SERVR - LW.ARRIVR)) * 60 * 1000) / 1000                 ;(MINS) congested COST for toll links
+FUNCTION  COST[3] = TIME + ROUND(((LW.CGSTSPEED / 2.5) / 60) / 2 * 1000) / 1000           ;(MINS) congested COST toll acceleration links MINS
+FUNCTION  COST[4] = TIME + ROUND(((LW.CGSTSPEED / DECEL(1,LW.CGSTSPEED)) / 60) / 2 * 1000) / 1000 ;(MINS) congested COST toll deceleration links MINS
+FUNCTION  COST[5] = TIME                                                                          ;(MINS) congested COST for non-toll TRUCK ONLY links
+;FUNCTION  COST[6] = TIME                                                                          ;(MINS) congested COST for non-toll FREEWAY LINKS w/ TRUCKSPage 332  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+;FUNCTION  COST[7] = TIME                                                                          ;(MINS) congested COST for non-toll CLASS I - IV ARTERIALS w/ TRUCKS
+; Added by Kapil Arya on 04-07-14 to model express lane using CTOLL method
+FUNCTION COST[6] = TIME + (LW.CTOLL * LW.ELTOLL * 60) ; COST OF EXPRESS LANE IS TRAVEL TIME PLUS TIME EQUIVALENT OF TOLL
+
+FUNCTION   V = VOL[1] ; TOTAL VOLUME
+
+; basics
+
+;  T0 = LI.TOTALCOST
+  T0 = LI.LINKCOST ; CHANGED BY KAPIL ARYA ON 04-08-14 TO BE REFLECTIVE OF FF TRAVEL TIME ON LINKS
+  C  = LI.CAPACITY * LI.NUM_LANES * 10 ;LI.UROADFACTOR / LI.CONFACAMP
+  IF (LI.TIME > 0) LW.CGSTSPEED = LI.DISTANCE / (LI.TIME / 60)   ; CONVERT TIME (MINS) TO HOURS
+
+  IF (LI.FACL_TYPE = 48,96,97) ADDTOGROUP=1   ; TRUCK RESTRICTED ROADS
+  IF (LI.FACL_TYPE = 80-89)    ADDTOGROUP=2   ; HOV LANES
+  IF (LI.FACL_TYPE = 76)       ADDTOGROUP=3   ; TRUCK ONLY RAMPS/LANES
+  IF (LI.FACL_TYPE = 49)       ADDTOGROUP=4   ; TRANSIT ONLY FACILITIES
+; Added by Kapil Arya on 04-07-14 to model express lane using CTOLL method
+  IF (LI.FACL_TYPE = 94)       ADDTOGROUP=5   ; EXPRESS LANES
+
+  ; classify links based on presence/absence of tolls
+  LINKCLASS = 1 ; no toll
+  LW.RATE = 0
+
+  IF (A = 5000-10000)
+    LW.CTOLL = 0.062 ;.062
+  ELSEIF (A = 10001 - 14000 )
+    LW.CTOLL =  0.067 ;0.067
+  ELSEIF (A = 14001 - 16000)
+    LW.CTOLL = 0.129 ;1.129
+  ELSEIF (A = 16001- 17000)
+    LW.CTOLL = 0.135 ;1.135
+  ELSEIF (A = 17001 - 18000)
+    LW.CTOLL = 0.149 ;1.149
+  ELSEIF (A = 18001 - 20000)
+    LW.CTOLL = 0.078 ;.078
+  ELSE
+    LW.CTOLL = 0.06 ; .06
+  ENDIF
+
+  IF (LI.TOLL > 0)
+    LINKCLASS = 2 ; with toll
+    T0 = LI.LINKCOST
+
+    IF (LI.TOLLTYPE = 1)
+      LW.DELAY  = LI.SVCMINUTES + (LI.SVCSECONDS / 60)   ; CONVERT SECONDS TO (MINS)
+      LW.SERVR  = 1 / (LW.DELAY / 60)                    ; CONVERT (MINS) DELAY TO HOURS AND INVERT (VPH PER LANE)
+      LW.ARRIVR = 0
+    ELSE
+      LW.DELAY  = 0
+      LW.SERVR  = 1000000                                ; PREVENT DIVIDE BY ZERO FOR RAMP BOOTHS
+      LW.ARRIVR = 0
+    ENDIF
+  ENDIFPage 333  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+  IF (LI.TOLL_ACC > 0)
+    LINKCLASS=3 ; Toll Plaza Acceleration link
+    LW.DELAY = ROUND(((LW.CGSTSPEED / 2.5) / 60) / 2 * 1000) / 1000           ; (MINS) congested COST toll acceleration links
+    LW.RATE = 2.5
+  ENDIF
+
+  IF (LI.TOLL_DEC > 0)
+    LINKCLASS=4 ; Toll Plaza Deceleration link
+    LW.DELAY = ROUND(((LW.CGSTSPEED / DECEL(1,LW.CGSTSPEED)) / 60) / 2 * 1000) / 1000 ; (MINS) congested COST toll deceleration links
+    LW.RATE = DECEL(1,LW.CGSTSPEED)
+  ENDIF
+
+  IF (LI.TOLL > MAXPLZNO) MAXPLZNO = LI.TOLL
+
+  IF (LI.FACL_TYPE = 76) LINKCLASS=5
+
+; Added by Kapil Arya on 04-07-14 to model express lane using CTOLL method
+  IF (LI.FACL_TYPE = 94)
+    LINKCLASS=6   ; EXPRESS LANES
+   ; IF (@PERIOD@ = 1) ; AM
+      LW.ELTOLL = LI.DISTANCE *  0.15 ;1
+
+
+
+  ENDIF
+
+ENDPHASE
+
+;=========================================================================================
+;=== ILOOP (ASSIGNMENT) PHASE ===
+;=========================================================================================
+PHASE=ILOOP
+
+; NORMAL TBRPM MODE
+  PATHLOAD PATH=COST, DEC=2, VOL[1]=MI.1.1, PENI=1,  EXCLUDEGROUP=2-4
+
+ENDPHASE
+
+;=========================================================================================
+;=== ADJUST PHASE (WITH REPORTING)===
+;=========================================================================================
+; User Specified Functions
+; Delay functions, one for congested travel time, the other for toll links convert to time equivalent
+
+PHASE=ADJUST
+
+  IF (TIME > 0) LW.CGSTSPEED = LI.DISTANCE / (TIME / 60)                  ; (MPH) CONVERT TIME (MINS) TO HRS
+
+  IF (LI.CARTOLL > 0)
+    _SVCSECONDS = '00' + LTRIM(STR(LI.SVCSECONDS,2,0))
+    _SVCSECLEN  = STRLEN(_SVCSECONDS)-1
+    _SVCSECONDS = SUBSTR(_SVCSECONDS,_SVCSECLEN,2)
+Page 334  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+    IF (LI.TOLL > _TOLLLINKS) _TOLLLINKS = LI.TOLL
+
+    IF (LI.TOLLTYPE = 1)
+      LW.ARRIVR = ROUND((V / LI.UROADFACTOR) * LI.CONFACAMP / LI.PLZALNSMin) ; (HRS)  Hourly Volume per toll lane ie. arrival rate in vehicles per hour
+      LW.SERVT  = LI.SVCMINUTES + (LI.SVCSECONDS / 60)                    ; (MINS) Plaza lane service time in minutes per vehicle
+      LW.SERVR  = 1 / (LW.SERVT / 60)                                     ; (HRS)  Plaza lane service rate in vehicle per hour
+
+      IF ((LW.ARRIVR >= LW.SERVR) && (LW.SERVR > 1000))
+        LW.ARRIVR = 0.99 * LW.SERVR                                       ; (HRS)  Prevent infinite or negative queue
+      ELSEIF (LW.ARRIVR >= LW.SERVR)
+        LW.ARRIVR = 0.95 * LW.SERVR                                       ; (HRS)  Prevent infinite or negative queue
+      ENDIF
+
+      IF (LW.SERVR = 0) LW.SERVR = 1000                                   ; PREVENT DIVIDE BY ZERO
+      _REV  = (ROUND(V * LI.PCTTRUCKS) * 3 * LI.CARTOLL) + (ROUND(V * (1 - LI.PCTTRUCKS)) * LI.CARTOLL)
+      _UTIL = (V / (LW.SERVR / (LI.UROADFACTOR * LI.CONFACAMP)))
+
+      LW.DELAY = ROUND(1 / ((LW.SERVR - LW.ARRIVR) / 60) * 1000) / 1000   ; CONVERT HOURLY RATES TO (MINS) OF DELAY
+    ENDIF
+
+    IF (LW.SERVR = 0) LW.SERVR = 1000                                     ; PREVENT DIVIDE BY ZERO
+
+    TOLLVOL[ITERATION] = TOLLVOL[ITERATION] + V
+    TOLLREVENUE[ITERATION] = TOLLREVENUE[ITERATION] + _REV
+  ENDIF
+
+  IF (LI.TOLL_ACC > 0) LW.DELAY = ROUND(((LW.CGSTSPEED / 2.5) / 60) / 2 * 1000) / 1000           ;(MINS) congested COST toll acceleration links
+  IF (LI.TOLL_DEC > 0) LW.DELAY = ROUND(((LW.CGSTSPEED / DECEL(1,LW.CGSTSPEED)) / 60) / 2 * 1000) / 1000 ;(MINS) congested COST toll deceleration links
+
+  IF (LI.FACL_TYPE = 90-99) TOLLVMT[ITERATION] = TOLLVMT[ITERATION] + (LI.DISTANCE * V)
+
+ENDPHASE
+
+PHASE=CONVERGE
+  IF (ITERATION < 6) BREAK ;Do not even test for Iterations 2-20
+  IF ((GAP[ITERATION] < GAPCUTOFF) && (GAP[ITERATION-1] < GAPCUTOFF) && (GAP[ITERATION-2] < GAPCUTOFF))
+     BALANCE = 1
+  ENDIF
+ENDPHASE
+
+
+HIGHWAY Stack Size = 9646 bytes.
+................................................................................
+
+
+NETI M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\Subarea_B19_2.net Opened
+NET PGM=NETWORK (v.09/23/2016 [6.4.2 x64]) DATE=Fri Sep 15 11:49:49 2017
+ID= 
+PAR Zones=45 Nodes=325 Links=268 NodeRecs=258 
+NVR:   N  X  Y  _TOLL_ACC  _TOLL_DEC  SUB_TYPE  OLD_NODE
+LVR:   A  B  CNT_1  CNT_2  CNT_3  CNT_4  CNT_5  CNT_6  CNT_7  CNT_8  CNT_9
+  CNT_10  CNT_11  CNT_12  CNT_13  CNT_14  CNT_15  CNT_16  CNT_17  CNT_18
+  CNT_19  CNT_20  CNT_21  CNT_22  CNT_23  CNT_24  CNT_2020  CNT_PER_1
+  CNT_PER_2  CNT_PER_3  OBJECTID  LINK_ID  DISTANCE  DISTANCEFT  DISTANCEMIPage 335  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+  TIME  TIME2  CAPACITY  AREA_TYPE  FACL_TYPE  SCREENLINE  NUM_LANES  USER
+  TOLL  DIRCODE  ZONE  CONSTRUCTN  LANDUSE  LOCATION  USECODE  CORRIDOR
+  C_SEGMENT  COSITE=009  PSWADT  DIR_COUNT  SL_TAG=002  CCC  EVAC
+  LINK_ID2=010  SPD_LNK  SPD_LNK2  SHAPE_LENG  SITE1DIR=010  TWOWAY
+  TOLLTYPE  PLAZADESC=034  PLZALNSMIN  PLZALNSMAX  CARTOLL  SVCMINUTES
+  SVCSECONDS  DECELCODE  ACCELCODE  EXCTCHGLNS  AVILANES  PCTTRUCKS
+  COUNTY=001  YEAR=001  PERIOD  AUTO_PCT  LT_PCT  HT_PCT  TRK_PCT
+  PD_VOL_PCT  AUTO  LT_TRK  HY_TRK  PDDIR_CNT  PDDIR_SPL  DLDIR_SPL
+  DLTRK_PCT  DLTRK_SPL  TRK_AADT  TRK_PSWADT  DLTRK_DIR  CAP_ORIG  SPEED
+  UROADFACTOR  CONFAC  BPRCOEFFICIENT  BPREXPONENT  CONFACAMP  CONFACPMP
+  CONFACMDP  CONFACEVP  TOLLCOST  LINKCOST  TOTALCOST  DELAY  TRKCOST
+  TOLL_ACC  TOLL_DEC  LINKFLG  FTYPE  ROAD_NAME=013  LOC
+
+
+MATI[1] VOYAGER M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\Output\MAT_LOOP_B19.MAT Opened
+MAT PGM=MATRIX (v.09/23/2016 [6.4.2 x64])  DATE=Fri Sep 15 11:49:52 2017 
+ID=
+PAR Zones=45 M=3
+  ANALYST_OUT  ANALYST_IN  TOTAL
+
+LOOKUP   DECEL:  FAIL=  --  --  --
+         DECEL(1,30)4
+         DECEL(1,70)6.2
+
+
+M(724): The NETI variables can not provide LinkClass directly, PHASE=LINKREAD is required.
+M(727):    268 links for which default value for T1 was provided.
+
+W(926): 0 links for which speed = 0 was dectected,0 links for which C = 0 was dectected,16 links for which T0 = 0 was dectected.Please double check your network to avoide any undesirable effects on highway assignment process!
+W(704): Improper data record     :225    32            1    -1
+W(705): Link not found in network:169    167    174    1    -1
+
+NETO M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\output\FINAL_HWYLOAD_AM_B19_2.NET (M:\Projects\Veterans ELToDv2.3 2017-0628_PDNE\Scripts\Cube_Analyst\ODME\Base\EC2019\output\FINAL_HWYLOAD_AM_B19_2.NET) Opened
+NET PGM=HIGHWAY (v.09/23/2016 [6.4.2 x64]) DATE=Fri Sep 15 11:49:53 2017
+ID=
+PAR Zones=45 Nodes=325 Links=268 NodeRecs=258 
+  A  B  CNT_1  CNT_2  CNT_3  CNT_4  CNT_5  CNT_6  CNT_7  CNT_8  CNT_9  CNT_10
+  CNT_11  CNT_12  CNT_13  CNT_14  CNT_15  CNT_16  CNT_17  CNT_18  CNT_19  CNT_20
+  CNT_21  CNT_22  CNT_23  CNT_24  CNT_2020  CNT_PER_1  CNT_PER_2  CNT_PER_3
+  OBJECTID  LINK_ID  DISTANCE  DISTANCEFT  DISTANCEMI  TIME  TIME2  CAPACITY
+  AREA_TYPE  FACL_TYPE  SCREENLINE  NUM_LANES  USER  TOLL  DIRCODE  ZONE
+  CONSTRUCTN  LANDUSE  LOCATION  USECODE  CORRIDOR  C_SEGMENT  COSITE=9  PSWADT
+  DIR_COUNT  SL_TAG=2  CCC  EVAC  LINK_ID2=10  SPD_LNK  SPD_LNK2  SHAPE_LENG
+  SITE1DIR=10  TWOWAY  TOLLTYPE  PLAZADESC=34  PLZALNSMIN  PLZALNSMAX  CARTOLL
+  SVCMINUTES  SVCSECONDS  DECELCODE  ACCELCODE  EXCTCHGLNS  AVILANES  PCTTRUCKS
+  COUNTY=1  YEAR=1  PERIOD  AUTO_PCT  LT_PCT  HT_PCT  TRK_PCT  PD_VOL_PCT  AUTO
+  LT_TRK  HY_TRK  PDDIR_CNT  PDDIR_SPL  DLDIR_SPL  DLTRK_PCT  DLTRK_SPL
+  TRK_AADT  TRK_PSWADT  DLTRK_DIR  CAP_ORIG  SPEED  UROADFACTOR  CONFAC
+  BPRCOEFFICIENT  BPREXPONENT  CONFACAMP  CONFACPMP  CONFACMDP  CONFACEVP
+  TOLLCOST  LINKCOST  TOTALCOST  DELAY  TRKCOST  TOLL_ACC  TOLL_DEC  LINKFLG
+  FTYPE  ROAD_NAME=13  LOC  V_25  TIME_25  VC_25  CSPD_25  VDT_25  VHT_25  V1_25
+  VT_25  V1T_25Page 336  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+--------------------------------- Iteration 1 ----------------------------------
+
+COMBINE=EQUI LambdaSearch=AREA
+
+--Links--   ----Links with Cost Increase----    ----Links with Cost Decrease----
+UnChanged   Count      min      max      ave    Count      min      max      ave
+     9        259 0.000000     3.96     0.13       --       --       --       --  
+
+
+Variable Values at end of Iteration 1 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  134,657.18          --   14,868.45  119,788.73
+
+--------------------------------- Iteration 2 ----------------------------------
+
+
+Variable Values at end of Iteration 2 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  134,657.18          --   14,868.45  119,788.73Page 337  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+
+--------------------------------- Iteration 3 ----------------------------------
+
+
+Variable Values at end of Iteration 3 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  134,657.18          --   14,868.45  119,788.73
+
+--------------------------------- Iteration 4 ----------------------------------
+
+
+Variable Values at end of Iteration 4 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  134,657.18          --   14,868.45  119,788.73
+
+--------------------------------- Iteration 5 ----------------------------------
+
+
+Variable Values at end of Iteration 5 I loop:
+
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01Page 338  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------
+      1  134,657.18          --   14,868.45  119,788.73
+
+--------------------------------- Iteration 6 ----------------------------------
+
+
+M(662): Convergence achieved by:
+      BALANCE         = 1
+      GAP             = 0
+
+Iter   Vcost   VDist   VTime     AAD    RAAD   PDiff    RMSE     Gap  RelGap  Lambda  Factor
+----   -----   -----   -----     ---    ----   -----    ----     ---  ------  ------  ------
+
+  1  577,861 344,373 572,840      --      --      --      --       0       0 1.00000 0.91167
+  2  577,861 344,373 572,840       0   0.000      --       0       0       0 0.04000 0.03799
+  3  577,861 344,373 572,840       0   0.000      --       0       0       0 0.05020 0.05019
+  4  577,861 344,373 572,840       0   0.000      --       0       0       0  4.8e-5 4.79e-5
+  5  577,861 344,373 572,840       0   0.000      --       0       0       0  8.6e-5 8.59e-5
+  6  577,861 344,373 572,840       0   0.000      --       0       0       0    9e-6    9e-6
+
+Iter             VehCost             VehDist          VehTime/60  Ave_D/T
+-------------------------------------------------------------------------
+
+  1           577,861.49          344,372.75            9,547.33    36.07
+  2           577,861.49          344,372.75            9,547.33    36.07
+  3           577,861.49          344,372.75            9,547.33    36.07
+  4           577,861.49          344,372.75            9,547.33    36.07
+  5           577,861.49          344,372.75            9,547.33    36.07
+  6           577,861.49          344,372.75            9,547.33    36.07
+
+PAR: LAMBDA=0 GAP=0.00005 AAD=0 RAAD=0 PDIFF=1 RMSE=0 PDIFFVALUE=0 RELATIVEGAP=0
+Iter                      Gap                     RGAP                   Lambda                    vcost                   rvcost
+   1  0.0000000000000000e+000  0.0000000000000000e+000  1.0000000000000000e+000  5.7786149409195979e+005  4.3945721152526006e+005
+   2  0.0000000000000000e+000  0.0000000000000000e+000  4.0003999999999998e-002  5.7786149409195979e+005  5.7786149409195979e+005
+   3  0.0000000000000000e+000  0.0000000000000000e+000  5.0201999999999997e-002  5.7786149409195979e+005  5.7786149409195979e+005
+   4  0.0000000000000000e+000  0.0000000000000000e+000  4.8000000000000001e-005  5.7786149409195979e+005  5.7786149409195979e+005
+   5  0.0000000000000000e+000  0.0000000000000000e+000  8.6000000000000003e-005  5.7786149409195979e+005  5.7786149409195979e+005
+   6  0.0000000000000000e+000  0.0000000000000000e+000  8.9999999999999985e-006  5.7786149409195979e+005  5.7786149409195979e+005
+
+
+Variable Values at end of Iteration 6 I loop:
+
+	BALANCE    :   1      
+	VDT        :  45.82187
+	VHT        :   0.34418
+	CSPD       : 133.13538
+	STORAGE    : 262.23636
+	GAPCUTOFF  :   0.00005
+	PDIFFCUTOFF:   1      
+	TC_        :   0.65   
+	TC_SAVE    :   1      
+	MAXPLZNO   :  64      
+	_SVCSECONDS: 01
+	_SVCSECLEN :   2      
+	_TOLLLINKS :  64      
+
+    VOL    Selected        @J=I    NoAccess    Assigned
+    ---    --------        ----    --------    --------Page 339  (VOYAGER HIGHWAY) 
+Florida Department of Transportation
+------------------------------------
+      1  134,657.18          --   14,868.45  119,788.73
+
+Phase                    Seconds       Count
+  -  ----------          --   ---------  ----------
+LinkInput                     --           1
+PathBlding                    --         270
+Tracing(untimed)              --       2,154
+VOL Loading                   --       1,782
+Adjusting                     --           6
+Estm Processing               --           1
+
+HIGHWAY  ReturnCode = 1  Elapsed Time = 00:00:00
+################################################################################
